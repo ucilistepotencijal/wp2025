@@ -5,6 +5,7 @@ string ime = "Marko";
 Console.WriteLine(ime);
 
 //numerička varijabla
+//int = cjelobrojna varijabla
 int godine = 25;
 Console.WriteLine(godine);
 
