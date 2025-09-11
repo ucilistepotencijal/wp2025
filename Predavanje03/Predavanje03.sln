@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnosBroja", "UnosBroja\Unos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operatori", "Operatori\Operatori.csproj", "{04EB2790-8845-4C8E-8395-BADD9FF8310B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OsnovniTiploviPodataka", "OsnovniTiploviPodataka\OsnovniTiploviPodataka.csproj", "{233335DA-CEA5-425F-8E47-3951F3C2DDFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{233335DA-CEA5-425F-8E47-3951F3C2DDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{233335DA-CEA5-425F-8E47-3951F3C2DDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{233335DA-CEA5-425F-8E47-3951F3C2DDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{233335DA-CEA5-425F-8E47-3951F3C2DDFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
