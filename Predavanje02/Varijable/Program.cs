@@ -5,7 +5,14 @@ Console.WriteLine(ime);
 
 
 //numerička varijabla
+//int = cjelobrojna varijabla
 int godine = 25;
-Console.WriteLine(godine); 
-   
+Console.WriteLine(godine);
+
 int broj = Convert.ToInt32("123");
+
+Console.WriteLine();
+
+
+
+
