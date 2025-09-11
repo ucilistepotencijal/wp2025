@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnosBroja", "UnosBroja\UnosBroja.csproj", "{5E171FE2-CF0A-40B3-BC3D-FB66AE11C42A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Operatori", "Operatori\Operatori.csproj", "{04EB2790-8845-4C8E-8395-BADD9FF8310B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E171FE2-CF0A-40B3-BC3D-FB66AE11C42A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E171FE2-CF0A-40B3-BC3D-FB66AE11C42A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E171FE2-CF0A-40B3-BC3D-FB66AE11C42A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E171FE2-CF0A-40B3-BC3D-FB66AE11C42A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04EB2790-8845-4C8E-8395-BADD9FF8310B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B283E3D-8FAB-499E-8E31-B937D76A2C0B}
+	EndGlobalSection
+EndGlobal
