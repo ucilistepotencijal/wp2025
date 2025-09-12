@@ -1,4 +1,4 @@
-﻿
+﻿//Ne shvaćam značenje deklaracije
 Int32 broj;
 Int32 broj2;
 Int32 broj3;
