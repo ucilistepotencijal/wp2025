@@ -1,18 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
-using System;
-
 Console.WriteLine("Hello, World!");
 
-Console.WriteLine(1);
-Console.WriteLine(2);
-Console.WriteLine(3);
-
-
-
-
-
-
-
-
-
-
+Console.Write(1);
+Console.Write(2);
+Console.Write(3);
