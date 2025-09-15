@@ -2,5 +2,5 @@
 za jedan bez korištenja naredbe pridruživanja.*/
 
 int a = 8;
-a--;
+--a;
 Console.WriteLine(a);
