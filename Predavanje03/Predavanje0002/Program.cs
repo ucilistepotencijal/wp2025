@@ -1,8 +1,8 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Runtime.CompilerServices;
-using System.Threading.Channels;
+﻿
+//Prepravi prethodni program tako da brojeve ispisuje u istom redu, ali za ispis svakog broja
+korisƟ posebnu naredbu.
 
-Console.WriteLine("Hello, World!");
+
 
 //unos podataka
 

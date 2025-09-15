@@ -1,5 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿//Prethodni program riješi na način da vrijednost varijabli ispišeš pomoću placeholdera.
+
 
 int broj;
 int broj2;

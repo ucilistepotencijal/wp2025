@@ -1,7 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
-using System.Runtime.InteropServices;
+﻿//Deklariraj i inicijaliziraj na bilo koju vrijednost tri varijable cjelobrojnog Ɵpa na početku
+programa i ispiši njihovu vrijednost u jednom redu bildanjem stringa (konkatenacijom).
 
-Console.WriteLine("Hello, World!");
+
 
 int a;
 a = 5;

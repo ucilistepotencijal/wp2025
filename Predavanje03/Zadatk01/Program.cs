@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿//Napiši program koji na konzoli ispisuje brojeve 1,2,3 svaki u novi red
 
 //unos podataka
 

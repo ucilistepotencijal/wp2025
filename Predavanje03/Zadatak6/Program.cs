@@ -1,16 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+//Napiši prethodni program tako da se vrijednost varijable unutar naredbe WriteLine prije
+ispisa umanji za jedan bez korištenja naredbe pridruživanja.
 
 
-int broj = 5;
 
 
-//ispis podataka    
-Console.WriteLine("Vrijednost varijable broj: " - broj);
+int a = 8;
 
-//smanjenje vrijednosti varijable broj za 1
-broj--;
+Console.WriteLine(--a);
 
 
-//ispis nove vrijednosti varijable broj 
-Console.WriteLine("Nova vrijednost varijable broj: " - broj);
