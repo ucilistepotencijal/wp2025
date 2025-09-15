@@ -13,6 +13,6 @@ Console.WriteLine(broj1 + "*" + broj2 + "=" + umnožak);
 Console.WriteLine(broj1 + "/" + broj2 + "=" + količnik);
 
 
+//Igorovo rješenje
 
-
-
+Console.WriteLine("{0} + {1} = {2}", broj1, broj2, zbroj);
