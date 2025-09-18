@@ -1,6 +1,7 @@
 ﻿/*
 3. Napiši program u kojem se traži unos cijelog broja (može biti i negativan) pa se ispisuje je li
-broj jednoznamenkast, dvoznamenkast, troznamenkast ili višeznamenkast.*/
+broj jednoznamenkast, dvoznamenkast, troznamenkast ili višeznamenkast.
+*/
 
 Console.Write("Unesi broj: ");
 int broj = int.Parse(Console.ReadLine());
@@ -14,7 +15,8 @@ if (apsBroj > 0 && broj < 10)
 else if (apsBroj >= 10 && apsBroj < 100)
 {
     Console.WriteLine("Broj " + broj + " je dvoznamenkast");
-}else if (apsBroj >= 100 && apsBroj < 1000)
+}
+else if (apsBroj >= 100 && apsBroj < 1000)
 {
     Console.WriteLine("Broj " + broj + " je troznamenkast");
 }
