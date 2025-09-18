@@ -1,5 +1,5 @@
 ﻿/* 
-Napiši program kojim se izvode osnovne računske operacije. Traži se unos dva broja i unos
+2. Napiši program kojim se izvode osnovne računske operacije. Traži se unos dva broja i unos
 računske operacije. Nakon unosa ispisuje se rezultat i omogućuje ponovno računanje ili kraj
 programa
 */

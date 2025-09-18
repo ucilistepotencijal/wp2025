@@ -1,5 +1,5 @@
 ﻿/*
-Napiši program u kojem se traži unos cijelog broja (može biti i negativan) pa se ispisuje je li
+3. Napiši program u kojem se traži unos cijelog broja (može biti i negativan) pa se ispisuje je li
 broj jednoznamenkast, dvoznamenkast, troznamenkast ili višeznamenkast.*/
 
 Console.Write("Unesi broj: ");
