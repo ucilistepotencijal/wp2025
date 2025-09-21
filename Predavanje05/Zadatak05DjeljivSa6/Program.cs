@@ -1,25 +1,16 @@
-﻿Console.WriteLine("Verujem li da ce se CAZZO ozeniti?");
-string prsten = "";
+﻿
+Console.Write("Upiši bilo koji broj: ");
+int broj = int.Parse(Console.ReadLine());
 
-while (prsten.ToLower() != "da" && prsten.ToLower() != "ne")
+if (broj % 3 == 0 && broj % 2  == 0)
 {
-    Console.Write("Da li je prsten na ruci? ");
-    prsten = Console.ReadLine();
-
-    if (prsten.ToLower() == "da")
-    {
-        Console.WriteLine("Verujem!");
-    }
-    else if (prsten.ToLower() == "ne")
-    {
-        Console.WriteLine("Neverujem!");
-    }
-    else
-    {
-        Console.WriteLine("Molim odgovoriti sa DA ili NE!");
-    }
-
+    Console.WriteLine("Broj {0} je djeljiv sa 6!", broj);
 }
+else
+{
+    Console.WriteLine("Broj {0} nije djeljiv sa 6!", broj);
+}
+
 
 
 

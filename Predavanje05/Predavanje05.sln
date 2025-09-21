@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak04Interval", "Zadata
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak05DjeljivSa6", "Zadatak05DjeljivSa6\Zadatak05DjeljivSa6.csproj", "{FBDC5635-4812-4100-9F94-FC99416E31B9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak06PrijestupnaGodina", "Zadatak06PrijestupnaGodina\Zadatak06PrijestupnaGodina.csproj", "{FBA83D40-6BB9-4B77-8620-E57A620EEF8B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{FBDC5635-4812-4100-9F94-FC99416E31B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBDC5635-4812-4100-9F94-FC99416E31B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FBDC5635-4812-4100-9F94-FC99416E31B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBA83D40-6BB9-4B77-8620-E57A620EEF8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBA83D40-6BB9-4B77-8620-E57A620EEF8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBA83D40-6BB9-4B77-8620-E57A620EEF8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBA83D40-6BB9-4B77-8620-E57A620EEF8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
