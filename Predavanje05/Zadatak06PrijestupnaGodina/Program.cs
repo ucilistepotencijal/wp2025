@@ -16,3 +16,13 @@ else
 }
 
 
+// drugi način
+
+if (DateTime.IsLeapYear(year))
+{
+    Console.WriteLine("Godina je prijestupna");
+}
+else
+{
+    Console.WriteLine("Godina nije prijestupna");
+}
