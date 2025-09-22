@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kalkulator", "Kalkulator\Kalkulator.csproj", "{3E977558-EF7B-4FB9-BC53-6B9FF6E24C71}"
 EndProject
@@ -18,6 +18,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrojInterval", "BrojInterval\BrojInterval.csproj", "{BBF99E21-AC2B-4DF6-AE49-32E507AEFCCB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrojZnamenaka", "BrojZnamenaka\BrojZnamenaka.csproj", "{53C735BE-E25A-4F08-8FFF-A0AB1BD145DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interval", "Interval\Interval.csproj", "{238E3E24-9EFA-475D-838F-6F6E4DCF870D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DjeljivSa6", "DjeljivSa6\DjeljivSa6.csproj", "{2221A4B0-3A2B-4DC3-A4E5-BE74C1464288}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrijestupnaGodina", "PrijestupnaGodina\PrijestupnaGodina.csproj", "{6C49DF1A-D116-49B1-A375-621EC168007C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +63,18 @@ Global
 		{53C735BE-E25A-4F08-8FFF-A0AB1BD145DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53C735BE-E25A-4F08-8FFF-A0AB1BD145DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53C735BE-E25A-4F08-8FFF-A0AB1BD145DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{238E3E24-9EFA-475D-838F-6F6E4DCF870D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{238E3E24-9EFA-475D-838F-6F6E4DCF870D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{238E3E24-9EFA-475D-838F-6F6E4DCF870D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{238E3E24-9EFA-475D-838F-6F6E4DCF870D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2221A4B0-3A2B-4DC3-A4E5-BE74C1464288}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2221A4B0-3A2B-4DC3-A4E5-BE74C1464288}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2221A4B0-3A2B-4DC3-A4E5-BE74C1464288}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2221A4B0-3A2B-4DC3-A4E5-BE74C1464288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C49DF1A-D116-49B1-A375-621EC168007C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C49DF1A-D116-49B1-A375-621EC168007C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C49DF1A-D116-49B1-A375-621EC168007C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C49DF1A-D116-49B1-A375-621EC168007C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
