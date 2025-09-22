@@ -19,13 +19,19 @@ do
     }
 	catch (Exception)
 	{
-		bFlag = false;
+		Console.ForegroundColor = ConsoleColor.Red;
+		Console.WriteLine("Neispravan unos!");
+        Console.ForegroundColor = ConsoleColor.Gray;
+
+        bFlag = false;
 	}  
 
 } while (!bFlag); // ili: bFlag == false
 
 
 int brojac = 0;
+Console.ForegroundColor = ConsoleColor.Green;
+
 Console.WriteLine("Djelitelji broja {0} su: ", iBroj);
 
 for (int i = 1; i <= iBroj; i++)
