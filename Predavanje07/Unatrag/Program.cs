@@ -1,0 +1,10 @@
+﻿
+
+
+Console.Write("Unesi prirordan broj: ");
+int n = int.Parse(Console.ReadLine());
+
+for (int i = n; i >= 1; i--)
+{
+    Console.Write(i + " ");
+}
