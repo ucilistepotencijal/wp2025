@@ -1,14 +1,21 @@
 ﻿
-int[] niz = new int[broj != 0];
+
+using System.Collections;
+
+int[] niz = new int[];
 
 //Unos elemenata niza
 
 for (int i = 0; i < niz.Length; i++)
 {
-    Console.Write("Unesi {0}. element niza: ", i);
-    niz[i] = int.Parse(Console.ReadLine());
-}
 
+    while (i != 0)
+    {
+        Console.Write("Unesi {0}. element niza: ", i);
+        niz[i] = int.Parse(Console.ReadLine());
+    }
+
+}
 
 for (int i = 0; i < niz.Length; i++)
 {
@@ -18,19 +25,24 @@ for (int i = 0; i < niz.Length; i++)
 
 
 
+using System.Collections;
 
-for (int i = 0; broj != 0; i++)
+ArrayList nizElemenata = new ArrayList();
+
+for (int i = 0; i < nizElemenata.Count; i++)
+{
+    while (i != 0)
     {
-        Console.Write("Unesi {0}. broj: ", i);
+        Console.Write("Unesi {0}. broj: ", i );
         int broj = int.Parse(Console.ReadLine());
-        niz.Add(broj);
-
-        
+        nizElemenata.Add(broj);
     }
-    for (int i = 0; i < niz.Count; i++)
-    {
-        Console.WriteLine(niz[i]);
-    }
+    
+}
+for (int i = nizElemenata.Count - 1; i >= 0; i--)
+{
+    Console.WriteLine(nizElemenata.[i]);
+}
 
 
 
