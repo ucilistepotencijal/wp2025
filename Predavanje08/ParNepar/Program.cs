@@ -1,4 +1,7 @@
-﻿List<int> parni = new List<int>();
+﻿/* 3. Napiši program u kojem se traži unos 10 prirodnih brojeva. Parni i neparni brojevi spremaju
+se odvojeno u dva objekta klase List<int>, a zaƟm se ispisuju te dvije kolekcije. */
+
+List<int> parni = new List<int>();
 List<int> neparni = new List<int>();
 
 for (int i = 0; i < 10; i++)
