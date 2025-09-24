@@ -1,0 +1,11 @@
+﻿
+Console.WriteLine("Svi prirodni brojevi iz segmenta [1,500] djeljivi s 3 su: ");
+
+for (int i = 0; i <= 500; i++)
+{
+    if (i % 3 == 0)
+    {
+       
+        Console.WriteLine(i);
+    }
+}
