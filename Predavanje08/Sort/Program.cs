@@ -9,7 +9,7 @@ while(true)
 {
     try
     {
-        Console.Write("Unesi prirodan broj (unesi 0 za prekid programa): ");
+        Console.Write("Unesi prirpdni broj (unesi 0 za prekid programa): ");
         string unos = Console.ReadLine();
         int broj = int.Parse(unos);
 
@@ -19,7 +19,7 @@ while(true)
         }
         if (broj < 0)
         {
-            Console.WriteLine("Unesite prirodan broj!");
+            Console.WriteLine("Unesite prirodni broj!");
             continue;
         }
 
