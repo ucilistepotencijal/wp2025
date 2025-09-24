@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36511.14 d17.14
+VisualStudioVersion = 17.14.36511.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nizovi", "Nizovi\Nizovi.csproj", "{91C7F020-6452-4073-B6F1-835AE0791A95}"
 EndProject
@@ -20,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak02Unatrag", "Zadatak02Unatrag\Zadatak02Unatrag.csproj", "{C0737F6C-10E9-4559-811B-46AEA5E23137}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak04Sort", "Zadatak04Sort\Zadatak04Sort.csproj", "{B86A227D-0C98-4731-B7D4-B05A039FEA05}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponavljanje01", "Ponavljanje01\Ponavljanje01.csproj", "{EA52EEEC-38F0-4B62-A03A-6D28CE5F0C25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{B86A227D-0C98-4731-B7D4-B05A039FEA05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B86A227D-0C98-4731-B7D4-B05A039FEA05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B86A227D-0C98-4731-B7D4-B05A039FEA05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA52EEEC-38F0-4B62-A03A-6D28CE5F0C25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA52EEEC-38F0-4B62-A03A-6D28CE5F0C25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA52EEEC-38F0-4B62-A03A-6D28CE5F0C25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA52EEEC-38F0-4B62-A03A-6D28CE5F0C25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
