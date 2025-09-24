@@ -9,8 +9,6 @@ int[] niz = new int[];
 for (int i = 0; i < niz.Length; i++)
 {
 
-    while (i != 0)
-    {
         Console.Write("Unesi {0}. element niza: ", i);
         niz[i] = int.Parse(Console.ReadLine());
     }
