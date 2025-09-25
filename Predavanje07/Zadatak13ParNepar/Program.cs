@@ -7,24 +7,25 @@ int unos = 0;
 
 
 
-for (int i = 0; i <= unos; i++)
+while (unos != 0)
 {
     Console.Write("Unesi prirodan broj: ");
     unos = int.Parse(Console.ReadLine());
 
-
+}
+for (int i = 0; i < unos; i++)
+{
     if (unos % 2 == 0)
     {
         parni += unos;
     }
-    else if (unos % 2 != 0)
+    else
     {
         neparni += unos;
     }
-    else if (unos == 0)
-    {
-        Console.WriteLine("Broj parnih brojeva u nizu je {0}", parni);
-        Console.WriteLine("Broj neparnih brojeva u nizu je {0}", neparni);
-    }
-}   
+
+}
+Console.WriteLine("Broj parnih brojeva u nizu je {0}", parni);
+Console.WriteLine("Broj neparnih brojeva u nizu je {0}", neparni);
+
 
