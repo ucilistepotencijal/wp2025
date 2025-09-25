@@ -4,6 +4,8 @@ Console.WriteLine(rezultat);
 int nekiBroj = UcitajCijeliBroj();
 Console.WriteLine(nekiBroj);
 
+Console.WriteLine(Kvadrat(UcitajCijeliBroj()));
+
 partial class Program
 {
     static double Kvadrat (double broj)
