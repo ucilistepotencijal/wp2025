@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Funkcije", "Funkcijee\Funkc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrimjerMetoda", "PrimjerMetoda\PrimjerMetoda.csproj", "{D02553A3-3317-456E-BA6E-9FC1CE20E56F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zbroj", "Zbroj\Zbroj.csproj", "{0A1C78EB-300D-4B1E-9DB6-61D496E2B987}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitagora", "Pitagora\Pitagora.csproj", "{6CBE4779-16A2-4E31-B06B-F8A993F05047}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{D02553A3-3317-456E-BA6E-9FC1CE20E56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D02553A3-3317-456E-BA6E-9FC1CE20E56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D02553A3-3317-456E-BA6E-9FC1CE20E56F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A1C78EB-300D-4B1E-9DB6-61D496E2B987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A1C78EB-300D-4B1E-9DB6-61D496E2B987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A1C78EB-300D-4B1E-9DB6-61D496E2B987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A1C78EB-300D-4B1E-9DB6-61D496E2B987}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CBE4779-16A2-4E31-B06B-F8A993F05047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CBE4779-16A2-4E31-B06B-F8A993F05047}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CBE4779-16A2-4E31-B06B-F8A993F05047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CBE4779-16A2-4E31-B06B-F8A993F05047}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
