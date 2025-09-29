@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ponavljanje01", "Ponavljanj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak05Znamenke", "Zadatak05Znamenke\Zadatak05Znamenke.csproj", "{8C72CA8F-780A-400B-A98C-8EA9D38857B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak06ProstiFaktori", "Zadatak06ProstiFaktori\Zadatak06ProstiFaktori.csproj", "{9AF6AE75-10F4-4F39-8BAB-13B6BEB6D75A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{8C72CA8F-780A-400B-A98C-8EA9D38857B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C72CA8F-780A-400B-A98C-8EA9D38857B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C72CA8F-780A-400B-A98C-8EA9D38857B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AF6AE75-10F4-4F39-8BAB-13B6BEB6D75A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF6AE75-10F4-4F39-8BAB-13B6BEB6D75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF6AE75-10F4-4F39-8BAB-13B6BEB6D75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF6AE75-10F4-4F39-8BAB-13B6BEB6D75A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

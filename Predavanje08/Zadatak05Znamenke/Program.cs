@@ -19,3 +19,19 @@ for (int i = 0;i < listaZnamenki.Count; i++)
 {
     Console.WriteLine(listaZnamenki[i]);
 }
+
+bool bBrojJeDobar = false;
+string sBroj = "";
+
+do
+{
+    Console.Write("Upši višeznamenkasti broj: ")
+    try
+    {
+
+    }
+    catch (Exception) 
+    {
+
+    }
+} while (true);
