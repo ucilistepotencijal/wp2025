@@ -1,7 +1,6 @@
-﻿/* 6. Napiši program u kojem se za uneseni prirodni broj ispisuju svi njegodi djelitelji. Ako je broj djeljiv samo sa
- 1 i sa samim sobom (ima ukupno 2 djelitelja), ispisuje se dodatna poruka "Broj je prost",
- inače se ispisuje "Broj nije prost".
- */
+﻿/* 7. Prilagodi prethodni program Djelitelji.cs tako da se ispisuje je li broj savršen ili nije. Savršen
+broj je jednak broju koji je jednak zbroju svojih djelitelja (uključujući broj 1 ali ne i njega
+samog) */
 
 int iBroj = -1;
 bool bFlag = true;
@@ -21,30 +20,30 @@ do
     {
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Neispravan unos!");
-        Console.ForegroundColor= ConsoleColor.Gray;
+        Console.ForegroundColor = ConsoleColor.Gray;
         bFlag = false;
     }
-    
+
 } while (bFlag == false); // ili: !bFlaf
 
 
 int brojac = 0;
 Console.WriteLine("Djelitelji broja {0} su: ", iBroj);
 
-for (int i = 1; i <= iBroj; i++)
+for (int i = 1; i < iBroj; i++)
 {
     if (iBroj % i == 0)
     {
         Console.WriteLine(i);
-        brojac++;
+        brojac += i;
     }
 }
 
-if (brojac == 2)
+if (brojac == iBroj)
 {
-    Console.WriteLine("Broj {0}  je prost.", iBroj);
+    Console.WriteLine("Broj {0} je savršen broj.", iBroj);
 }
 else
 {
-    Console.WriteLine("Broj {0} nije prost.", iBroj);
+    Console.WriteLine("Broj {0} nije savršen broj.", iBroj);
 }
