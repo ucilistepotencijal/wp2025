@@ -23,3 +23,11 @@ while (true)
         Console.WriteLine("Pogrešan unos, molim ponovite!");
     }
 }
+
+partial class Program
+{
+    static decimal CelzijusFarenheit(decimal TC)
+    {
+        return ((9m / 5m) * TC + 32);
+    }
+}
