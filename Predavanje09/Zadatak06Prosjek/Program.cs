@@ -33,23 +33,23 @@ partial class Program
     {
         if (prosjek >= 4.5)
         {
-            return "Odličan";
+            return "odličan";
         }
-        else if (prosjek >= 3.5) ;
+        else if (prosjek >= 3.5)
         {
-            return "Vrlo Dobar";
+            return "vrlo dobar";
         }
-        else if (prosjek >= 2.5) ;
+        else if (prosjek >= 2.5)
         {
-            return "Dobar";
+            return "dobar";
         }
-        else if (prosjek >= 1.5) ;
+        else if (prosjek >= 1.5)
         {
-            return "Dovoljan";
+            return "dovoljan";
         }
         else
         {
-            return "Nedovoljan";
+            return "nedovoljan";
         }
     }  
       
