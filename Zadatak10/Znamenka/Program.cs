@@ -1,0 +1,71 @@
+﻿//Napiši program u kojem se traži unos prirodnog broja, a zaƟm se znamenke upisanog broja
+//ispisuju unatrag.
+//Napomena: Svaku znamenku upisanog broja spremiƟ kao poseban element kolekcije.
+
+
+//1. način = matematika
+
+
+using System.Collections;
+using System.Collections;
+using System.ComponentModel;
+
+ArrayList listaZnamenki = new ArrayList();
+
+Console.Write("Upiši višeznamenkasti Prirodni broj: ");
+int broj = int.Parse(Console.ReadLine());
+
+//npr znamenke broja 123
+// 123 / 10 = 12 i ostatak 3
+// 12 / 10 = 1 i ostatak 2
+// 1 / 10 = 0 i ostatak 1 
+
+//1. način = matematika
+
+while (broj > 0)
+{
+    int znamenka = broj % 10;
+    broj /= 10;
+    listaZnamenki.Add(znamenka);
+}
+
+Console.WriteLine("Ispis višeznamenkastog prirodnog broja unazad: ");
+for (int i = 0; i < listaZnamenki.Count; i++)
+{
+    Console.WriteLine(listaZnamenki[i]);
+}
+
+
+//2. način
+bool bBrojJeDobar = false;
+string sBroj = "";
+
+do
+{
+    Console.Write("Upiši višeznamenkasti prirodni broj: ");
+   sBroj =  Console.ReadLine();
+    try
+    {
+      int iBroj =  int.Parse(sBroj);
+       if (iBroj > 9) //Mora biti višeznamenkast
+        {
+            bBrojJeDobar = true;
+        }
+        else
+        {
+            Console.WriteLine("Broj nije višeznamenkast prirodni broj!");
+        }
+    }
+    catch (Exception)
+    {
+        bBrojJeDobar = false;
+        Console.WriteLine("Krivi unos!");
+    }
+}   while (!bBrojJeDobar);
+for (int i = i = sBroj.Length - 1; i >= 0; i++)
+{
+    Console.WriteLine(sBroj[i]);
+}
+
+
+
