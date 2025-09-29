@@ -1,4 +1,4 @@
-﻿/* Napiši program u kojem se traži unos duljina kateta a i b pravokutnog trokuta i zaƟm se u
+﻿/* 8. Napiši program u kojem se traži unos duljina kateta a i b pravokutnog trokuta i zaƟm se u
 potprogramu ispisuje duljina hipotenuze.
 c=√a2+b2 */
 
