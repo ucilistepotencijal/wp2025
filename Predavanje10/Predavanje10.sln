@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProstBroj", "ProstBroj\Pros
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadaci04_Prosjek", "Zadaci04_Prosjek\Zadaci04_Prosjek.csproj", "{BB34721F-DAF9-4AFF-9BD4-4CB129F1685C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UkupnaCijena", "UkupnaCijena\UkupnaCijena.csproj", "{F004BFD7-923B-40B3-9DAB-D1B79227C830}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UkupnaCijena_tuple", "UkupnaCijena_tuple\UkupnaCijena_tuple.csproj", "{81D1AC9A-5B93-411D-B824-18D74941EC5B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{BB34721F-DAF9-4AFF-9BD4-4CB129F1685C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB34721F-DAF9-4AFF-9BD4-4CB129F1685C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB34721F-DAF9-4AFF-9BD4-4CB129F1685C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F004BFD7-923B-40B3-9DAB-D1B79227C830}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F004BFD7-923B-40B3-9DAB-D1B79227C830}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F004BFD7-923B-40B3-9DAB-D1B79227C830}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F004BFD7-923B-40B3-9DAB-D1B79227C830}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
