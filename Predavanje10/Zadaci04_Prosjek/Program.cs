@@ -1,11 +1,28 @@
-﻿/* Napiši program koji će u funkciji na temelju unesene prosječne ocjene ispisaƟ poruku o
+﻿/* 7. Napiši program koji će u funkciji na temelju unesene prosječne ocjene ispisaƟ poruku o
 uspjehu.
 Primjer: Za unesenu prosječnu ocjenu 3,4 program ispisuje „Prosjek je dobar“. */
 
 using System.Collections;
 
+bool bIspravno = false;
+double ocjena = -1;
+while (!bIspravno)
+{
 Console.Write("Unesi prosječnu ocjenu: ");
-double ocjena = double.Parse(Console.ReadLine());
+try
+{
+ocjena = double.Parse(Console.ReadLine());
+if (ocjena < 1 || ocjena > 5)
+{
+throw new Exception("Variable out of range!");
+}
+bIspravno = true;
+}
+catch (Exception ex)
+{
+Console.WriteLine("Greška: " + ex.Message);
+}
+}
 
 Console.WriteLine("Uspjeh je {0}.", Prosjek(ocjena));
 
@@ -24,7 +41,6 @@ partial class Program
         else if (prosjek >= 2.5)
         {
             return "dobar";
-
         }
         else if (prosjek >= 1.5)
         {
@@ -32,7 +48,7 @@ partial class Program
         }
         else
         {
-            return "nedovoljan";       
+            return "nedovoljan";
         }
     }
 }

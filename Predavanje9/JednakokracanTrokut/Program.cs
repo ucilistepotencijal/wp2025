@@ -14,14 +14,7 @@ while (true)
         Console.Write("Unesi duljinu druge katete: ");
         double b = double.Parse(Console.ReadLine());
 
-        if (a == 0 || b == 0)
-        {
-            Console.WriteLine("Duljina ne može biti 0, ponovno unesi vrijednosti:");
-            continue;
-        }
-
-        PovrsinaJkTrokuta(a, b);
-
+        Console.WriteLine($"Površina jednakokračnog trokuta je: {izracunPovrsine(a, b)}");
     }
 
     catch (System.Exception)
@@ -31,11 +24,10 @@ while (true)
 }
 partial class Program
 {
-    static void PovrsinaJkTrokuta(double a, double b)
+    static double izracunPovrsine(double a, double b)
     {
-        Console.WriteLine("\nPovršina jednakokracnog trokuta čije su duljine kateta {0} i {1}: {2}", a, b, ((a * b) / 2));
+        return (a * b) / 2;
     }
-
 }
 
 
