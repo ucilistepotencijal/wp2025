@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UkupnaCijena", "UkupnaCijen
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UkupnaCijena_tuple", "UkupnaCijena_tuple\UkupnaCijena_tuple.csproj", "{81D1AC9A-5B93-411D-B824-18D74941EC5B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrediTekst", "UrediTekst\UrediTekst.csproj", "{6312FCA7-40D2-485B-9292-CFCF49F043F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81D1AC9A-5B93-411D-B824-18D74941EC5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6312FCA7-40D2-485B-9292-CFCF49F043F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6312FCA7-40D2-485B-9292-CFCF49F043F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6312FCA7-40D2-485B-9292-CFCF49F043F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6312FCA7-40D2-485B-9292-CFCF49F043F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

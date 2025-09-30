@@ -18,10 +18,26 @@ namespace c
     {
         static void Main(string[] args)
         {
-            Console.Write("Unesi cijenu: ");
-            double ulaznaCijena = double.Parse(Console.ReadLine());
-            double ukupnaCijena = IzracunUkupneCijene(ulaznaCijena);
-            Console.Write($"Ukupna cijena je: {ukupnaCijena} kn");
+            bool bIspravno = !false;
+            while (!bIspravno)
+            {
+                Console.Write("Unesi cijenu: ");
+            }
+            try
+            {
+                double ulaznaCijena = double.Parse(Console.ReadLine());
+                double ukupnaCijena = IzracunUkupneCijene(ulaznaCijena);
+                Console.Write($"Ukupna cijena je: {ukupnaCijena} kn");
+                if (ulaznaCijena < 0)
+                {
+                    throw new Exception("Cijena ne može biti manje od 0");
+                }
+                bIspravno = true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Greška: " + ex.Message);
+            }
         }
     }
 
