@@ -18,6 +18,7 @@ Korisnik treba imati mogućnost ponovnog odabira bilo koje od funkcija */
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 Console.InputEncoding = System.Text.Encoding.UTF8;
 
+//dodati while i try
 Console.WriteLine("Unesi rečenicu: ");
 string recenica = Console.ReadLine();
 Console.WriteLine("Odaberi: \nA - RastaviRecenicu \nB - PrebrojiRijeci \nC - PronadjiRijec \nD - IzbaciRijec " +
@@ -52,7 +53,7 @@ partial class Program
         Console.Write("Riječi u rečenici su:");
         foreach (string rijec in rijeci)
         {
-            Console.WriteLine(rijec);
+            Console.WriteLine(rijec.ToLower());
         }
     }
 
@@ -71,6 +72,22 @@ partial class Program
 
     static void PronadjiRijec(string unos) // pronalazi koliko se puta pojavljuje riječ u rečenici(s malim i velikim početnim slovom)
     {
+        string[] rijeci = unos.Split(' ', StringSplitOptions.None);
+        for (int i = 0; i < rijeci.Length; i++)
+        {
+            rijeci[i] = rijeci[i].ToLower();
+        }
+        //List<string> = new List<string>(); dovršiti
+    }
 
+    static void IzbaciRijec(string unos) //izbacuje riječ iz rečenice(s malim i velikim početnim slovom) i ispisuje ju
+    {
+
+    }
+
+    static void PresloziRecenicu(string unos) //Slaže novu rečenicu preslagujući riječi iz rečenice nasumičnim odabirom
+    {
+       
+       
     }
 }
