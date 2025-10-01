@@ -28,7 +28,7 @@ while (!bIspravno)
         }
 
         double ukupnaCijena = IzracunUkupneCijene(ulaznaCijena);
-        Console.WriteLine($"Ukupna cijena je: {ukupnaCijena} kn");
+        Console.WriteLine($"Ukupna cijena je: {Math.Round(ukupnaCijena, 2)} kn");
 
         bIspravno = true;
     }

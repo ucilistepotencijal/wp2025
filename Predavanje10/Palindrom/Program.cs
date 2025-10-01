@@ -1,19 +1,27 @@
 ﻿/* Napiši program koji provjerava jeli unesena rijec ili recenica palindrom
 Napomena: Treba zanemariti razmake, interpunkcijske znakove i velika i mala slova */
 
-namespace Palindrom
+Console.Write("Unesi rečenicu ili riječ: ");
+string recenica = Console.ReadLine();
+if (Palindrom(recenica))
 {
-    internal class Program
+    Console.WriteLine("Riječ ili rečenica je palindrom!");
+}
+else
+{
+    Console.WriteLine("RIječ ili rečenica nije palindrom!");
+}
+partial class Program
+{
+    static bool Palindrom(string recenica)
     {
-        static void Main(string[] args)
+        recenica = recenica.Replace(" ", "").Replace(',', ' ').Replace('!', ' ').Replace('?', ' ').Trim().ToLower();
+        string novaRecenica = "";
+        foreach (char item in recenica.Reverse())
         {
-            Console.WriteLine("Hello, World!");
+            novaRecenica += item;
         }
-
-        static void Palindrom(string unos)
-        {
-            string[] rijeci = unos.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-
-        }
+        bool jestPalindrom = novaRecenica == recenica;
+        return jestPalindrom;
     }
 }
