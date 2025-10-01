@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrediTekst", "UrediTekst\Ur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Palindrom", "Palindrom\Palindrom.csproj", "{03C91E02-B35B-4581-86B8-00783B8D719F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrediTekst_Predavanje", "UrediTekst_Predavanje\UrediTekst_Predavanje.csproj", "{9C027838-345C-431B-9AF9-4DE9E6CFFC78}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{03C91E02-B35B-4581-86B8-00783B8D719F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03C91E02-B35B-4581-86B8-00783B8D719F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03C91E02-B35B-4581-86B8-00783B8D719F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C027838-345C-431B-9AF9-4DE9E6CFFC78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C027838-345C-431B-9AF9-4DE9E6CFFC78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C027838-345C-431B-9AF9-4DE9E6CFFC78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C027838-345C-431B-9AF9-4DE9E6CFFC78}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

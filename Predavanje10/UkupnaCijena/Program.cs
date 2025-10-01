@@ -19,10 +19,10 @@ while (!bIspravno)
 {
     try
     {
-        Console.Write("Unesi cijenu: ");
+        Console.Write("Unesi cijenu u eurima: ");
         double ulaznaCijena = double.Parse(Console.ReadLine());
 
-        if (ulaznaCijena < 0)
+        if (ulaznaCijena < 0.04)
         {
             throw new Exception("Cijena ne može biti manja od 0");
         }
