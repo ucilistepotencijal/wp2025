@@ -1,4 +1,20 @@
-﻿using System.Collections;
+﻿/* Napiši program u kojem će se tražiti unos rečenice a zatim će se u izborniku moći odabrati
+jedna od funkcija:
+-RastaviRecenicu – vraća sve riječi unutar rečenice ispisane jednu ispod druge malim
+slovima (zanemarujući interpunkcijske znakove točka i zarez)
+Napomena: Koristiti Split metodu na stringu za rastavljanje rečenice na riječi, te napraviti
+vlastitu metodu koja će na svakoj riječi maknuti točku ili zarez. 
+- PrebrojiRijeci – vraća broj riječi u rečenici
+- PronadjiRijec – pronalazi koliko se puta pojavljuje riječ u rečenici (s malim i velikim
+početnim slovom)
+- IzbaciRijec – izbacuje riječ iz rečenice (s malim i velikim početnim slovom)
+i ispisuje ju
+- PresloziRecenicu – Slaže novu rečenicu preslagujući riječi iz rečenice nasumičnim
+odabirom
+Napomena: koristiti Random() klasu za slučajni odabir
+
+Korisnik treba imati mogućnost ponovnog odabira bilo koje od funkcija */
+
 Console.Write("Unesi rečenicu: ");
 string recenica = Console.ReadLine();
 string[] rijeci = RastaviRecenicu(recenica);
@@ -6,13 +22,12 @@ foreach (string rijec in rijeci)
 {
     Console.WriteLine(rijec.ToLower());
 }
-
 Console.WriteLine("Broj riječi u rečenici je {0}.", PrebrojiRijeci(recenica));
 
 Console.Write("Unesi riječ koju želiš pretražiti: ");
 string rijecZaPretragu = Console.ReadLine();
-int brijacRijeci = PronadjiRijec(recenica, rijecZaPretragu);
-Console.WriteLine("Riječ {0} se pojavljuje {1} puta u rečenici {2}", recenica, rijecZaPretragu, brojacRijeci);
+int brojacRijeci = PronadjiRijec(recenica, rijecZaPretragu);
+Console.WriteLine("Riječ {1} se pojavljuje {2} puta u rečenici {0}", recenica, rijecZaPretragu, brojacRijeci);
 
 Console.Write("Unesi riječ koju želiš izbaciti: ");
 string rijecZaIzbaciti = Console.ReadLine();
@@ -26,17 +41,24 @@ partial class Program
     {
         Random rnd = new Random();
         string[] rijeci = RastaviRecenicu(recenica);
-        for (int i = rijeci.Length; i>=0; i--)
+        for (int i = rijeci.Length - 1; i >= 0; i--)
         {
             int j = rnd.Next(i);
             (rijeci[i], rijeci[j]) = (rijeci[j].ToLower(), rijeci[i].ToLower());
+
+            //Alternativno:
+            //string temp = rijeci[i];
+            //rijeci[i] = rijeci[j];
+            //rijeci[j] = temp;
         }
-        return string.Join(' ', rijeci);
+
+        return string.Join(' ', rijeci) + ".";
     }
+
     static string IzbaciRijec(string recenica, string rijecZaIzbaciti)
     {
         string[] rijeci = recenica.Split(' ');
-        for (int i = recenica.Length - 1; i >= 0;  i--)
+        for (int i = rijeci.Length - 1; i >= 0; i--)
         {
             if (MakniInterpunkciju(rijeci[i]).ToLower() == rijecZaIzbaciti.ToLower())
             {
@@ -46,6 +68,7 @@ partial class Program
         string novaRecenica = string.Join(" ", rijeci);
         return novaRecenica;
     }
+
     static int PronadjiRijec(string recenica, string rijec)
     {
         string[] rijeci = RastaviRecenicu(recenica);
@@ -64,19 +87,20 @@ partial class Program
         string[] rijeci = RastaviRecenicu(recenica);
         return rijeci.Length;
     }
+
     static string[] RastaviRecenicu(string recenica)
     {
-        string[] rijeci = recenica.Split(" ");
+        string[] rijeci = recenica.Split(' ');
         for (int i = 0; i < rijeci.Length; i++)
         {
             rijeci[i] = MakniInterpunkciju(rijeci[i]);
         }
         return rijeci;
     }
-        static string MakniInterpunkciju(string rijec)
-        {
-            rijec = rijec.Replace('.', ' ').Replace(',', ' ').Replace('!', ' ').Replace('?', ' ').Trim();
-            return rijec;
-        }
-    }
 
+    static string MakniInterpunkciju(string rijec)
+    {
+        rijec = rijec.Replace('.', ' ').Replace(',', ' ').Replace('!', ' ').Replace('?', ' ').Trim();
+        return rijec;
+    }
+}
