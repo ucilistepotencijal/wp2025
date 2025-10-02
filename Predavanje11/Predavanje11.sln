@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak3_PonovljenaRijec", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak4_PogodiBroj", "Zadatak4_PogodiBroj\Zadatak4_PogodiBroj.csproj", "{CCBC0EBD-6244-4293-9AE0-8C455A4EB8AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak5_TelefonskiBroj", "Zadatak5_TelefonskiBroj\Zadatak5_TelefonskiBroj.csproj", "{7D630605-7A8C-44ED-8AE3-C1E185DB9984}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{CCBC0EBD-6244-4293-9AE0-8C455A4EB8AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CCBC0EBD-6244-4293-9AE0-8C455A4EB8AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CCBC0EBD-6244-4293-9AE0-8C455A4EB8AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D630605-7A8C-44ED-8AE3-C1E185DB9984}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D630605-7A8C-44ED-8AE3-C1E185DB9984}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D630605-7A8C-44ED-8AE3-C1E185DB9984}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D630605-7A8C-44ED-8AE3-C1E185DB9984}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

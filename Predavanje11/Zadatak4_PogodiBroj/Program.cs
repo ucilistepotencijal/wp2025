@@ -4,14 +4,29 @@ korisniku je li traženi broj veći ili manji od unesenog. Program završava kad
 pogodi broj. */
 
 Random rdn = new Random();
-Console.Write("Pogodi broj između 1 i 100: ");
-int broj = int.Parse(Console.ReadLine());
+int j = rdn.Next(1, 101);
+
 
 while (true)
 {
 	try
 	{
+        Console.Write("\nPogodi broj između 1 i 100: ");
+        int broj = int.Parse(Console.ReadLine());
 
+        if (broj > j)
+		{
+			Console.Write($"Broj je manji od {broj}.");
+		}
+		else if (broj < j)
+		{
+            Console.Write($"Broj je veći od {broj}.");
+        }
+		else
+		{
+            Console.Write($"Broj {broj} je točan broj!");
+			break;
+        }
 	}
 	catch (Exception e)
 	{
