@@ -7,6 +7,7 @@ using System.Collections;
 ArrayList nizBrojeva = new ArrayList();
 int minimum = int.MaxValue;
 int maximum = int.MinValue;
+
 for (int i = 0; i < 10; i++)
 {
     Console.Write("Unesi {0}. broj: ", i + 1);

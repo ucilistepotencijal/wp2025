@@ -11,6 +11,12 @@ try
 		Console.Write("Unesi prirodni broj: ");
 		int broj = int.Parse(Console.ReadLine());
 
+		if (broj <= 0)
+		{
+         
+			throw new Exception();
+
+        }
 		if (broj % 3 == 0)
 		{
 			umnožak *= broj;
@@ -22,6 +28,6 @@ try
 }
 catch (Exception)
 {
-    Console.WriteLine("Ups... krivi unos!");
+    Console.WriteLine("Ups... krivi unos, unijeti se mora znamenka i to veća od 0!");
 }
 

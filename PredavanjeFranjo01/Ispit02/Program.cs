@@ -1,37 +1,36 @@
 ﻿/*Napravi program koji traži unos prirodnog broja sve dok se ne upiše 0.
 Program ispisuje koji je najmanji, a koji najveći od unesenih brojeva*/
 
-
-
-
-
-int maximum = int.MaxValue;
-int minimum = int.MinValue;
-int broj = 1;
-
+int najmanji = int.MaxValue;
+int najveći = int.MinValue;
+int broj = -1;
 
 try
 {
-    for (int i = 1; i > 0; i++)
+    while (broj != 0)
     {
-        Console.Write("Unesi prirodan broj: ");
+        Console.Write("Unesi prirodan broj ili 0 za kraj: ");
         broj = int.Parse(Console.ReadLine());
 
-        if (broj < minimum)
+        if (broj == 0)
         {
-            minimum = broj;
+            break;
         }
-        if (broj > maximum)
+        if (broj > najveći)
         {
-            maximum = broj;
+            najveći = broj;
         }
+        if (broj < najmanji)
+        {
+            najmanji = broj;
+        }
+        
     }
+    Console.WriteLine("Najveći uneseni broj je " + najveći);
+    Console.WriteLine("Najmanji uneseni broj je " + najmanji);
 }
 catch (Exception)
 {
-    Console.WriteLine("Ups... krivi unos!");
+
+    Console.WriteLine("Krivi unos!");
 }
-
-Console.WriteLine("Maksimum je {0}!", maximum);
-Console.WriteLine("Minimum je {0}!", minimum);
-
