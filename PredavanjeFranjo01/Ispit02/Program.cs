@@ -10,13 +10,6 @@ int minimum = int.MinValue;
 int broj = 1;
 
 
-
-
-
-
-
-
-
 try
 {
     for (int i = 1; i > 0; i++)
