@@ -1,13 +1,14 @@
-﻿
+﻿// Napiši program u kojem se traži unos broja i ispisuje je li
+// broj u intervalu [0,12] ili nije
 
-Console.Write("Unesite broj: ");
-decimal broj = decimal.Parse(Console.ReadLine());
+Console.Write("Upiši bilo koji broj: ");
+decimal number = decimal.Parse(Console.ReadLine());
 
-if (broj >= 0 && broj <= 12)
+if (number >= 0 && number <= 12)
 {
-    Console.WriteLine("Broj je u intervalu [0, 12].");
+    Console.WriteLine("Broj {0} je u intervalu [0,12]!", number);
 }
 else
 {
-    Console.WriteLine("Broj nije u intervalu [0, 12].");
+    Console.WriteLine("Broj {0} nije u intervalu [0,12]!", number);
 }
