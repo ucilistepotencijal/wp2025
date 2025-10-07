@@ -1,2 +1,11 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using KalkulatorApp;
+
+//Kalkulator k = new Kalkulator();
+//k.brojA = 2;
+//k.brojB = 3;
+//Console.WriteLine(k.Zbroji());
+
+decimal zbroj = Kalkulator.Zbroji(3, 4);
+Console.WriteLine(zbroj);
+
+Console.WriteLine(Kalkulator.Kub(2));
