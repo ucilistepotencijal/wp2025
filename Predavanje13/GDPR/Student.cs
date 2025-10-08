@@ -31,6 +31,6 @@ namespace GDPR
             {
                 return false;
             }
-        }
+        } //test
     }
 }
