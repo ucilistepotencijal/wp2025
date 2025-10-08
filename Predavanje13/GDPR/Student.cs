@@ -15,9 +15,15 @@ namespace GDPR
         public string OIB {  get; set; }
 
         //Metode
-        public string Inicijali()
+        public string[] Inicijali()
         {
-            
+            string[] slova = Ime.Split(' ');
+            return slova;
+        }
+        public int Starost(int starost)
+        {
+            starost = 2025 - GodinaRodjenja;
+            return starost;
         }
     }
 }
