@@ -31,6 +31,26 @@ namespace GDPR
             {
                 return false;
             }
-        } 
+        }
+        public string FormatiranjeGodina(int godine)
+        {
+            int zadnjaZnamenka = godine % 10;
+            int zadnjeDviZnamenke = godine % 100;
+
+            if (zadnjaZnamenka == 1 && zadnjeDviZnamenke != 11)
+            {
+                return $"{godine} godina";
+            }
+            else if ((zadnjaZnamenka >= 2 && zadnjaZnamenka <= 4) &&
+                     (zadnjeDviZnamenke < 12 || zadnjeDviZnamenke > 14))
+            {
+                return $"{godine} godine";
+            }
+            else
+            {
+                return $"{godine} godina";
+            }
+        }
+
     }
 }

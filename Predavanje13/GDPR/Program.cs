@@ -4,31 +4,104 @@ List<Student> studenti = new List<Student>();
 
 while (true)
 {
-	Student s = new Student();
-	Console.Write("Unesi ime studenta (ili kraj za prekid unosa): ");
-	s.Ime = Console.ReadLine();
-	studenti.Add(s);
+    Student s = new Student();
 
-	if (s.Ime.ToLower() == "kraj") break;
+    //Ime
+    while (true)
+    {
+        Console.Write("Unesi ime studenta (ili kraj za prekid unosa): ");
+        s.Ime = Console.ReadLine();
 
-	Console.Write("Unesi prezime studenta: ");
-	s.Prezime = Console.ReadLine();
+        if (s.Ime.ToLower() == "kraj")
+        {
+            break;
+        }
 
-	Console.Write("Unesi godinu rođenja (bez točke na kraju): ");
-	s.GodinaRodenja = int.Parse(Console.ReadLine());
+        if (s.Ime is string)
+        {
+            break;
+        }
+        else
+        {
+            Console.WriteLine("Ime mora sadržavati samo slova. Unesi ponovno ime!");
+        }
+    }
 
-	Console.Write("Unesi mjesto rodenja: ");
-	s.MjestoRodenja = Console.ReadLine();
+    if (s.Ime.ToLower() == "kraj")
+    {
+        break;
+    }
 
-	Console.Write("Unesi OIB: ");
-	s.OIB = Console.ReadLine();
+    //Prezime
+    while (true)
+    {
+        Console.Write("Unesi prezime studenta: ");
+        s.Prezime = Console.ReadLine();
+
+        if (s.Prezime is string) 
+        {
+            break;
+        }
+        else
+        {
+            Console.WriteLine("Prezime mora sadržavati samo slova. Unesi ponovno prezime: ");
+        }
+    }
+
+    //Godina rođenja
+    studenti.Add(s);
+
+    while (true)
+    {
+        Console.Write("Unesi godinu rođenja (bez točke): ");
+        string unos = Console.ReadLine();
+
+        if (unos.Contains('.'))
+        {
+            Console.WriteLine("Godina rođenja ne smije sadržavati točku. Unesi ponovno!");
+            continue;
+        }
+        try
+        {
+            s.GodinaRodenja = int.Parse(unos); //Spremanje u objekt, ne ispis starosti odmah
+            break;
+        }
+        catch (Exception e)
+        {
+
+            Console.WriteLine("Unos je pogrešan: " + e.Message + ". Molim unesite ponovno godinu!");
+        }
+    }
+
+    Console.Write("Unesi mjesto rodenja: ");
+    s.MjestoRodenja = Console.ReadLine();
+
+    Console.Write("Unesi OIB: ");
+    s.OIB = Console.ReadLine();
 
     Console.WriteLine("--------------- Popis studenata -------------");
-	foreach (Student x in studenti)
-	{
-        Console.WriteLine($"Inicijali: {s.Inicijali}");
-        Console.WriteLine($"Starost: {s.Starost()} godina");
-        Console.WriteLine($"OIB je {(s.ProvjeriOIB() ? "ispravan" : "neispravan")}");
+
+    foreach (Student x in studenti)
+    {
+        Console.WriteLine($"Inicijali: {x.Inicijali()}");
+        if (x.GodinaRodenja > 0) //Ispisivalo mi 0 - 2025
+        {
+            Console.WriteLine($"Starost: {x.FormatiranjeGodina(x.Starost())}");
+        }
+        Console.WriteLine($"OIB je {(x.ProvjeriOIB() ? "ispravan" : "neispravan")}");
         Console.WriteLine("\n");
     }
+
+    Console.WriteLine("-------------- Studenti iz Osijeka stariji od 24 godine --------------");
+
+    foreach (Student x in studenti)
+    {
+        if (x.MjestoRodenja.ToLower() == "osijek" && x.Starost() > 24)
+        {
+            Console.WriteLine($"{s.Ime} {s.Prezime}");
+        }
+    }
 }
+
+
+
