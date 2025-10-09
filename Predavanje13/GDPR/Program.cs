@@ -73,9 +73,11 @@ while (true)
         }
     }
 
+    //Mjesto rođenja
     Console.Write("Unesi mjesto rodenja: ");
     s.MjestoRodenja = Console.ReadLine();
 
+    //OIB
     Console.Write("Unesi OIB: ");
     s.OIB = Console.ReadLine();
 
