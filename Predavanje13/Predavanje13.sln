@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9 d17.14
+VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KalkulatorApp", "Kalkulator\KalkulatorApp.csproj", "{D4599A0B-C5DE-40AB-BAE7-B74013956AFA}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticSaInstancom", "AtaticSaInstancom\StaticSaInstancom.csproj", "{11A779D6-5B3A-46E4-B9E1-9CFCE56FBA08}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDPR", "GDPR\GDPR.csproj", "{BFCA0066-78AB-49AF-A682-D0D3E440F5DB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDPR_Igor", "GDPR_Igor\GDPR_Igor.csproj", "{199ACDFC-62EE-4E8F-AC88-485568E68B9F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BFCA0066-78AB-49AF-A682-D0D3E440F5DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFCA0066-78AB-49AF-A682-D0D3E440F5DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFCA0066-78AB-49AF-A682-D0D3E440F5DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199ACDFC-62EE-4E8F-AC88-485568E68B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199ACDFC-62EE-4E8F-AC88-485568E68B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199ACDFC-62EE-4E8F-AC88-485568E68B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199ACDFC-62EE-4E8F-AC88-485568E68B9F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
