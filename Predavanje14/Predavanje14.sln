@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefAndOut", "RefAndOut\RefAndOut.csproj", "{D692CBBE-FE28-4ACE-AD88-C569DC4F0CE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nasljedivanje", "Nasljedivanje\Nasljedivanje.csproj", "{FEF45CF1-05BE-415A-B289-61AED8C90186}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D692CBBE-FE28-4ACE-AD88-C569DC4F0CE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D692CBBE-FE28-4ACE-AD88-C569DC4F0CE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D692CBBE-FE28-4ACE-AD88-C569DC4F0CE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D692CBBE-FE28-4ACE-AD88-C569DC4F0CE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEF45CF1-05BE-415A-B289-61AED8C90186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEF45CF1-05BE-415A-B289-61AED8C90186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEF45CF1-05BE-415A-B289-61AED8C90186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEF45CF1-05BE-415A-B289-61AED8C90186}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {541837A5-57EA-4EA9-A1E1-329D172BF7FF}
+	EndGlobalSection
+EndGlobal

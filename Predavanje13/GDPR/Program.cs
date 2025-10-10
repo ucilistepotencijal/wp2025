@@ -75,7 +75,7 @@ while (true)
 
     //Mjesto rođenja
     Console.Write("Unesi mjesto rodenja: ");
-    s.MjestoRodenja = Console.ReadLine();
+    s.MjestoStudiranja = Console.ReadLine();
 
     //OIB
     Console.Write("Unesi OIB: ");
@@ -98,7 +98,7 @@ while (true)
 
     foreach (Student x in studenti)
     {
-        if (x.MjestoRodenja.ToLower() == "osijek" && x.Starost() > 24)
+        if (x.MjestoStudiranja.ToLower() == "osijek" && x.Starost() > 24)
         {
             Console.WriteLine($"{s.Ime} {s.Prezime}");
         }
