@@ -30,7 +30,7 @@ namespace Nasljedivanje
       
         public override string ToString()
         {
-            return Detalji;
+            return Detalji();
         }
     }
 }
