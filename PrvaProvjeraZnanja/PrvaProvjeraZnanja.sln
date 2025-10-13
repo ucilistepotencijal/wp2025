@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak1", "Zadatak1\Zadatak1.csproj", "{ECA25123-B467-4CFE-A34E-7113FD03C2FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak2", "Zadatak2\Zadatak2.csproj", "{50EA2BC9-FE68-415C-AD89-B5BF44BD4B6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak3", "Zadatak3\Zadatak3.csproj", "{EA396A6B-C8BF-488A-8DF9-F2C782F27895}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ECA25123-B467-4CFE-A34E-7113FD03C2FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECA25123-B467-4CFE-A34E-7113FD03C2FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECA25123-B467-4CFE-A34E-7113FD03C2FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECA25123-B467-4CFE-A34E-7113FD03C2FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50EA2BC9-FE68-415C-AD89-B5BF44BD4B6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50EA2BC9-FE68-415C-AD89-B5BF44BD4B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50EA2BC9-FE68-415C-AD89-B5BF44BD4B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50EA2BC9-FE68-415C-AD89-B5BF44BD4B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA396A6B-C8BF-488A-8DF9-F2C782F27895}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA396A6B-C8BF-488A-8DF9-F2C782F27895}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA396A6B-C8BF-488A-8DF9-F2C782F27895}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA396A6B-C8BF-488A-8DF9-F2C782F27895}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8DE85984-AB98-40DC-817F-EFDFBF918DC7}
+	EndGlobalSection
+EndGlobal
