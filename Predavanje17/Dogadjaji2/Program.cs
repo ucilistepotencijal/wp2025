@@ -32,7 +32,7 @@ partial class Program
 
     static void o_NaPozivMetodePunoIme(object sender, EventArgs e)
     {
-        Console.WriteLine("Pozvana je metoda PunoIme() objekta s imenom {0}", ((Osoba)sender).Ime); //
+        Console.WriteLine("Pozvana je metoda PunoIme() objekta s imenom {0}", ((Osoba)sender).Ime); 
     }
 
     static void p_NaPromjenuProgramaObrazovanja(object sender, EventArgs e)
