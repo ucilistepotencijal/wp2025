@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enumeracije", "Enumeracije\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stoperica", "Stoperica\Stoperica.csproj", "{0B17EEB4-B078-4C64-863C-693971B123B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatak1", "Zadatak1\Zadatak1.csproj", "{1B8A0DC7-2A37-47C0-8B1E-2D2457D5B9D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0B17EEB4-B078-4C64-863C-693971B123B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B17EEB4-B078-4C64-863C-693971B123B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B17EEB4-B078-4C64-863C-693971B123B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B8A0DC7-2A37-47C0-8B1E-2D2457D5B9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B8A0DC7-2A37-47C0-8B1E-2D2457D5B9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B8A0DC7-2A37-47C0-8B1E-2D2457D5B9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B8A0DC7-2A37-47C0-8B1E-2D2457D5B9D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
