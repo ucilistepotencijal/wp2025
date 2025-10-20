@@ -29,7 +29,7 @@ Console.WriteLine(recenica.LastIndexOf(" "));
 //Replace() - vraća niz znakova u kojem je string iz prvog parametra zamijenjem stringom iz drugog parametra
 Console.WriteLine(recenica.Replace("Danas", "Sutra"));
 Console.WriteLine(recenica.Replace(" ", "\t"));
-Console.WriteLine(recenica.Replace(" ", "\n");
+Console.WriteLine(recenica.Replace(" ", "\n"));
 
 //Split() - vrraća niz razdvojen po nekom chau
 string[] rijeci = recenica.Split(' ');
