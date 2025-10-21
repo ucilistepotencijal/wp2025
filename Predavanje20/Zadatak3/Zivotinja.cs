@@ -45,7 +45,19 @@ namespace Zadatak3
             }
         }
         private Spol spol;
-        
+
+        public Spol Spol
+        {
+            get
+            {
+                return spol;
+            }
+            set
+            {
+                spol = value;
+            }
+        }
+
         private int vrijemebudjenja;
         public int VrijemeBudjenja
         {
