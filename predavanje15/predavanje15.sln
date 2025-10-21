@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{34D5E1FA-3762-42C4-B8BE-68A4F8A4FBCC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vozila_DAL", "Vozila_DAL\Vozila_DAL.csproj", "{11198EAE-9C87-4507-93D6-73670E70DA85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vozila_app", "vozila_app\vozila_app.csproj", "{A8725FE0-0C95-4D9B-8CE5-8D40469E7460}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{34D5E1FA-3762-42C4-B8BE-68A4F8A4FBCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D5E1FA-3762-42C4-B8BE-68A4F8A4FBCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D5E1FA-3762-42C4-B8BE-68A4F8A4FBCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11198EAE-9C87-4507-93D6-73670E70DA85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11198EAE-9C87-4507-93D6-73670E70DA85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11198EAE-9C87-4507-93D6-73670E70DA85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11198EAE-9C87-4507-93D6-73670E70DA85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8725FE0-0C95-4D9B-8CE5-8D40469E7460}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8725FE0-0C95-4D9B-8CE5-8D40469E7460}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8725FE0-0C95-4D9B-8CE5-8D40469E7460}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8725FE0-0C95-4D9B-8CE5-8D40469E7460}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
