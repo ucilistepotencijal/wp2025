@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Vozila_DAL
 {
-    public class Zrakoplov:Vozilo
+    public class Zrakoplov: Vozilo
     {
-        public string Tvrtka {  get; set; }
+        public string Tvrtka { get; set; }
 
         public override string ToString()
         {

@@ -8,14 +8,12 @@ namespace Rodjendan
 {
     public class Osoba
     {
-        public delegate void Rodjendandelegat(object Sender, EventArgs e);
-        public event Rodjendandelegat Rodjendan;
-
+        public delegate void RodjendanDelegat(object sender, EventArgs e);
+        public event RodjendanDelegat Rodjendan;
         public string Ime { get; set; }
         public string Prezime { get; set; }
         private DateTime datumRodjenja;
-
-        public DateTime DatumRodjenja;
+        public DateTime DatumRodjenja
         {
             get
             {
@@ -27,20 +25,20 @@ namespace Rodjendan
                 if (Rodjendan != null)
                 {
                     Rodjendan(this, new EventArgs());
-
                 }
             }
+        }
 
         }
         public int Starost
         {
             get
             {
-                TimeSpan starost = DateTime.Now.Subtract(datumRodjenja);
+                TimeSpan starost = DateTime.Now.Subtract(DatumRodjenja);
                 return starost.Days / 365;
             }
         }
-        public Osoba(string ime, string prezime)
+        public Osoba (string ime, string prezime)
         {
             this.Ime = ime;
             this.Prezime = prezime;

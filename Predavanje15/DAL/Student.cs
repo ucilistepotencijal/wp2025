@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class Student : Osoba
+    public class Student: Osoba
     {
         public double Matematika { get; set; }
         public double Kemija { get; set; }
@@ -28,11 +28,9 @@ namespace DAL
             };
             Console.WriteLine("Prosjek: " + Math.Round(student.Vratiprosjek(), 2));
 
-            List<Osoba> osobe = OsobeRepo.DohvatiOsobe();
-
-            foreach (Osoba osoba in osobe)
-            {
-                Console.WriteLine("Ime: {0},Prezime: {1}", osoba.Ime, osoba.Prezime);
-            }
-}
+        public double VratiProsjek()
+        {
+            return ((double)(Matematika + Fizika + Kemija)) / 3;
+        }
+    }
 }

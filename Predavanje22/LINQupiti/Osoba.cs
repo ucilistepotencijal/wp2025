@@ -8,7 +8,7 @@ namespace LINQupiti
 {
     internal class Osoba
     {
-        public string ime {  get; set; }
-        public string prezime { get; set; }
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
     }
 }

@@ -9,26 +9,28 @@ namespace Vozila_DAL
 {
     public class Zrakoplovi
     {
-        public static List<Zrakoplov> ZrakoplovBaza = new List<Zrakoplov>();
-    {
-        new Zrakoplov{Naziv = "Boing 747", Boja = "Bijela" ,KS =24000},
-        new Zrakoplov{Naziv = "Cessna 172 SkyHaek", Boja = "Crvena",KS = 180},
-        new Zrakoplov { Naziv = "Boing 737", Boja = "Plava", KS = 54000 },
-        new Zrakoplov { Naziv = "Airbus A320Neo", Boja = "Bijela",KS = 60000},
-        new Zrakoplov { Naziv = "Antonov an-225", Boja ="Bijela",KS = 31000}
-     };
-public static List <Zrakoplov> DohvatiZrakoplove()
-{
-    List<Zrakoplov> dohvaceniZrakoplovi = new List<Zrakoplov>();
-    foreach(Zrakoplov zrakoplov in ZrakoplovBaza)
-    {
-        Zrakoplov z=new Zrakoplov();
-        z.Naziv = zrakoplov.Naziv;
-        z.Boja = zrakoplov.Boja;    
-        z.KS = zrakoplov.KS;
-        dohvaceniZrakoplovi.Add(z);
-            return dohvaceniZrakoplovi;
-    }
+        public static List<Zrakoplov> ZrakoploviBaza = new List<Zrakoplov>()
+        {
+            new Zrakoplov{Naziv = "Boeing 747", Boja = "bijela", KS = 240000},
+            new Zrakoplov{Naziv = "Cessna 172 SkyHaek", Boja = "crvena", KS = 180},
+            new Zrakoplov{Naziv = "Boeing 737", Boja = "plava", KS = 54000},
+            new Zrakoplov{Naziv = "Airbus A320neo", Boja = "bijela", KS = 60000},
+            new Zrakoplov{Naziv = "Antonov an-225", Boja = "bijela", KS = 310000}
+        };
 
-}
+        public static List<Zrakoplov> DohvatiZrakoplove()
+        {
+            List<Zrakoplov> dohvaceniZrakoplovi = new List<Zrakoplov>();
+            foreach (Zrakoplov zrakoplov in ZrakoploviBaza)
+            {
+                Zrakoplov z = new Zrakoplov();
+                z.Naziv = zrakoplov.Naziv;
+                z.Boja = zrakoplov.Boja;
+                z.KS = zrakoplov.KS;
+                dohvaceniZrakoplovi.Add(z);
+            }
+            return dohvaceniZrakoplovi;
+        }
+
+    }
 }

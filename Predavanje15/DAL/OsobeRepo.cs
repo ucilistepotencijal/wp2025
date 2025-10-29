@@ -11,10 +11,18 @@ namespace DAL
     public class OsobeRepo
     {
         public static readonly List<Osoba> osobe;
+        //glumi bazu podataka
+        public static List<Osoba> osobe = new List<Osoba>()
+        {
+            new Osoba() {Ime = "Pero", Prezime = "Perić"},
+            new Osoba() {Ime = "Marko", Prezime = "Markić"},
+            new Osoba() {Ime = "Ana", Prezime = "Anić"},
+            new Osoba() {Ime = "Ivana", Prezime = "Ivanović"},
+            new Osoba() {Ime = "Ivo", Prezime = "Ivić"}
+        };
+
         public static List<Osoba> DohvatiOsobe()
         {
-            // Implementation here
-            return osobe;
-        }
     }
+}
 
