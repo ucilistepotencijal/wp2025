@@ -1,5 +1,5 @@
 ﻿/* Zadatak 1: Napravi program koji traži unos teksta, a zatim ispisuje taj tekst
-„naopako”. 1 bod
+„naopako”.
  Npr. za uneseni tekst „Danas je lijep dan” treba ispisati „nad pejil ej sanaD” */
 
 string recenica = "";
