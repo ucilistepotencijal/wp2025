@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36518.9 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnosStringa", "UnosStringa\UnosStringa.csproj", "{C49B40E9-9214-4D90-BE58-3B852E96F054}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnosRijeci", "UnosRijeci\UnosRijeci.csproj", "{B22CF44F-E77C-4631-9ED7-DDBBE4E7997B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C49B40E9-9214-4D90-BE58-3B852E96F054}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C49B40E9-9214-4D90-BE58-3B852E96F054}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C49B40E9-9214-4D90-BE58-3B852E96F054}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B22CF44F-E77C-4631-9ED7-DDBBE4E7997B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B22CF44F-E77C-4631-9ED7-DDBBE4E7997B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B22CF44F-E77C-4631-9ED7-DDBBE4E7997B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B22CF44F-E77C-4631-9ED7-DDBBE4E7997B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
