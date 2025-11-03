@@ -29,19 +29,19 @@ while (true)
     switch (opcija)
     {
         case "a":
-            Domagoj(rijeci);
+            //Domagoj(rijeci);
             break;
         case "b":
-            Franjo(rijeci);
+            //Franjo(rijeci);
             break;
         case "c":
-            Karlo(rijeci);
+            //Karlo(rijeci);
             break;
         case "d":
-            Meri(rijeci);
+            //Meri(rijeci);
             break;
         case "e":
-            Valerio(rijeci);
+            //Valerio(rijeci);
             break;        
         case "x":
             Console.WriteLine("Zatvaranje programa");
