@@ -35,7 +35,7 @@ while (true)
             //Franjo(rijeci);
             break;
         case "c":
-            //Karlo(rijeci);
+            Karlo(rijeci);
             break;
         case "d":
             //Meri(rijeci);
@@ -57,5 +57,30 @@ while (true)
 
 partial class Program
 {
+    public static void Karlo(List<string>rijeci)
+{
+        Console.Write("Unesite minimalnu duljinu: ");
+        if (int.TryParse(Console.ReadLine(), out int minDuljina))
+        {
+            var rezultat = rijeci
+                .Where(r => r.Length >= minDuljina)
+                .ToList();
+
+            Console.WriteLine("Riječi minimalne duljine {0}:", minDuljina);
+            rezultat.ForEach(Console.WriteLine);
+        }
+        else
+        {
+            Console.WriteLine("Neispravan unos duljine.");
+        }
+    }
 
 }
+
+
+
+
+
+
+
+
