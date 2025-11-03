@@ -32,7 +32,7 @@ while (true)
             //Domagoj(rijeci);
             break;
         case "b":
-            //Franjo(rijeci);
+            Franjo(rijeci);
             break;
         case "c":
             //Karlo(rijeci);
@@ -57,5 +57,9 @@ while (true)
 
 partial class Program
 {
-
+    public static void Franjo(List<string> rijeci)
+    {
+        string niz = string.Join(", ", rijeci);
+        Console.WriteLine(niz);
+    }
 }
