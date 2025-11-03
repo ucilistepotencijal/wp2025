@@ -29,7 +29,7 @@ while (true)
     switch (opcija)
     {
         case "a":
-            //Domagoj(rijeci);
+            Domagoj(rijeci);
             break;
         case "b":
             //Franjo(rijeci);
@@ -57,5 +57,23 @@ while (true)
 
 partial class Program
 {
+    public static void Domagoj(List<string> rijeci)
+    {
+        Console.Write("unesi pocetno slovo: ");
+        string pocetno = Console.ReadLine().ToLower();
 
+        Console.Write("unesi zavrsno slovo: ");
+        string zavrsno = Console.ReadLine().ToLower();
+
+        var rezultat = from r in rijeci
+                       where r.ToLower().StartsWith(pocetno) && r.ToLower().EndsWith(zavrsno)
+                       select r;
+
+        Console.WriteLine("\nrijeci koje počinju s '{0}' i završavaju s '{1}':", pocetno, zavrsno);
+        foreach (var rijec in rezultat)
+        {
+            Console.WriteLine(rijec);
+        }
+
+    }
 }
