@@ -62,20 +62,8 @@ partial class Program
     {
         var sortiranje = rijeci.OrderBy(r => r);
         var sortiranje1 = sortiranje.OrderBy(r => r.Length);
-    public static void Valerio(List<string> rijeci)
-    {
-        Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
-        string unos = Console.ReadLine();
-
-        string[] dijelovi = unos.Split(new[] { ' ', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-        List<string> jedinstveni = dijelovi
-           .Distinct()        
-           .OrderBy(s => s)   
-           .ToList();
-
         Console.WriteLine("\nRiječi poredane po duljini su:");
-        foreach(var item in sortiranje1)
+        foreach (var item in sortiranje1)
         {
             Console.WriteLine(item);
         }
@@ -87,17 +75,33 @@ partial class Program
         }
 
     }
-    public static void Franjo(List<string> rijeci)
+
+    public static void Valerio(List<string> rijeci)
     {
-        string niz = string.Join(", ", rijeci);
-        Console.WriteLine(niz);
-    }
+        Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
+        string unos = Console.ReadLine();
+
+        string[] dijelovi = unos.Split(new[] { ' ', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+        List<string> jedinstveni = dijelovi
+           .Distinct()        
+           .OrderBy(s => s)   
+           .ToList();
         Console.WriteLine("\nJedinstveni stringovi po abecedi:");
         foreach (string item in jedinstveni)
         {
             Console.WriteLine(item);
         }
     }
+
+
+
+    public static void Franjo(List<string> rijeci)
+    {
+        string niz = string.Join(", ", rijeci);
+        Console.WriteLine(niz);
+    }
+ 
 }
     
 
