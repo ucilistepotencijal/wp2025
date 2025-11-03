@@ -1,0 +1,41 @@
+﻿
+using Zadatak3;
+
+namespace Zadatak03
+{
+    internal class Pas : Zivotinja
+    {
+        private string ime;
+        public string Ime
+        {
+            get
+            {
+                return ime;
+            }
+            set
+            {
+                ime = value;
+            }
+        }
+        private string pasmina;
+        public string Pasmina
+        {
+            get
+            {
+                return pasmina;
+            }
+            set
+            {
+                pasmina = value;
+            }
+        }
+        public new string GlasajSe()
+        {
+            return "vau";
+        }
+        public override string ToString()
+        {
+            return "pas";
+        }
+    }
+}

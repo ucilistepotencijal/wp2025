@@ -22,3 +22,26 @@ do
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Sortiranje brojeva uzlazno
+brojevi.Sort();
+
+// Ispis sortiranih brojeva
+Console.WriteLine("Sortirani brojevi:");
+foreach (int broj in brojevi)
+{
+    Console.Write(broj + " ");
+}
+Console.WriteLine();

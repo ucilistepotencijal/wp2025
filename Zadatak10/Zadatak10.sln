@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SavrseniBroj", "SavrseniBroj\SavrseniBroj.csproj", "{7D1BCD5C-7983-464B-8E04-79BEB6139CED}"
 EndProject
@@ -14,6 +14,16 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatci04_JednakoKracanTrokut", "Zadatci04_JednakoKracanTrokut\Zadatci04_JednakoKracanTrokut.csproj", "{C4B51D02-B538-4882-A39C-4FACC3C24530}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatci04_KSuKW", "Zadatci04_KSuKW\Zadatci04_KSuKW.csproj", "{391979C0-97DD-4553-8D06-66CF5D8EF99A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatci04_CelzijUFahrenhait", "Zadatci04_CelzijUFahrenhait\Zadatci04_CelzijUFahrenhait.csproj", "{D024439D-61DA-4D9C-B0CA-8936B0DDC5E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatci04_Udaljenost", "Zadatci04_Udaljenost\Zadatci04_Udaljenost.csproj", "{96BA2DD6-117B-46DA-9008-8EAE6973A889}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MainTest", "MainTest\MainTest.csproj", "{8242943D-5D65-4B61-9638-EE83E6B81130}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadatci04_ProstBroj", "Zadatci04_ProstBroj\Zadatci04_ProstBroj.csproj", "{AC4E1473-4889-48CE-A8EA-B6635B61542E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zadataci04_Prosjek", "Zadataci04_Prosjek\Zadataci04_Prosjek.csproj", "{AF36720F-E5BE-4F08-ACEA-295C7EFB0074}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +55,26 @@ Global
 		{391979C0-97DD-4553-8D06-66CF5D8EF99A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{391979C0-97DD-4553-8D06-66CF5D8EF99A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{391979C0-97DD-4553-8D06-66CF5D8EF99A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D024439D-61DA-4D9C-B0CA-8936B0DDC5E0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D024439D-61DA-4D9C-B0CA-8936B0DDC5E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D024439D-61DA-4D9C-B0CA-8936B0DDC5E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D024439D-61DA-4D9C-B0CA-8936B0DDC5E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96BA2DD6-117B-46DA-9008-8EAE6973A889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96BA2DD6-117B-46DA-9008-8EAE6973A889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96BA2DD6-117B-46DA-9008-8EAE6973A889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96BA2DD6-117B-46DA-9008-8EAE6973A889}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8242943D-5D65-4B61-9638-EE83E6B81130}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8242943D-5D65-4B61-9638-EE83E6B81130}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8242943D-5D65-4B61-9638-EE83E6B81130}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8242943D-5D65-4B61-9638-EE83E6B81130}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC4E1473-4889-48CE-A8EA-B6635B61542E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC4E1473-4889-48CE-A8EA-B6635B61542E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC4E1473-4889-48CE-A8EA-B6635B61542E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC4E1473-4889-48CE-A8EA-B6635B61542E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF36720F-E5BE-4F08-ACEA-295C7EFB0074}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF36720F-E5BE-4F08-ACEA-295C7EFB0074}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF36720F-E5BE-4F08-ACEA-295C7EFB0074}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF36720F-E5BE-4F08-ACEA-295C7EFB0074}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

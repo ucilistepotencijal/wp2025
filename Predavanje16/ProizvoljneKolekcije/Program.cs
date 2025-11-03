@@ -1,0 +1,49 @@
+﻿
+
+using ProizvoljneKolekcije_DAL;
+using System.Collections;
+
+Polaznik p1 = new Polaznik();
+p1.Ime = "Pero";
+p1.Prezime = "Perić";
+p1.ProgramiObrazovanja = "ASP.NET";
+
+Polaznik p2 = new Polaznik();
+p1.Ime = "Ana";
+p1.Prezime = "Anić";
+p1.ProgramiObrazovanja = "WORDPRESST";
+
+
+//1.implementacija pomoću ArrayLista
+ArrayList polaznici = new ArrayList(); 
+polaznici.Add(p1);
+polaznici.Add(p2);
+
+Console.WriteLine("Foreach ispis....");
+
+
+foreach (Polaznik p in polaznici)
+{
+    Console.WriteLine(p.PunoIme());
+}
+
+Console.WriteLine();
+
+Console.WriteLine("For ispis...");
+for (int i = 0;  i < polaznici.Count; i++)
+{
+    Console.WriteLine(((Polaznik)(polaznici[i])).PunoIme());
+}
+Console.WriteLine();
+Console.WriteLine("Implementacija pomoću proizvoljne kolekcije");
+
+//2. Implementacija pomoću proizvoljne kolekcije
+Polaznici polazniciKolekcija = new Polaznici();
+polazniciKolekcija.Add(p1);
+polazniciKolekcija.Add(p2);
+polazniciKolekcija.Add("Ivan", "Ivanović");
+
+foreach (Polaznik p in polazniciKolekcija)
+{
+    Console.WriteLine(p.PunoIme());
+}
