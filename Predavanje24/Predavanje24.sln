@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36603.0 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnosStringa", "UnosStringa\UnosStringa.csproj", "{19565D27-5B8F-4329-832D-536A1E629A6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnosRijeci", "UnosRijeci\UnosRijeci.csproj", "{1B21FEE8-71A3-49D9-A373-A50BDC504F62}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{19565D27-5B8F-4329-832D-536A1E629A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19565D27-5B8F-4329-832D-536A1E629A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19565D27-5B8F-4329-832D-536A1E629A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19565D27-5B8F-4329-832D-536A1E629A6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B21FEE8-71A3-49D9-A373-A50BDC504F62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B21FEE8-71A3-49D9-A373-A50BDC504F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B21FEE8-71A3-49D9-A373-A50BDC504F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B21FEE8-71A3-49D9-A373-A50BDC504F62}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1479F321-510D-4809-A5BF-213C515FD09F}
+	EndGlobalSection
+EndGlobal
