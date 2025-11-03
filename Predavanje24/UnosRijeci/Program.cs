@@ -41,7 +41,7 @@ while (true)
             //Meri(rijeci);
             break;
         case "e":
-            //Valerio(rijeci);
+            Valerio(rijeci);
             break;        
         case "x":
             Console.WriteLine("Zatvaranje programa");
@@ -57,5 +57,25 @@ while (true)
 
 partial class Program
 {
+    public void Valerio(List<string> rijeci)
+    {
+        Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
+        string unos = Console.ReadLine();
 
+        string[] dijelovi = unos.Split(new[] { ' ', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+        List<string> jedinstveni = dijelovi
+           .Distinct()        
+           .OrderBy(s => s)   
+           .ToList();
+
+        Console.WriteLine("\nJedinstveni stringovi po abecedi:");
+        foreach (string item in jedinstveni)
+        {
+            Console.WriteLine(item);
+        }
+    }
 }
+    
+
+
