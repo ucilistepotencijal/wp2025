@@ -122,7 +122,7 @@ partial class Program
             Console.WriteLine(rijec);
         }
     }
-}
+
 public static void Karlo(List<string> rijeci)
 {
     Console.Write("Unesite minimalnu duljinu: ");
