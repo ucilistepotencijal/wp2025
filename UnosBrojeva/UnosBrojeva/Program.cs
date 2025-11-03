@@ -20,7 +20,7 @@ while (true)
     {
         Console.WriteLine("Pogrešan unos. Greška" + e.Message);
     }
-  
+
 }
 Console.Clear();
 Console.WriteLine("Odaberi jednu od opcija: ");
@@ -39,8 +39,14 @@ switch (opcija)
     case "b":
         BrojeviKvadrati(brojevi);
         break;
-        case "c":
+    case "c":
         BrojeviFrekvencija(brojevi);
+        break;
+    case "d":
+        BrojeviVeciOd80(brojevi);
+        break;
+    case "e":
+        TriNajvecaBroja(brojevi);
         break;
     default:
         Console.WriteLine("Nepoznata opcija!");
@@ -67,7 +73,7 @@ partial class Program
     }
     public static void BrojeviKvadrati(List<int> brojevi)
     {
-        var brojKvadrat = from b in brojevi let brKv = b * b where brKv > 20 select new {b, brKv};
+        var brojKvadrat = from b in brojevi let brKv = b * b where brKv > 20 select new { b, brKv };
         foreach (var item in brojKvadrat)
         {
             Console.WriteLine(item);
@@ -79,6 +85,26 @@ partial class Program
         foreach (var item in brojFrekvencija)
         {
             Console.WriteLine("Broj " + item.Key + " se pojavljuje " + item.Count() + " puta.");
+        }
+    }
+    public static void BrojeviVeciOd80(List<int> brojevi)
+    {
+        var brojeviVeciOd80 = brojevi.FindAll(x => x > 80);
+        Console.WriteLine("Brojevi veći od 80: ");
+        foreach (int item in brojeviVeciOd80)
+        {
+            Console.WriteLine(item);
+        }
+    }
+    public static void TriNajvecaBroja(List<int> brojevi)
+    {
+        brojevi.Sort();
+        brojevi.Reverse();
+        var triNajvecaBroja = brojevi.Take(3);
+        Console.WriteLine("Tri najveća broja: ");
+        foreach (int item in triNajvecaBroja)
+        {
+            Console.WriteLine(item);
         }
     }
 }
