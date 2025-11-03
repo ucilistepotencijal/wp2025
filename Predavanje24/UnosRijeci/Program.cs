@@ -32,16 +32,16 @@ while (true)
             Domagoj(rijeci);
             break;
         case "b":
-            //Franjo(rijeci);
+            Franjo(rijeci);
             break;
         case "c":
             //Karlo(rijeci);
             break;
         case "d":
-            //Meri(rijeci);
+            Meri(rijeci);
             break;
         case "e":
-            //Valerio(rijeci);
+            Valerio(rijeci);
             break;        
         case "x":
             Console.WriteLine("Zatvaranje programa");
@@ -55,25 +55,70 @@ while (true)
     Console.Clear();
 }
 
+//Console.WriteLine("d) Poredaj stringove po duljini pa po imenu");
 partial class Program
 {
-    public static void Domagoj(List<string> rijeci)
+    public static void Meri(List<string> rijeci)
     {
-        Console.Write("unesi pocetno slovo: ");
-        string pocetno = Console.ReadLine().ToLower();
-
-        Console.Write("unesi zavrsno slovo: ");
-        string zavrsno = Console.ReadLine().ToLower();
-
-        var rezultat = from r in rijeci
-                       where r.ToLower().StartsWith(pocetno) && r.ToLower().EndsWith(zavrsno)
-                       select r;
-
-        Console.WriteLine("\nrijeci koje počinju s '{0}' i završavaju s '{1}':", pocetno, zavrsno);
-        foreach (var rijec in rezultat)
+        var sortiranje = rijeci.OrderBy(r => r);
+        var sortiranje1 = sortiranje.OrderBy(r => r.Length);
+        Console.WriteLine("\nRiječi poredane po duljini su:");
+        foreach (var item in sortiranje1)
         {
-            Console.WriteLine(rijec);
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("\nRiječi poredane po abecedi su:");
+        foreach (var item in sortiranje)
+        {
+            Console.WriteLine(item);
         }
 
     }
+
+    public static void Valerio(List<string> rijeci)
+    {
+        Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
+        string unos = Console.ReadLine();
+
+        string[] dijelovi = unos.Split(new[] { ' ', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+        List<string> jedinstveni = dijelovi
+           .Distinct()        
+           .OrderBy(s => s)   
+           .ToList();
+        Console.WriteLine("\nJedinstveni stringovi po abecedi:");
+        foreach (string item in jedinstveni)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+
+
+    public static void Franjo(List<string> rijeci)
+    {
+        string niz = string.Join(", ", rijeci);
+        Console.WriteLine(niz);
+    }
+ 
 }
+public static void Domagoj(List<string> rijeci)
+{
+    Console.Write("unesi pocetno slovo: ");
+    string pocetno = Console.ReadLine().ToLower();
+
+    Console.Write("unesi zavrsno slovo: ");
+    string zavrsno = Console.ReadLine().ToLower();
+
+    var rezultat = from r in rijeci
+                   where r.ToLower().StartsWith(pocetno) && r.ToLower().EndsWith(zavrsno)
+                   select r;
+
+    Console.WriteLine("\nrijeci koje počinju s '{0}' i završavaju s '{1}':", pocetno, zavrsno);
+    foreach (var rijec in rezultat)
+    {
+        Console.WriteLine(rijec);
+    }
+}
+
