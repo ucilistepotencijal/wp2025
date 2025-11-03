@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Include="C:\Users\meris\Desktop\ProvjeraZnanja2\Zadatak01.txt" Link="Zadatak01.txt" />
+  </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@ Brojevi djeljivi s 3 ali ne s 2: ...
 Ostali brojevi: ... */
 
 int unos = -1;
-List<int> spremnik = new List<int>();
+List<int> spremnik = new List<int>(); 
 
 
 while (unos != 0)

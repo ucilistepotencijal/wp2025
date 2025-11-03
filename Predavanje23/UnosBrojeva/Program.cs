@@ -42,6 +42,12 @@ switch (opcija)
     case "c":
         BrojeviFrekvencija(brojevi);
         break;
+    case "d":
+        BrojeviVeciOd80(brojevi);
+        break;
+    case "e":
+        TriNajvecaBroja(brojevi);
+        break;
     default:
         Console.WriteLine("Nepoznata opcija!");
         break;
@@ -81,4 +87,25 @@ partial class Program
             Console.WriteLine("Broj " + item.Key + " se pojavljuje " + item.Count() + " puta.");
         }
     }
+    public static void BrojeviVeciOd80(List<int> brojevi)
+    {
+        var brojeviVeciOd80 = brojevi.FindAll(x => x > 80);
+        Console.WriteLine("Brojevi veći od 80: ");
+        foreach (int item in brojeviVeciOd80)
+        {
+            Console.WriteLine(item);
+        }
+    }
+    public static void TriNajvecaBroja(List<int> brojevi)
+    {
+        brojevi.Sort();
+        brojevi.Reverse();
+        var triNajvecaBroja = brojevi.Take(3);
+        Console.WriteLine("Tri najveća broja: ");
+        foreach (int item in triNajvecaBroja)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
 }
