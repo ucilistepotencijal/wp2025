@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zadatak2", "zadatak2\zadatak2.csproj", "{63000C2E-4F78-47FC-9133-0C65E32D271C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "zadatak3", "zadatak3\zadatak3.csproj", "{66E1920A-7CE7-4CCD-BAC8-FADEAEA89866}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63000C2E-4F78-47FC-9133-0C65E32D271C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63000C2E-4F78-47FC-9133-0C65E32D271C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63000C2E-4F78-47FC-9133-0C65E32D271C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63000C2E-4F78-47FC-9133-0C65E32D271C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E1920A-7CE7-4CCD-BAC8-FADEAEA89866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E1920A-7CE7-4CCD-BAC8-FADEAEA89866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E1920A-7CE7-4CCD-BAC8-FADEAEA89866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E1920A-7CE7-4CCD-BAC8-FADEAEA89866}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2EF92179-5FB2-4459-8175-DCE25EC84863}
+	EndGlobalSection
+EndGlobal
