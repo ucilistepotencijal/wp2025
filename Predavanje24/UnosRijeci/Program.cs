@@ -76,7 +76,6 @@ partial class Program
         }
 
     }
-}
     public static void Franjo(List<string> rijeci)
     {
         string niz = string.Join(", ", rijeci);
