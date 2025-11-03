@@ -38,11 +38,11 @@ while (true)
             //Karlo(rijeci);
             break;
         case "d":
-            //Meri(rijeci);
+            Meri(rijeci);
             break;
         case "e":
             //Valerio(rijeci);
-            break;        
+            break;
         case "x":
             Console.WriteLine("Zatvaranje programa");
             return;
@@ -55,7 +55,25 @@ while (true)
     Console.Clear();
 }
 
+//Console.WriteLine("d) Poredaj stringove po duljini pa po imenu");
 partial class Program
 {
+    public static void Meri(List<string> rijeci)
+    {
+        var sortiranje = rijeci.OrderBy(r => r);
+        var sortiranje1 = sortiranje.OrderBy(r => r.Length);
 
+        Console.WriteLine("\nRiječi poredane po duljini su:");
+        foreach(var item in sortiranje1)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("\nRiječi poredane po abecedi su:");
+        foreach (var item in sortiranje)
+        {
+            Console.WriteLine(item);
+        }
+
+    }
 }
