@@ -32,13 +32,13 @@ while (true)
             //Domagoj(rijeci);
             break;
         case "b":
-            //Franjo(rijeci);
+            Franjo(rijeci);
             break;
         case "c":
             //Karlo(rijeci);
             break;
         case "d":
-            //Meri(rijeci);
+            Meri(rijeci);
             break;
         case "e":
             Valerio(rijeci);
@@ -55,8 +55,13 @@ while (true)
     Console.Clear();
 }
 
+//Console.WriteLine("d) Poredaj stringove po duljini pa po imenu");
 partial class Program
 {
+    public static void Meri(List<string> rijeci)
+    {
+        var sortiranje = rijeci.OrderBy(r => r);
+        var sortiranje1 = sortiranje.OrderBy(r => r.Length);
     public static void Valerio(List<string> rijeci)
     {
         Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
@@ -69,6 +74,24 @@ partial class Program
            .OrderBy(s => s)   
            .ToList();
 
+        Console.WriteLine("\nRiječi poredane po duljini su:");
+        foreach(var item in sortiranje1)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("\nRiječi poredane po abecedi su:");
+        foreach (var item in sortiranje)
+        {
+            Console.WriteLine(item);
+        }
+
+    }
+    public static void Franjo(List<string> rijeci)
+    {
+        string niz = string.Join(", ", rijeci);
+        Console.WriteLine(niz);
+    }
         Console.WriteLine("\nJedinstveni stringovi po abecedi:");
         foreach (string item in jedinstveni)
         {
