@@ -57,7 +57,7 @@ while (true)
 
 partial class Program
 {
-    public void Valerio(List<string> rijeci)
+    public static void Valerio(List<string> rijeci)
     {
         Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
         string unos = Console.ReadLine();
