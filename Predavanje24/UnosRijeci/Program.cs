@@ -84,8 +84,8 @@ partial class Program
         string[] dijelovi = unos.Split(new[] { ' ', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
 
         List<string> jedinstveni = dijelovi
-           .Distinct()        
-           .OrderBy(s => s)   
+           .Distinct()
+           .OrderBy(s => s)
            .ToList();
         Console.WriteLine("\nJedinstveni stringovi po abecedi:");
         foreach (string item in jedinstveni)
@@ -101,24 +101,26 @@ partial class Program
         string niz = string.Join(", ", rijeci);
         Console.WriteLine(niz);
     }
- 
-}
-public static void Domagoj(List<string> rijeci)
-{
-    Console.Write("unesi pocetno slovo: ");
-    string pocetno = Console.ReadLine().ToLower();
 
-    Console.Write("unesi zavrsno slovo: ");
-    string zavrsno = Console.ReadLine().ToLower();
 
-    var rezultat = from r in rijeci
-                   where r.ToLower().StartsWith(pocetno) && r.ToLower().EndsWith(zavrsno)
-                   select r;
 
-    Console.WriteLine("\nrijeci koje počinju s '{0}' i završavaju s '{1}':", pocetno, zavrsno);
-    foreach (var rijec in rezultat)
+    public static void Domagoj(List<string> rijeci)
     {
-        Console.WriteLine(rijec);
+        Console.Write("unesi pocetno slovo: ");
+        string pocetno = Console.ReadLine().ToLower();
+
+        Console.Write("unesi zavrsno slovo: ");
+        string zavrsno = Console.ReadLine().ToLower();
+
+        var rezultat = from r in rijeci
+                       where r.ToLower().StartsWith(pocetno) && r.ToLower().EndsWith(zavrsno)
+                       select r;
+
+        Console.WriteLine("\nrijeci koje počinju s '{0}' i završavaju s '{1}':", pocetno, zavrsno);
+        foreach (var rijec in rezultat)
+        {
+            Console.WriteLine(rijec);
+        }
     }
 }
 
