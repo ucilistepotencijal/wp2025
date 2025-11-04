@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfejsi", "Predavanje25\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfejsi2", "Interfejsi2\Interfejsi2.csproj", "{547AC950-A03E-414C-8578-A8AF223C422D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfejsi3", "Interfejsi3\Interfejsi3.csproj", "{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{547AC950-A03E-414C-8578-A8AF223C422D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{547AC950-A03E-414C-8578-A8AF223C422D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{547AC950-A03E-414C-8578-A8AF223C422D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
