@@ -8,6 +8,6 @@ namespace WebShopDAL
 {
     public class Narudzba
     {
-
+        public int MyProperty { get; set; }
     }
 }
