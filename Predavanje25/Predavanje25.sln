@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfejsi2", "Interfejsi2\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfejsi3", "Interfejsi3\Interfejsi3.csproj", "{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopApp", "WebShopApp\WebShopApp.csproj", "{9A853D2E-50D6-487D-BD73-B97C6E21344F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopDAL", "WebShopDAL\WebShopDAL.csproj", "{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C5B95E2-5EA7-46F9-8E63-DF26535E1E82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A853D2E-50D6-487D-BD73-B97C6E21344F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A853D2E-50D6-487D-BD73-B97C6E21344F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A853D2E-50D6-487D-BD73-B97C6E21344F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A853D2E-50D6-487D-BD73-B97C6E21344F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
