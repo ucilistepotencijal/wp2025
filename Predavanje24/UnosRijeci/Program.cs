@@ -78,12 +78,7 @@ partial class Program
 
     public static void Valerio(List<string> rijeci)
     {
-        Console.WriteLine("Unesite više stringova (odvojene razmakom ili Enterom):");
-        string unos = Console.ReadLine();
-
-        string[] dijelovi = unos.Split(new[] { ' ', ',', ';' }, StringSplitOptions.RemoveEmptyEntries);
-
-        List<string> jedinstveni = dijelovi
+        List<string> jedinstveni = rijeci
            .Distinct()
            .OrderBy(s => s)
            .ToList();
