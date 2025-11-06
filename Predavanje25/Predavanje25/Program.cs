@@ -1,4 +1,4 @@
-﻿
+﻿Console.WriteLine();
 partial class Program
 {
     interface IMojInterfejs
