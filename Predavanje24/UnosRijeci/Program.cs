@@ -49,3 +49,13 @@ while (true)
     Console.ReadKey();
     Console.Clear();
 }
+
+void RijeciVelikimSlovom(List<string> rijeci)
+{
+    throw new NotImplementedException();
+}
+
+void ZnakoviFrekvencija(List<string> rijeci)
+{
+    throw new NotImplementedException();
+}
