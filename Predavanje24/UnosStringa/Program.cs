@@ -7,7 +7,7 @@ Kreira LINQ upit koji sadrži sve znakove i njihovu frekvenciju i ispisuje ga na
 
 b) Riječi napisane velikim slovima
 Kreira LINQ upit koji sadrži sve riječi napisane velikim slovima i ispisuje ih na konzolu
-*/
+ */
 
 
 List<string> rijeci = new List<string>();
@@ -15,17 +15,17 @@ string unos = "";
 Console.WriteLine("Unesite riječ/rečenicu (x za kraj");
 while (true)
 {
-    Console.Write("Unesi riječ/rečenicu: ");
-   
-        unos = Console.ReadLine();
-        if (unos.ToLower() == "kraj")
-        {
-            break;
-        }
-        else
-        {
-            rijeci.Add(unos);
-        }
+    Console.Write("Unesite riječ/rečenicu (x za kraj): ");
+
+    unos = Console.ReadLine();
+    if (unos.ToLower() == "x")
+    {
+        break;
+    }
+    else
+    {
+        rijeci.Add(unos);
+    }
 
 }
 while (true)
@@ -34,6 +34,7 @@ while (true)
     Console.WriteLine("Odaberi jednu od opcija: ");
     Console.WriteLine("a) Znakovi i njihova frekvencija");
     Console.WriteLine("b) Riječi napisane velikim slovom");
+    Console.WriteLine("x) Kraj");
     Console.Write("Vaš odabir: ");
     string opcija = Console.ReadLine();
     switch (opcija)
@@ -46,7 +47,7 @@ while (true)
             break;
         case "x":
             Console.WriteLine("Zatvaranje programa");
-            break;
+            return;
         default:
             Console.WriteLine("Nepoznata opcija!");
             break;
@@ -55,18 +56,31 @@ while (true)
     Console.ReadKey();
     Console.Clear();
 }
+
 partial class Program
 {
     public static void ZnakoviFrekvencija(List<string> listaRecenica)
     {
-        foreach( var recenica in listaRecenica)
-            Console.WriteLine("Frekvecija znakova za riječ/rečenicu {0}:", recenica);
-        var frekvencija = from r in recenica
-                          group r by r into kvp
-                          select kvp;
-        foreach( var item in frekvencija)
+        foreach (var recenica in listaRecenica)
         {
-            Console.WriteLine("Znak {0} se pojavljuje {1} puta." item.Key, item.Count());
+            Console.WriteLine("Frekvencija znakova za riječ/rečenicu {0}:", recenica);
+            var frekvencija = from r in recenica
+                              group r by r into kvp
+                              select kvp;
+            foreach (var item in frekvencija)
+            {
+                Console.WriteLine("Znak {0} se pojavljuje {1} puta.", item.Key, item.Count());
+            }
+        }
+        
+    }
+    public static void RijeciVelikimSlovom(List<string> listaRecenica)
+    {
+        var rijeciVelikimSlovom = listaRecenica.Where(r => r == r.ToUpper());
+        Console.WriteLine("Riječi napisane velikim slovom: ");
+        foreach (var r in rijeciVelikimSlovom)
+        {
+            Console.WriteLine(r);
         }
     }
 }

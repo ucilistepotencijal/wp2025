@@ -3,19 +3,18 @@ string unos = "";
 Console.WriteLine("Unesite riječ/rečenicu (x za kraj");
 while (true)
 {
-    Console.Write("Unesi riječ/rečenicu: ");
-    try
+    Console.Write("Unesite riječi ('kraj' za kraj): ");
+
+    unos = Console.ReadLine();
+    if (unos.ToLower() == "kraj")
     {
-        unos = Console.ReadLine();
-        if (unos.ToLower() == "x")
-        {
-            break;
-        }
-        else
-        {
-            rijeci.Add(unos);
-        }
+        break;
     }
+    else
+    {
+        rijeci.Add(unos);
+    }
+}
     catch (Exception e)
     {
         Console.WriteLine("Pogrešan unos. Greška" + e.Message);
@@ -26,21 +25,34 @@ while (true)
 {
     Console.Clear();
     Console.WriteLine("Odaberi jednu od opcija: ");
-    Console.WriteLine("a) Znakovi i njihova frekvencija");
-    Console.WriteLine("b) Riječi napisane velikim slovom");
+    Console.WriteLine("a) Rijeci koje počinju i završavaju određenim slovima");
+    Console.WriteLine("b) Niz stringova konvertira u jedan");
+    Console.WriteLine("c) Stringovi minimalne duljine");
+    Console.WriteLine("d) Poredaj stringove po duljini pa po imenu");
+    Console.WriteLine("e) Poredaj jedinstvene stringove po abecedi");
+    Console.WriteLine("x) Kraj");
     Console.Write("Vaš odabir: ");
     string opcija = Console.ReadLine();
     switch (opcija)
     {
         case "a":
-            ZnakoviFrekvencija(rijeci);
+            Domagoj(rijeci);
             break;
         case "b":
-            RijeciVelikimSlovom(rijeci);
+            Franjo(rijeci);
             break;
+        case "c":
+            Karlo(rijeci);
+            break;
+        case "d":
+            Meri(rijeci);
+            break;
+        case "e":
+            Valerio(rijeci);
+            break;        
         case "x":
             Console.WriteLine("Zatvaranje programa");
-            break;
+            return;
         default:
             Console.WriteLine("Nepoznata opcija!");
             break;
@@ -50,12 +62,84 @@ while (true)
     Console.Clear();
 }
 
-void RijeciVelikimSlovom(List<string> rijeci)
+//Console.WriteLine("d) Poredaj stringove po duljini pa po imenu");
+partial class Program
 {
-    throw new NotImplementedException();
+    public static void Meri(List<string> rijeci)
+    {
+        var sortiranje = rijeci.OrderBy(r => r);
+        var sortiranje1 = sortiranje.OrderBy(r => r.Length);
+        Console.WriteLine("\nRiječi poredane po duljini su:");
+        foreach (var item in sortiranje1)
+        {
+            Console.WriteLine(item);
+        }
+
+        Console.WriteLine("\nRiječi poredane po abecedi su:");
+        foreach (var item in sortiranje)
+        {
+            Console.WriteLine(item);
+        }
+
+    }
+
+    public static void Valerio(List<string> rijeci)
+    {
+        List<string> jedinstveni = rijeci
+           .Distinct()
+           .OrderBy(s => s)
+           .ToList();
+        Console.WriteLine("\nJedinstveni stringovi po abecedi:");
+        foreach (string item in jedinstveni)
+        {
+            Console.WriteLine(item);
+        }
+    }
+
+
+
+    public static void Franjo(List<string> rijeci)
+    {
+        string niz = string.Join(", ", rijeci);
+        Console.WriteLine(niz);
+    }
+
+
+
+    public static void Domagoj(List<string> rijeci)
+    {
+        Console.Write("unesi pocetno slovo: ");
+        string pocetno = Console.ReadLine().ToLower();
+
+        Console.Write("unesi zavrsno slovo: ");
+        string zavrsno = Console.ReadLine().ToLower();
+
+        var rezultat = from r in rijeci
+                       where r.ToLower().StartsWith(pocetno) && r.ToLower().EndsWith(zavrsno)
+                       select r;
+
+        Console.WriteLine("\nrijeci koje počinju s '{0}' i završavaju s '{1}':", pocetno, zavrsno);
+        foreach (var rijec in rezultat)
+        {
+            Console.WriteLine(rijec);
+        }
+    }
+
+public static void Karlo(List<string> rijeci)
+{
+    Console.Write("Unesite minimalnu duljinu: ");
+    if (int.TryParse(Console.ReadLine(), out int minDuljina))
+    {
+        var rezultat = rijeci
+            .Where(r => r.Length >= minDuljina)
+            .ToList();
+        Console.WriteLine("Riječi minimalne duljine {0}:", minDuljina);
+        rezultat.ForEach(Console.WriteLine);
+    }
+    else
+    {
+        Console.WriteLine("Neispravan unos duljine.");
+    }
 }
 
-void ZnakoviFrekvencija(List<string> rijeci)
-{
-    throw new NotImplementedException();
 }

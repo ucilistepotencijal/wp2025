@@ -93,7 +93,6 @@ partial class Program
         Console.WriteLine("Brojevi veći od 80: ");
         foreach (int item in brojeviVeciOd80)
         {
-
             Console.WriteLine(item);
         }
     }
