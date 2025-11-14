@@ -87,3 +87,52 @@ CREATE TABLE MjereProizvoda(
 )
 
 ALTER TABLE Proizvodi ADD MjeraProizvodaId INT FOREIGN KEY REFERENCES MjereProizvoda(Id) 
+
+-- 3. predavanje
+USE Trgovina
+
+-- Punjenje tablice MjereProizvoda
+INSERT INTO MjereProizvoda VALUES('kom')
+INSERT INTO MjereProizvoda (Naziv) VALUES('kg')
+INSERT INTO MjereProizvoda (Naziv) VALUES('g')
+INSERT INTO MjereProizvoda (Naziv) VALUES('dag')
+INSERT INTO MjereProizvoda (Naziv) VALUES('m')
+INSERT INTO MjereProizvoda (Naziv) VALUES('l')
+
+SELECT * FROM Proizvodi
+SELECT * FROM MjereProizvoda
+
+-- izmjena podataka u tablici proizvodi
+UPDATE Proizvodi SET MjeraProizvodaId = 6 WHERE Naziv = 'Mlijeko'
+UPDATE Proizvodi SET MjeraProizvodaId = 2 WHERE MjeraProizvodaId IS NULL
+
+--Punjenje tablice korisnika
+INSERT INTO Kupci (Ime, Prezime, Email, Adresa, Telefon, Napomena) VALUES
+('Pero', 'Perić', 'pero@gmail.com', 'Perin put 10', '123456789', 'Pero ima velikog psa'),
+('Iva', 'Ivić', 'iva@gmail.com', 'Ivina cesta 11', '987654321', NULL)
+
+--Punjenje tablice Narudžbe
+INSERT INTO Narudzbe (DatumNarudzbe, PredvidjeniDatumDostave, Dostavljeno, KupacId) VALUES
+('2025-11-14', '2025-11-15', 0, 1),
+('2025-11-14', '2025-11-14', 1, 2)
+
+--Punjenje tablice NarudzbeProizvodi
+INSERT INTO NarudzbeProizvodi (NarudzbaId, ProizvodId, Kolicina) VALUES
+(1, 1, 2),
+(1, 2, 1),
+(2, 3, 4)
+
+--Izmjena podataka u tablici
+SELECT * FROM Proizvodi
+UPDATE Proizvodi SET Naziv = 'Crni kruh' WHERE Id = 2
+
+-- Punjenje i brisanje podataka u tablici
+INSERT INTO Proizvodi VALUES ('Mlijeko', 0.79, 1, 6) --ne moramo eksplicitno navoditi kolone samo ako punimo sve atribute
+DELETE FROM Proizvodi WHERE Id > 3
+
+-- brisanje podataka iz tablice
+SELECT * FROM NarudzbeProizvodi
+TRUNCATE Table NarudzbeProizvodi
+
+-- brisanje podataka i same tablice
+DROP TABLE NarudzbeProizvodi
