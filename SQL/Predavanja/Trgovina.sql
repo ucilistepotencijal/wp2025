@@ -136,3 +136,10 @@ TRUNCATE Table NarudzbeProizvodi
 
 -- brisanje podataka i same tablice
 DROP TABLE NarudzbeProizvodi
+
+--ZADACI
+--1. Napraviti tablice kategorijeproizvodi i kategorije
+--2. Popuniti tablicu kupci tako da imamo barem 2 kupca s istim imenom, kupca kojem ime počinje i završava samoglasnikom, 
+-- počinje i završava suglasnikom, ima ime koje sadrži r i k zaredom, 
+--3. Popuniti tablicu proizvodi sa dostupnim i nedostupnim proizvodima
+-- Nove ključne riječi: LIKE, DISTINCT (StackOverflow)
