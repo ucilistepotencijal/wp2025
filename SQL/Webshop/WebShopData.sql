@@ -1,5 +1,5 @@
 --MjereProizvoda
-USE WebShop
+USE WebShopNew
 INSERT INTO MjereProizvoda VALUES (2,	'l')
 INSERT INTO MjereProizvoda VALUES (3,	'g')
 INSERT INTO MjereProizvoda VALUES (4,	'ml')
