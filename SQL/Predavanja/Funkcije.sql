@@ -31,3 +31,31 @@ SELECT SQUARE(12.12)
 SELECT SQRT(25)
 SELECT SQRT(25.25)
 SELECT SQRT(-25) -- ne radi jer pod korijenom mora biti broj >= 0
+
+-- FUNKCIJE ZA RAD S TEKSTOM
+-- 1. LEN - vraća duljinu stringa, ignorira razmake na kraju
+SELECT LEN('Marko')
+SELECT LEN('Marko      ')
+SELECT LEN(' Marko      ')
+
+-- 2. UPPER() - pretvara sva slova stringa u velika
+SELECT UPPER('sve malO')
+
+-- 3. LOWER() - pretvara sva slova stringa u mala
+SELECT LOWER('SVE veliko')
+
+-- 4. LTRIM() i RTRIM() - režu prazan prostor s lijeve ili s desne strane
+SELECT LTRIM('             - Neki tekst -             ')
+SELECT RTRIM('             - Neki tekst -             ')
+
+-- 5. REVERSE() - okreće string
+SELECT REVERSE('baza podataka')
+
+-- 6. REPLACE() - zamjenjuje u prvom parametru sva pojavljivanja drugog parametra sa trećim
+SELECT REPLACE('Danas je lijep dan', 'Danas', 'Sutra')
+
+-- 7. SUBSTRING() - vraća dio stringa, a počinje od indeksa koji definirate - drugi parametar je indeks početka, a treći duljina
+SELECT SUBSTRING('Danas je lijep dan', 1, 5)
+
+-- CONCAT() - konkatenira parametre odvojene zarezom
+SELECT CONCAT('Pero', ' ', 'Perić') AS 'Puno ime'
