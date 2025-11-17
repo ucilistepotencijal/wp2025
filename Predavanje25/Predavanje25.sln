@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36603.0 d17.14
+VisualStudioVersion = 17.14.36603.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interfejsi", "Predavanje25\Interfejsi.csproj", "{88356482-DCCC-4724-A34C-7FADA9E265C0}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopApp", "WebShopApp\WebShopApp.csproj", "{9A853D2E-50D6-487D-BD73-B97C6E21344F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebShopDAL", "WebShopDAL\WebShopDAL.csproj", "{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{01CF17CB-EEF1-48FC-AC77-C0E3BCE057F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF2FA25F-5C24-4908-98A1-9E889CA51ADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CF17CB-EEF1-48FC-AC77-C0E3BCE057F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CF17CB-EEF1-48FC-AC77-C0E3BCE057F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CF17CB-EEF1-48FC-AC77-C0E3BCE057F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CF17CB-EEF1-48FC-AC77-C0E3BCE057F6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
