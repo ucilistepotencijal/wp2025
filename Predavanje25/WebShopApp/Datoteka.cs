@@ -15,13 +15,13 @@ namespace WebShopApp
             StreamWriter sw = new StreamWriter(fs);
             sw.WriteLine("-----------------------Narudžba---------------------");
             sw.WriteLine("Datum narudžbe: {0}", narudzba.DatumKreiranja);
-            sw.WriteLine("Dostavljeno {0}", (narudzba.DostavaIzvrsena ? "DA" : "ME"));
+            sw.WriteLine("Dostavljeno {0}", (narudzba.DostavaIzvrsena ? "DA" : "NE"));
             sw.WriteLine("Proizvodi: ");
             foreach (Proizvod item in narudzba.Proizvodi)
             {
-                sw.WriteLine("item.Naziv{0}: {1} EUR", item.Naziv, Math.Round(item.UkupnaCijena, 2));
+                sw.WriteLine("{0}: {1} EUR", item.Naziv, Math.Round(item.UkupnaCijena, 2));
             }
-            sw.WriteLine("Ukupna cijana: {0} EUR", Math.Round(narudzba.UkupnaCijena,2));
+            sw.WriteLine("Ukupna cijena: {0} EUR", Math.Round(narudzba.UkupnaCijena,2));
             sw.Close();
 
             //kreiramo filestream  -> streamwriter
