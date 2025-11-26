@@ -14,5 +14,15 @@ namespace PozdravSvijetu.Controllers
             string imeStroja = "<h2>" + Environment.MachineName + "</h2>";
             return Content(imeStroja, "text/html");
         }
+
+        public string MetodaSaParametrima(string naziv)
+        {
+            return "Pozdrav, " + naziv + "!";
+        }
+
+        public string MetodaSaParametrima2(int? id)
+        {
+            return "Pozdrav, " + id + "!";
+        }
     }
 }
