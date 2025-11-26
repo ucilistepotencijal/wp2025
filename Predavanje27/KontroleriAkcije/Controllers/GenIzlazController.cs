@@ -12,5 +12,15 @@ namespace KontroleriAkcije.Controllers
 
             return View("PrimjerPogleda");
         }
+
+        public RedirectResult PreusmjeriNaIndex()
+        {
+            return Redirect("/Home/Index");
+        }
+
+        public RedirectToActionResult PreusmjeriNaAkcijuIndex()
+        {
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
