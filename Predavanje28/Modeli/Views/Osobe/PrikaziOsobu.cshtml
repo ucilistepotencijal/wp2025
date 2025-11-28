@@ -1,0 +1,47 @@
+﻿@model Osoba
+@{
+    Layout = null;
+    string datum;
+    if(Model.DatumRodjenja == DateTime.MinValue)
+    {
+        datum = "Nije unesen";
+    }
+    else
+    {
+        datum = Model.DatumRodjenja.ToLongDateString();
+    }
+}
+<html>
+<head>
+    <title>Prikaz Osobe</title>
+    <style>
+        label {
+            display: inline-block;
+            width: 200px;
+            margin: 5px;
+        }
+        a {
+            margin: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <form method="post" action="/Osobe/PrikaziOsobu">
+        <div>
+            <div>
+                <label>Ime: @Model.Ime</label>
+            </div><div>
+                <label>Prezime: @Model.Prezime</label>
+            </div><div>
+                <label>Email: @Model.Email</label>
+            </div><div>
+                <label>Datum rođenja: @datum</label>
+            </div>
+        </div>
+        <div>
+            <a href="/Osobe/PopuniOsobu">Unesi novu osobu</a>
+        </div>
+    </form>
+</body>
+</html>

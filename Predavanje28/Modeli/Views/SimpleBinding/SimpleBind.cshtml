@@ -1,0 +1,24 @@
+﻿@model string
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Simple Binding</title>
+</head>
+<body>
+    <div>
+        <form method="post">
+            <label>Unesi ime:</label>
+            <input type="text" name="ime" value="" />
+            <button type="submit">Pošalji</button>
+        </form>
+        <div>
+            @Model
+        </div>
+    </div>
+</body>
+</html>
+
