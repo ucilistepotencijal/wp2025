@@ -9,12 +9,11 @@ namespace Modeli.Controllers
             return View("SimpleBind");
         }
 
-        [HttpGet]
-
+        [HttpPost]
         public IActionResult SimpleBindMetoda(string ime)
         {
-            string pozdravPoruka = $"Dobrodošli, {ime}!";
-            return View("SimpleBind", pozdravPoruka);
+            string pozdravnaPoruka = $"Dobrodošli, {ime}!";
+            return View("SimpleBind", pozdravnaPoruka);
         }
     }
 }
