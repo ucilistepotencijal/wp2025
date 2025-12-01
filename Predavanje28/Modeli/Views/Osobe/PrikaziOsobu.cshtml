@@ -1,0 +1,23 @@
+﻿@model Osoba
+
+<html>
+<head>
+    <title>Prikaz osobe</title>
+</head>
+<body>
+    <form>
+        <div>  
+            <label>Ime: @Model.Ime</label>
+            <label>Prezime @Model.Prezime</label>
+            <label>Email @Model.Email</label>
+            <label>Datum rođenja: @Model.DatumRodjenja.ToShortTimeString()</label>
+        </div>
+        <div>
+            <a href="/Osobe/PopuniOsobu">Unesi novu osobu:</a>
+        </div>
+    </form>
+</body>
+</html>
+
+@* 
+popuniti do kraja *@
