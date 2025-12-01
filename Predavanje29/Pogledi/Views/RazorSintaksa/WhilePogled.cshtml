@@ -1,0 +1,25 @@
+﻿@model string[]
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Razor Sintaksa - While</title>
+</head>
+<body>
+    <div>
+        <ol>
+            @{
+                var i = 0;
+                while (i < Model.Length)
+                {
+                    <li>@Model[i]</li>
+                    i++;
+                }
+            }
+        </ol>
+    </div>
+</body>
+</html>
