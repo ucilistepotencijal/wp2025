@@ -1,0 +1,58 @@
+﻿@model Osoba
+@{
+    Layout = null;
+}
+<head>
+    <style>
+        .crvenaBoja {
+            color: red;
+            width: 250px;
+        }
+
+        label, input, select {
+            margin: 5px;
+            width: 150px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.LabelFor(m => m.Ime)
+                @Html.TextBoxFor(m => m.Ime)    
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Prezime)
+                @Html.TextBoxFor(m => m.Prezime)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.MjestoStanovanja)
+                @Html.DropDownListFor(m => m.MjestoStanovanja, new SelectList((string[])ViewBag.Mjesta), "--Odaberi--")
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Spol)
+                @Html.RadioButtonFor(m => m.Spol, "Muški") Muški
+                @Html.RadioButtonFor(m => m.Spol, "Ženski") Ženski
+            </div>
+            <div>
+                @Html.LabelFor(m => m.Zaposlen)
+                @Html.CheckBoxFor(m => m.Zaposlen)
+            </div>
+            <div>
+                <input type="submit" value="Pošalji" />
+            </div>
+        }
+    </div>
+    <p>
+        <label class="crvenaBoja">@ViewBag.Poruka</label>
+    </p>
+</body>
+
+
