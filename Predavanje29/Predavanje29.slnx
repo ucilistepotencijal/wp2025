@@ -1,6 +1,0 @@
-<Solution>
-  <Project Path="Kalkulator/Kalkulator.csproj" />
-  <Project Path="NarudzbaArtikla/NarudzbaArtikla.csproj" />
-  <Project Path="Pogledi/Pogledi.csproj" />
-  <Project Path="SlucajniBroj/SlucajniBroj.csproj" />
-</Solution>
