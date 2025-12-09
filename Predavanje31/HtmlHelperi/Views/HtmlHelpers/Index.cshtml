@@ -1,0 +1,84 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HtmlHelpers Index</title>
+    <style>
+        div {
+            padding-bottom: 5px
+        }
+    </style>
+</head>
+<body>
+    <h2>Checkbox</h2>
+    <div>
+        <input type="checkbox" name="chk1" checked="checked" /> Checkbox 1
+    </div>
+
+    <div>
+        @Html.CheckBox("chk2", true) Checkbox 2
+    </div>
+
+    <h2>Radio button</h2>
+    <div>
+        <input type="radio" name="rb1" value="rbv1" id="rb1" checked="checked" /> Radio button 1
+        <br />
+        <input type="radio" name="rb2" value="rbv2" id="rb2" /> Radio button 2
+    </div>
+    <div>
+        @Html.RadioButton("rb3", "rbv3", true) Radio button 3
+        <br />
+        @Html.RadioButton("rb4", "rbv4", false) Radio button 4
+    </div>
+
+    <h2>Hidden</h2>
+    <div>
+        <input type="hidden" name="hid1" value="hidden value 1" />
+    </div>
+    <div>
+        @Html.Hidden("hid2", "hidden value 2")
+    </div>
+
+    <h2>Password</h2>
+    <div>
+        <input type="password" name="pwd1" value="password value 1" />
+    </div>
+
+    <div>
+        @Html.Password("pwd2", "password value 2")
+    </div>
+
+    <h2>TextBox</h2>
+    <div>
+        <input type="text" name="txt1" value="text value 1" />
+    </div>
+    <div>
+        @Html.TextBox("txt2", "text value 2")
+    </div>
+
+    <h2>Text Area</h2>
+    <div>
+        <textarea name="ta1" rows="4" cols="20">text area value 1</textarea>
+    </div>
+    <div>
+        @Html.TextArea("ta2", "text area value 2", 4, 20, null)
+    </div>
+
+    <h2>Dropdown List</h2>
+    <div>
+        <select name="ddl1">
+            <option value="----Odaberi spol----" selected="selected">Odaberi spol</option>
+            <option value="Muški">Muški</option>
+            <option value="Ženski">Ženski</option>
+        </select>
+    </div>
+    <div>
+        @Html.DropDownList("ddl2", new SelectList(new[] { "Muški", "Ženski" }), "Odaberi spol")
+    </div>
+</body>
+</html>

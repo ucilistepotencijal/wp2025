@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+@* dodat dio *@
+
+    </stlye>
+</head>
+<body>
+    <div>
+        @model Osoba
+
+        @using (Html.BeginForm())
+        {
+            <div>
+                @Html.Label("Ime")
+                @Html.TextBox("Prezime")
+            </div>
+            <div>
+                @Html.Label("Prezime")
+                @Html.TextBox("Prezime")
+            </div>
+            <div>
+                @Html.Label("Email")
+                @Html.TextBox("Email")
+            </div>
+            <div>
+                @Html.Label("Mjesto stanovanja")
+                @Html.DropDownList("MjestoStanovanja", new SelectList((string[]) ViewBag.MjestaStanovanja), "--Odaberi--")
+            </div>
+            <div>
+                @Html.Label("Spol")
+                @Html.RadioButton("Spol", "Muški") Muški
+                @Html.RadioButton("Spol", "Ženski") Ženski
+            </div>
+            <div>
+                @Html.Label("Zaposlen")
+                @Html.CheckBox("Zaposlen")
+            </div>
+            <div>
+                <input type="submit" value="Pošalji" />
+            </div>
+        }
+
+    </div>
+    <p>
+        <label class="crvenaBoja">@ViewBag.Poruka</label>
+    </p>
+</body>
