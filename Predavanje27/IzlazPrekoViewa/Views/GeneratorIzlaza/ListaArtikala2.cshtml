@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista Artikala 2</title>
+</head>
+<body>
+    <div>
+        <ol>
+            @foreach (string artikl in ViewBag.Artikli)
+            {
+                <li>@artikl</li>
+            }   
+        </ol>
+    </div>
+</body>
+</html>
