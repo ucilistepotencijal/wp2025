@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+    string voce = "jabuka";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Razor Sintaksa - Switch</title>
+</head>
+<body>
+    <div>
+        @switch (voce)
+        {
+            case "banana":
+                <p>Odabrali ste bananu.</p>
+                break;
+            case "jabuka":
+                <p>Odabrali ste jabuku.</p>
+                break;
+            case "naranča":
+                <p>Odabrali ste naranču.</p>
+                break;
+            default:
+                <p>Odabrali ste nepoznato voće.</p>
+                break;
+        }
+    </div>
+</body>
+</html>
+
