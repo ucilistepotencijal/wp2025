@@ -1,0 +1,41 @@
+﻿@model List<Artikli.Models.Artikl>
+@{
+    Layout = null;
+}
+
+<h2>Popis dodanih artikala</h2>
+
+<p>
+    <a href="@Url.Action("UnesiArtikl", "ListaArtikala")">Unesi novi artikl</a>
+</p>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Kategorija</th>
+            <th>Naziv</th>
+            <th>Cijena</th>
+            <th>Količina</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var artikl in Model)
+            {
+                <tr>
+                    <td>@artikl.Kategorija</td>
+                    <td>@artikl.Naziv</td>
+                    <td>@artikl.Cijena.ToString("C")</td>
+                    <td>@artikl.Kolicina</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4">Nema dodanih artikala.</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Artikli/Artikli.csproj" />
+  <Project Path="ValidacijeVjezba/ValidacijeVjezba.csproj" />
+</Solution>

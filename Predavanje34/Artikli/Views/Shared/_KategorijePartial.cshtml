@@ -1,0 +1,18 @@
+﻿@model IEnumerable<string>
+@{
+    var selectedValue = ViewBag.SelectedCategory as string;
+}
+
+<select name="Kategorija">
+    @foreach (var kategorija in Model)
+    {
+        if (kategorija == selectedValue)
+        {
+            <option value="@kategorija" selected>@kategorija</option>
+        }
+        else
+        {
+            <option value="@kategorija">@kategorija</option>
+        }
+    }
+</select>

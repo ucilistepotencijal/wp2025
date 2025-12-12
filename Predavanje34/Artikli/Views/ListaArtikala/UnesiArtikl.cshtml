@@ -1,0 +1,33 @@
+﻿@model Artikli.Models.Artikl
+@{
+    Layout = null;
+}
+
+<h2>Unesi artikl</h2>
+
+<body>
+    <div>
+        @using (Html.BeginForm("DodajArtikl", "ListaArtikala", FormMethod.Post))
+        {
+            <div>
+                @Html.LabelFor(model => model.Naziv)
+                @Html.TextBoxFor(model => model.Naziv)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Cijena)
+                @Html.TextBoxFor(model => model.Cijena)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Kolicina)
+                @Html.TextBoxFor(model => model.Kolicina)
+            </div>
+            <div>
+                @Html.LabelFor(model => model.Kategorija)
+                @Html.DropDownListFor(model => model.Kategorija, new SelectList((string[])ViewBag.Kategorije), "--Odaberi kategoriju--")
+            </div>
+            <div>
+                <input type="submit" value="Unesi" />
+            </div>
+        }
+    </div>
+</body>
