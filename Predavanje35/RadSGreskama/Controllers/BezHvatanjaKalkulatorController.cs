@@ -19,8 +19,26 @@ namespace RadSGreskama.Controllers
         [HttpPost]
         public IActionResult Dijeli(Kalkulator kalkulator)
         {
+            if (kalkulator.DrugiBroj == 0)
+            {
+                ModelState.AddModelError(nameof(kalkulator.DrugiBroj), "Drugi broj ne smije biti 0.");
+                return View("Index", kalkulator);
+            }
+
+            if (kalkulator.DrugiBroj == 0)
+            {
+                ModelState.AddModelError(nameof(kalkulator.DrugiBroj), "Drugi broj ne smije biti 0.");
+                return View("Index", kalkulator);
+            }
+
             kalkulator.Dijeli();
             return View("Index", kalkulator);
+        }
+
+        [Route("/Error")]
+        public IActionResult Error()
+        {
+            return View();
         }
 
     }

@@ -1,0 +1,34 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using RadSGreskama.Models;
+
+namespace RadSGreskama.Controllers
+{
+    public class TryCatchKalkulatorController : Controller
+    {
+        public IActionResult Index()
+        {
+            Kalkulator kalkulator = new Kalkulator()
+            {
+                DrugiBroj = 0,
+                PrviBroj = 0
+            };
+
+            return View(kalkulator);
+        }
+
+        [HttpPost]
+        public IActionResult Dijeli(Kalkulator kalkulator)
+        {
+            try
+            {
+                kalkulator.Dijeli();
+            }
+            catch (Exception)
+            {
+
+                return View("Error", new ErrorViewModel());
+            }
+            return View("Index", kalkulator);
+        }
+    }
+}

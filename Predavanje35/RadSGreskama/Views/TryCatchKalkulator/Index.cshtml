@@ -7,25 +7,22 @@
         display: inline-block;
         width: 150px;
         margin: 5px;
-        font-weight: bold;
+        font: bold;
     }
 </style>
 <h2>@ViewBag.Title</h2>
 <div>
     <h4>Kalkulator</h4>
     <hr />
-    @using (Html.BeginForm("Dijeli", "BezHvatanjaKalkulator", FormMethod.Post))
+    @using (Html.BeginForm("Dijeli", "TryCatchKalkulator", FormMethod.Post))
     {
-        @Html.ValidationSummary(true)
         <div>
             <label>Prvi broj</label>
             @Html.TextBoxFor(m => m.PrviBroj)
-            @Html.ValidationMessageFor(m => m.PrviBroj)
         </div>
         <div>
             <label>Drugi broj</label>
             @Html.TextBoxFor(m => m.DrugiBroj)
-            @Html.ValidationMessageFor(m => m.DrugiBroj)
         </div>
         <div>
             <label>Rezultat: </label>
