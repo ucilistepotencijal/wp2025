@@ -1,0 +1,36 @@
+﻿@model WebShopApp.Models.Korisnici
+@{
+}
+<h2>Create User</h2>
+
+@using (Html.BeginForm("CreateUser", "Checkout", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(model => model.Ime)
+        @Html.TextBoxFor(model => model.Ime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Prezime)
+        @Html.TextBoxFor(model => model.Prezime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.AdresaDostave)
+        @Html.TextBoxFor(model => model.AdresaDostave)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Kontakt)
+        @Html.TextBoxFor(model => model.Kontakt)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Napomena)
+        @Html.TextBoxFor(model => model.Napomena)
+    </div>
+    <button type="submit">Submit</button>
+}
+<p>
+    @Html.ActionLink("Back to cart", "Index", "Cart")
+</p>
