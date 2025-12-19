@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Autorizacija/Autorizacija.csproj" />
+  <Project Path="WebShopApp/WebShopApp.csproj" />
+</Solution>

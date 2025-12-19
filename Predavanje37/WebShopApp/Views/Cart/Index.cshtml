@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WebShopApp.Models.Proizvodi>
+@{
+
+    ViewBag.Title = "Košarica";
+}
+
+<h2>Košarica</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(Model => Model.VrijemeKreiranja)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Naziv)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Cijena)</th>
+            <th>@Html.DisplayNameFor(Model => Model.Dostupan)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VrijemeKreiranja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cijena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dostupan)
+                </td>
+                <td>
+                    @Html.ActionLink("Ukloni", "RemoveFromCart", new { id = item.Id }, new { @class = "btn btn-danger"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<p>
+    @Html.ActionLink("Na blagajnu", "CreateUser", "Checkout")
+</p>
