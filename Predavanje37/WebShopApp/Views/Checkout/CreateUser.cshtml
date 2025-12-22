@@ -1,120 +1,36 @@
 ﻿@model WebShopApp.Models.Korisnici
 @{
 }
-
-<style>
-    /* Responsive card container */
-    .form-card {
-        max-width: 600px;
-        margin: 2rem auto;
-        padding: 2rem;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Grid layout for larger screens */
-    .form-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1rem;
-    }
-    
-    /* Input and textarea styling */
-    .form-control {
-        width: 100%;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        transition: border-color 0.3s;
-    }
-
-    .form-control:focus {
-        border-color: #007bff;
-        outline: none;
-    }
-
-    /* Textarea specific styles */
-    textarea.form-control {
-        resize: vertical;
-    }
-
-    /* Button styling */
-    .btn-primary {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 0.75rem 1.5rem;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-
-    /* Secondary button (back link) */
-    .btn-secondary {
-        background: none;
-        color: #007bff;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-        font-size: 1rem;
-    }
-
-    /* Spacing for labels and buttons */
-    label {
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-    }
-
-    button {
-        margin-top: 1rem;
-    }
-</style>
-
 <h2>Create User</h2>
 
-<div class="form-card">
-    @using (Html.BeginForm("CreateUser", "Checkout", FormMethod.Post))
-    {
-        <div class="form-grid">
-            <div>
-                @Html.LabelFor(model => model.Ime)
-                @Html.TextBoxFor(model => model.Ime, new { @class = "form-control", placeholder = "Enter your first name" })
-                @Html.ValidationMessageFor(model => model.Ime)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Prezime)
-                @Html.TextBoxFor(model => model.Prezime, new { @class = "form-control", placeholder = "Enter your last name" })
-                @Html.ValidationMessageFor(model => model.Prezime)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Email)
-                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter your email address" })
-                @Html.ValidationMessageFor(model => model.Email)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.AdresaDostave)
-                @Html.TextBoxFor(model => model.AdresaDostave, new { @class = "form-control", placeholder = "Enter delivery address" })
-                @Html.ValidationMessageFor(model => model.AdresaDostave)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Kontakt)
-                @Html.TextBoxFor(model => model.Kontakt, new { @class = "form-control", placeholder = "Enter your contact number" })
-                @Html.ValidationMessageFor(model => model.Kontakt)
-            </div>
-            <div>
-                @Html.LabelFor(model => model.Napomena)
-                @Html.TextAreaFor(model => model.Napomena, new { @class = "form-control", placeholder = "Any additional notes?", rows = 3 })
-                @Html.ValidationMessageFor(model => model.Napomena)
-            </div>
-        </div>
-        <button type="submit" class="btn-primary">Submit</button>
-    }
-    <button class="btn-secondary">
-        @Html.ActionLink("Back to cart", "Index", "Cart")
-    </button>
-</div>
+@using (Html.BeginForm("CreateUser", "Checkout", FormMethod.Post))
+{
+    <div>
+        @Html.LabelFor(model => model.Ime)
+        @Html.TextBoxFor(model => model.Ime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Prezime)
+        @Html.TextBoxFor(model => model.Prezime)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Email)
+        @Html.TextBoxFor(model => model.Email)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.AdresaDostave)
+        @Html.TextBoxFor(model => model.AdresaDostave)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Kontakt)
+        @Html.TextBoxFor(model => model.Kontakt)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Napomena)
+        @Html.TextBoxFor(model => model.Napomena)
+    </div>
+    <button type="submit">Submit</button>
+}
+<p>
+    @Html.ActionLink("Back to cart", "Index", "Cart")
+</p>

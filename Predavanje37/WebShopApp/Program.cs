@@ -42,6 +42,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=WebShop}/{action=Index}/{id?}");
 
-//app.MapRazorPages();
+app.MapRazorPages();
 
 app.Run();
