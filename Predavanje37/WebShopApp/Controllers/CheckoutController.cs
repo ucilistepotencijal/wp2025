@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.Metadata;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebShopApp.Models;
 
 namespace WebShopApp.Controllers

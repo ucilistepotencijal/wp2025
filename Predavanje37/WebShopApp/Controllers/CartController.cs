@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 using WebShopApp.Models;
 
 namespace WebShopApp.Controllers
