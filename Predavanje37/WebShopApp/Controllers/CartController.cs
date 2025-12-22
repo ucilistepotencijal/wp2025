@@ -28,8 +28,7 @@ namespace WebShopApp.Controllers
             return View(proizvodi);
         }
 
-        [HttpPost]
-        public IActionResult AddToCart(int id)
+        public RedirectToActionResult AddToCart(int id)
         {
             List<int> proizvodIds = new ();
             var sessionData = HttpContext.Session.GetString(CART_KEY);
