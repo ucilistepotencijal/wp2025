@@ -42,8 +42,8 @@ namespace WebShopApp.Controllers
                 if (proizvodIds != null && proizvodIds.Count > 0)
                 {
                     proizvodi = _context.Proizvodis
-                    .Where(p => proizvodIds.Contains(p.Id))
-                    .ToList();
+                        .Where(p => proizvodIds.Contains(p.Id))
+                        .ToList();
                 }
             }
             Narudzbe novaNarudzba = new()
@@ -73,8 +73,27 @@ namespace WebShopApp.Controllers
 
         public IActionResult OrderDetails(int orderId)
         {
+            var narudzba = _context.Narudzbes
+                .Where(n => n.Id == orderId)
+                .FirstOrDefault();
+            if (narudzba == null)
+            {
+                return NotFound();
+            }
+            var detalji = _context.NarudzbeDetaljis
+                .Where(d => d.NarudzbaId == orderId)
+                .ToList();
+            ViewBag.Detalji = detalji;
+            ViewBag.Narudba = narudzba;
+            return View(narudzba);
+        }
 
+        public IActionResult Confirm()
+        {
+            HttpContext.Session.Remove(CART_KEY);
+            HttpContext.Session.Remove(ORDER_KEY);
+
+            return RedirectToAction("Index", "WebShop");
         }
     }
 }
-

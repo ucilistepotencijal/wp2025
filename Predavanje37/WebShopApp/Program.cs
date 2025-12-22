@@ -6,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<WebShopApp.Models.WebshopdbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("WebShopContext") ?? throw new InvalidOperationException("Connection string 'WebShopContext' not found.")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection") ??
+    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 
 var app = builder.Build();
 
