@@ -3,69 +3,193 @@
     ViewBag.Title = "Detalji narudžbe";
 }
 
+<style>
+    /* Scoped styles for the Order Details view */
+    #order-details {
+        max-width: 940px;
+        margin: 20px auto;
+        padding: 18px;
+        background: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+        color: #222;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    #order-details h2 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-size: 1.6rem;
+    }
+
+    #order-details h4 {
+        margin: 8px 0 12px;
+        font-size: 1.1rem;
+        color: #333;
+    }
+
+    .order-meta {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 8px 18px;
+        align-items: start;
+        margin-bottom: 12px;
+    }
+
+    .order-meta dt {
+        font-weight: 600;
+        color: #444;
+        padding-top: 4px;
+    }
+
+    .order-meta dd {
+        margin: 0;
+        color: #555;
+        padding-top: 4px;
+    }
+
+    .order-items {
+        margin-top: 12px;
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .order-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 8px;
+    }
+
+    .order-table th,
+    .order-table td {
+        padding: 10px 12px;
+        border-bottom: 1px solid #e9e9e9;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .order-table thead th {
+        background: #f7f7f7;
+        font-weight: 600;
+        font-size: 0.95rem;
+    }
+
+    .order-table tbody tr:hover {
+        background: rgba(0,0,0,0.02);
+    }
+
+    .order-total {
+        text-align: right;
+        margin-top: 10px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .action-links {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 16px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 8px 14px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.95rem;
+        border: 1px solid transparent;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background: #007bff;
+        color: #fff;
+        border-color: #007bff;
+    }
+
+    .btn-secondary {
+        background: #6c757d;
+        color: #fff;
+        border-color: #6c757d;
+    }
+   
+</style>
+
 <h2>Detalji narudžbe</h2>
 
-<div>
+<div id="order-details">
     <h4>Narudzbe</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
+    <dl class="order-meta">
+        <dt>
             @Html.DisplayNameFor(model => model.DatumKreiranja)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.DatumKreiranja)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.DatumVrijemeDostave)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.DatumVrijemeDostave)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.JeDostavljeno)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.JeDostavljeno)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.Korisnik.Ime)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Korisnik.Ime)
         </dd>
-        <dt class="col-sm-2">
+
+        <dt>
             @Html.DisplayNameFor(model => model.Korisnik.Prezime)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Korisnik.Prezime)
         </dd>
-        <dd>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Naziv</th>
-                        <th>Cijena</th>
-                        <th>Količina</th>
-                        <th>Ukupno</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model.NarudzbeDetaljis)
-                    {
+
+        <dd class="order-items" style="grid-column: 1 / -1;">
+            <div class="table-responsive">
+                <table class="order-table">
+                    <thead>
                         <tr>
-                            <td>@item.Proizvod.Naziv</td>
-                            <td>@item.Proizvod.Cijena</td>
-                            <td>@item.Kolicina</td>
-                            <td>@item.JedCijena</td>
+                            <th>Naziv</th>
+                            <th>Cijena</th>
+                            <th>Količina</th>
+                            <th>Ukupno</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.NarudzbeDetaljis)
+                        {
+                            <tr>
+                                <td>@item.Proizvod.Naziv</td>
+                                <td>@String.Format("{0:C}", item.Proizvod.Cijena)</td>
+                                <td>@item.Kolicina</td>
+                                <td>@String.Format("{0:C}", item.JedCijena)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </dd>
     </dl>
+
+    <div class="action-links">
+        @Html.ActionLink("Natrag na početnu", "Index", "WebShop", null, new { @class = "btn btn-secondary" })
+        @Html.ActionLink("Potvrdi", "Confirm", "Checkout", null, new { @class = "btn btn-primary" })
+    </div>
 </div>
-<p>
-@Html.ActionLink("Natrag na početnu", "Index", "WebShop")
-    @Html.ActionLink("Potvrdi", "Confirm", "Checkout")")
-</p>
 

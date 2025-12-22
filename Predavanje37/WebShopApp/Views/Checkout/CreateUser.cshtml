@@ -1,36 +1,146 @@
-﻿@model WebShopApp.Models.Korisnici
-@{
-}
-<h2>Create User</h2>
+﻿@* 
+PSEUDOCODE / PLAN
+- Wrap form in a responsive container with a class name.
+- Use a grid layout for fields: two columns on wide screens (label + input stacked if needed).
+- Add consistent spacing and max-width to center the form.
+- Style labels, inputs, submit button, and "Back to cart" link.
+- Use @Html.TextBoxFor with html attributes to attach CSS classes to inputs.
+- Include a <style> block in this view to quickly apply CSS without modifying global files.
+- Ensure the markup remains MVC Razor-compatible and simple to drop into the current project.
+*@
 
-@using (Html.BeginForm("CreateUser", "Checkout", FormMethod.Post))
-{
-    <div>
-        @Html.LabelFor(model => model.Ime)
-        @Html.TextBoxFor(model => model.Ime)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Prezime)
-        @Html.TextBoxFor(model => model.Prezime)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Email)
-        @Html.TextBoxFor(model => model.Email)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.AdresaDostave)
-        @Html.TextBoxFor(model => model.AdresaDostave)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Kontakt)
-        @Html.TextBoxFor(model => model.Kontakt)
-    </div>
-    <div>
-        @Html.LabelFor(model => model.Napomena)
-        @Html.TextBoxFor(model => model.Napomena)
-    </div>
-    <button type="submit">Submit</button>
-}
-<p>
-    @Html.ActionLink("Back to cart", "Index", "Cart")
-</p>
+@model WebShopApp.Models.Korisnici
+
+<style>
+    /* Checkout form styles (scoped to this view) */
+    .checkout-form {
+        max-width: 720px;
+        margin: 24px auto;
+        padding: 20px;
+        box-sizing: border-box;
+        background: #fff;
+        border: 1px solid #e6e6e6;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+
+    .checkout-form h2 {
+        margin: 0 0 16px 0;
+        font-size: 1.4rem;
+        color: #222;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px 16px;
+    }
+
+    .form-row {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-row label {
+        font-size: 0.95rem;
+        margin-bottom: 6px;
+        color: #333;
+    }
+
+    .input-field {
+        padding: 10px 12px;
+        font-size: 1rem;
+        border: 1px solid #cfcfcf;
+        border-radius: 6px;
+        outline: none;
+        transition: box-shadow .12s ease, border-color .12s ease;
+        width: 100%;
+        box-sizing: border-box;
+        background: #fafafa;
+    }
+
+    .input-field:focus {
+        border-color: #5b9df9;
+        box-shadow: 0 0 0 3px rgba(91,157,249,0.12);
+        background: #fff;
+    }
+
+    .actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        margin-top: 12px;
+    }
+
+    .btn-primary {
+        background: linear-gradient(180deg,#1976d2,#1565c0);
+        color: #fff;
+        padding: 10px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-primary:hover {
+        opacity: 0.95;
+    }
+
+    .link-secondary {
+        color: #1976d2;
+        text-decoration: none;
+        font-size: 0.95rem;
+    }
+
+    .link-secondary:hover {
+        text-decoration: underline;
+    }
+    
+</style>
+
+<div class="checkout-form">
+    <h2>Create User</h2>
+
+    @using (Html.BeginForm("CreateUser", "Checkout", FormMethod.Post))
+    {
+        <div class="form-grid">
+            <div class="form-row">
+                @Html.LabelFor(model => model.Ime)
+                @Html.TextBoxFor(model => model.Ime, new { @class = "input-field", placeholder = "First name" })
+            </div>
+
+            <div class="form-row">
+                @Html.LabelFor(model => model.Prezime)
+                @Html.TextBoxFor(model => model.Prezime, new { @class = "input-field", placeholder = "Last name" })
+            </div>
+
+            <div class="form-row full-span">
+                @Html.LabelFor(model => model.Email)
+                @Html.TextBoxFor(model => model.Email, new { @class = "input-field", placeholder = "you@example.com", type = "email" })
+            </div>
+
+            <div class="form-row full-span">
+                @Html.LabelFor(model => model.AdresaDostave)
+                @Html.TextBoxFor(model => model.AdresaDostave, new { @class = "input-field", placeholder = "Delivery address" })
+            </div>
+
+            <div class="form-row">
+                @Html.LabelFor(model => model.Kontakt)
+                @Html.TextBoxFor(model => model.Kontakt, new { @class = "input-field", placeholder = "Phone or contact" })
+            </div>
+
+            <div class="form-row">
+                @Html.LabelFor(model => model.Napomena)
+                @Html.TextBoxFor(model => model.Napomena, new { @class = "input-field", placeholder = "Note (optional)" })
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn-primary">Submit</button>
+            <p style="margin:0;">
+                @Html.ActionLink("Back to cart", "Index", "Cart", null, new { @class = "link-secondary" })
+            </p>
+        </div>
+    }
+</div>

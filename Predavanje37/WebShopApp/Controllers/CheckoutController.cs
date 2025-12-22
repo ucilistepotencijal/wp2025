@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using WebShopApp.Models;
 
 namespace WebShopApp.Controllers
@@ -25,7 +26,7 @@ namespace WebShopApp.Controllers
             if (!ModelState.IsValid)
             {
                 return View(korisnik);
-            }  
+            }
             _context.Korisnicis.Add(korisnik);
             _context.SaveChanges();
             return RedirectToAction("CreateOrder", new { korisnikId = korisnik.Id });
@@ -72,24 +73,26 @@ namespace WebShopApp.Controllers
 
         public IActionResult OrderDetails(int orderId)
         {
+            // Include details and the related Proizvod so Model.NarudzbeDetaljis[*].Proizvod is populated
             var narudzba = _context.Narudzbes
-                .Where(n => n.Id == orderId)
-                .FirstOrDefault();
+                .Include(n => n.NarudzbeDetaljis)
+                    .ThenInclude(d => d.Proizvod)
+                .FirstOrDefault(n => n.Id == orderId);
+
             if (narudzba == null)
             {
                 return NotFound();
             }
-            var detalji = _context.NarudzbeDetaljis
-                .Where(d => d.NarudzbaId == orderId)
-                .ToList();
-            ViewBag.Detalji = detalji;
+
+            // keep compatibility with existing views that use ViewBag.Detalji
+            ViewBag.Detalji = narudzba.NarudzbeDetaljis?.ToList() ?? new List<NarudzbeDetalji>();
             ViewBag.Narudba = narudzba;
             return View(narudzba);
         }
 
         public IActionResult Confirm()
         {
-            HttpContext.Session.Remove(CART_KEY);   
+            HttpContext.Session.Remove(CART_KEY);
             HttpContext.Session.Remove(ORDER_KEY);
 
             return RedirectToAction("Index", "WebShop");
