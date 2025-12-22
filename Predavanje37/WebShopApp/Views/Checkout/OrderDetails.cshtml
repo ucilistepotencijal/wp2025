@@ -1,0 +1,63 @@
+﻿@model Narudzbe
+@{
+    ViewBag.Title = "Detalji narudžbe";
+}
+
+<h2>Detalji narudžbe</h2>
+<div>
+    <h4>Narudzbe</h4>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumKreiranja)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.DatumVrijemeDostave)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DatumVrijemeDostave)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.JeDostavljeno)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.JeDostavljeno)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Korisnik.Ime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Korisnik.Ime)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Korisnik.Prezime)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Korisnik.Prezime)
+        </dd>
+        <dd>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Proizvod</th>
+                        <th>Količina</th>
+                        <th>Cijena</th>
+                        <th>Ukupno</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.NarudzbeProizvodi)
+                    {
+                        <tr>
+                            <td>@item.Proizvod.Naziv</td>
+                            <td>@item.Kolicina</td>
+                            <td>@item.Cijena</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </dd>
+</div>
