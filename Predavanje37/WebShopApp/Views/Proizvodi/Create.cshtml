@@ -1,0 +1,83 @@
+﻿@model WebShopApp.Models.Proizvodi
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Proizvodi</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="createForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MjereProizvoda" class="control-label"></label>
+                <select asp-for="MjereProizvoda" class ="form-control" asp-items="ViewBag.MjereProizvoda"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Naziv" class="control-label"></label>
+                <input asp-for="Naziv" class="form-control" />
+                <span asp-validation-for="Naziv" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Cijena" class="control-label"></label>
+                @* Render as text so user can type comma; validation and conversion handled by scripts *@
+                <input asp-for="Cijena" class="form-control" type="text" />
+                <span asp-validation-for="Cijena" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Dostupan" /> @Html.DisplayNameFor(model => model.Dostupan)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        (function () {
+            // Override jQuery Validate number method to accept both comma and dot
+            if (typeof jQuery !== "undefined" && jQuery.validator) {
+                jQuery.validator.methods.number = function (value, element) {
+                    // Accept empty (handled by required) or numbers with dot or comma
+                    return this.optional(element) || /^-?\d+([.,]\d+)?$/.test(value);
+                };
+
+                // Ensure conversion from comma to dot happens just before final submission
+                jQuery.validator.setDefaults({
+                    submitHandler: function (form) {
+                        var cijenaInput = document.getElementById('Cijena');
+                        if (cijenaInput && cijenaInput.value.indexOf(',') !== -1) {
+                            cijenaInput.value = cijenaInput.value.replace(',', '.');
+                        }
+                        // Submit the form normally
+                        form.submit();
+                    }
+                });
+            } else {
+                // Fallback: if jQuery validate not present, do a simple replacement on form submit
+                var formEl = document.getElementById('createForm');
+                if (formEl) {
+                    formEl.addEventListener('submit', function () {
+                        var cijenaInput = document.getElementById('Cijena');
+                        if (cijenaInput && cijenaInput.value.indexOf(',') !== -1) {
+                            cijenaInput.value = cijenaInput.value.replace(',', '.');
+                        }
+                    });
+                }
+            }
+        })();
+    </script>
+}

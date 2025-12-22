@@ -11,6 +11,7 @@ namespace Modeli.Controllers
         }
 
         [HttpPost]
+
         public IActionResult PrikaziOsobu(Osoba osoba)
         {
             return View(osoba);
