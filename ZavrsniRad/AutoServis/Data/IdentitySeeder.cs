@@ -6,8 +6,11 @@ namespace AutoServis.Data
     {
         public static async Task SeedRolesAsync(IServiceProvider serviceProvider)
         {
+            if (serviceProvider == null) throw new ArgumentNullException(nameof(serviceProvider));
+
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
             string[] roleNames = { "Admin", "Customer" };
             foreach (var roleName in roleNames)
             {
@@ -30,15 +33,18 @@ namespace AutoServis.Data
                     Email = adminEmail,
                     EmailConfirmed = true
                 };
+
                 var createAdminUser = await userManager.CreateAsync(newAdminUser, adminPassword);
                 if (createAdminUser.Succeeded)
                 {
                     await userManager.AddToRoleAsync(newAdminUser, "Admin");
+                    adminUser = newAdminUser;
                 }
             }
-            if (!await userManager.IsInRoleAsync(adminUser!, "Admin"))
+
+            if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
             {
-                await userManager.AddToRoleAsync(adminUser!, "Admin");
+                await userManager.AddToRoleAsync(adminUser, "Admin");
             }
         }
     }
