@@ -34,7 +34,7 @@ namespace AutoServis.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (ScheduledDate < DateTime.UtcNow)
+            if (ScheduledDate < DateTime.Now)
             {
                 yield return new ValidationResult(
                     "Datum i vrijeme termina ne smiju biti u prošlosti.",

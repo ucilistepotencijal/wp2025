@@ -26,6 +26,7 @@ namespace AutoServis.Models
         [RegularExpression(@"^[A-HJ-NPR-Z0-9]+$", ErrorMessage = "VIN mora sadržavati samo slova (osim I, O, Q) i brojeve.")]
         [StringLength(17, MinimumLength = 11, ErrorMessage = "VIN mora imati između 11 i 17 znakova.")]
         public string? Vin { get; set; }
+        [Required(ErrorMessage = "Vlasnik vozila je obavezan.")]
         public string UserId { get; set; } = string.Empty;
         public IdentityUser? User { get; set; }
     }
