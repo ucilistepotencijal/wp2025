@@ -13,7 +13,9 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 
@@ -25,14 +27,15 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 
+// Authentication must come before Authorization
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -46,10 +49,11 @@ app.MapControllerRoute(
 app.MapRazorPages()
    .WithStaticAssets();
 
-IdentitySeeder.SeedRolesAsync(app.Services).Wait();
-
-using(var scope = app.Services.CreateScope())
+// Seed roles in a scope and await the async call
+using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    await IdentitySeeder.SeedAdminUserAsync(services);
+    await IdentitySeeder.SeedRolesAsync(services);
 }
+
+app.Run();
