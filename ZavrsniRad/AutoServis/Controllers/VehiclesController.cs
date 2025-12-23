@@ -64,9 +64,10 @@ namespace AutoServis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Make,Model,Year,LicensePlate,Vin")] Vehicle vehicle)
         {
+            vehicle.UserId = _userManager.GetUserId(User);
+            vehicle.User = await _userManager.GetUserAsync(User);
             if (ModelState.IsValid)
-            {
-                vehicle.UserId = _userManager.GetUserId(User);
+            {                
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

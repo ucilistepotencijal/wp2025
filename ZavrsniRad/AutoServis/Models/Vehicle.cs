@@ -35,7 +35,6 @@ namespace AutoServis.Models
         public string? Vin { get; set; }
 
         [Display(Name = "Vlasnik vozila")]
-        [Required(ErrorMessage = "Vlasnik vozila je obavezan.")]
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]

@@ -13,8 +13,6 @@ namespace AutoServis.Models
         public int ServiceTypeId { get; set; }
         public ServiceType? ServiceType { get; set; }
         [Display(Name = "Kupac")]
-
-        [Required(ErrorMessage = "Kupac je obavezan.")]
         public string UserId { get; set; } = string.Empty;
         public IdentityUser? User { get; set; }
         [Display(Name = "Vozilo")]
