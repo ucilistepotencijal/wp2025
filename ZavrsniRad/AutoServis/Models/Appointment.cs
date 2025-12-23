@@ -1,32 +1,54 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Identity;
 
 namespace AutoServis.Models
 {
-    public class Appointment: IValidatableObject
+    public class Appointment : IValidatableObject
     {
         public int Id { get; set; }
 
+        [Display(Name = "Vrsta usluge")]
+
         [Required(ErrorMessage = "Vrsta usluge je obavezna.")]
         public int ServiceTypeId { get; set; }
-        public ServiceType ServiceType { get; set; }
+        public ServiceType? ServiceType { get; set; }
+        [Display(Name = "Kupac")]
+        public string UserId { get; set; } = string.Empty;
+        public IdentityUser? User { get; set; }
+        [Display(Name = "Vozilo")]
 
-        [Required(ErrorMessage = "Kupac je obavezan.")]
-        public int CustomerId { get; set; }
-        public IdentityUser Customer { get; set; }
         [Required(ErrorMessage = "Vozilo je obavezno.")]
         public int VehicleId { get; set; }
-        public Vehicle Vehicle { get; set; }
+        public Vehicle? Vehicle { get; set; }
+        [Display(Name = "Datum i vrijeme termina")]
+
         [Required(ErrorMessage = "Unesi datum i vrijeme termina.")]
+        [DataType(DataType.DateTime)]
         public DateTime ScheduledDate { get; set; }
+
+        [Display(Name = "Status termina")]
         [Required]
         public AppointmentStatus Status { get; set; }
+
+        [Display(Name = "Napomene")]
         public string? Notes { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
+        [Display(Name = "Datum i vrijeme kreiranja termina")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (ScheduledDate < DateTime.UtcNow)
+            // Reject unset/default dates
+            if (ScheduledDate == default || ScheduledDate == DateTime.MinValue)
+            {
+                yield return new ValidationResult(
+                    "Datum i vrijeme termina nisu ispravno postavljeni.",
+                    new[] { nameof(ScheduledDate) });
+                yield break;
+            }
+
+            // Compare using UTC to match CreatedAt
+            if (ScheduledDate < DateTime.Now)
             {
                 yield return new ValidationResult(
                     "Datum i vrijeme termina ne smiju biti u prošlosti.",
