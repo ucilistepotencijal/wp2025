@@ -1,42 +1,77 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
-public static class IdentitySeeder
+namespace AutoServis.Data
 {
-    public static async Task SeedRolesAsync(IServiceProvider serviceProvider)
+    public static class IdentitySeeder
     {
-        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-        string[] roleNames = { "Admin", "Customer" };
-        foreach (var roleName in roleNames)
+        public static async Task SeedRolesAsync(IServiceProvider serviceProvider)
         {
-            var roleExist = await roleManager.RoleExistsAsync(roleName);
-            if (!roleExist)
+            if (serviceProvider == null)
             {
-                await roleManager.CreateAsync(new IdentityRole(roleName));
+                throw new ArgumentNullException(nameof(serviceProvider));
             }
-        }
 
-        const string adminEmail = "merisumic@gmail.com";
-        const string adminPassword = "Admin123!";
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var adminUser = await userManager.FindByEmailAsync(adminEmail);
-        if (adminUser == null)
-        {
-            var newAdminUser = new IdentityUser
+            string[] roleNames = { "Admin", "Customer" };
+
+            foreach (var roleName in roleNames)
             {
-                UserName = adminEmail,
-                Email = adminEmail,
-                EmailConfirmed = true
-            };
-            var createAdminUser = await userManager.CreateAsync(newAdminUser, adminPassword);
-            if (createAdminUser.Succeeded)
-            {
-                await userManager.AddToRoleAsync(newAdminUser, "Admin");
+                var roleExist = await roleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    var createRoleResult = await roleManager.CreateAsync(new IdentityRole(roleName));
+                    if (!createRoleResult.Succeeded)
+                    {
+                        var errors = string.Join("; ", createRoleResult.Errors.Select(e => e.Description));
+                        throw new InvalidOperationException($"Failed to create role '{roleName}': {errors}");
+                    }
+                }
             }
-        }
-        else if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
-        {
-            await userManager.AddToRoleAsync(adminUser, "Admin");
+
+            const string adminEmail = "merisumic@gmail.com";
+            const string adminPassword = "Admin123!";
+
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
+            {
+                var newAdminUser = new IdentityUser
+                {
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    EmailConfirmed = true
+                };
+
+                var createAdminUser = await userManager.CreateAsync(newAdminUser, adminPassword);
+                if (createAdminUser.Succeeded)
+                {
+                    var addToRoleResult = await userManager.AddToRoleAsync(newAdminUser, "Admin");
+                    if (!addToRoleResult.Succeeded)
+                    {
+                        var errors = string.Join("; ", addToRoleResult.Errors.Select(e => e.Description));
+                        throw new InvalidOperationException($"Failed to assign 'Admin' role to new admin user: {errors}");
+                    }
+                }
+                else
+                {
+                    var errors = string.Join("; ", createAdminUser.Errors.Select(e => e.Description));
+                    throw new InvalidOperationException($"Failed to create admin user: {errors}");
+                }
+            }
+            else if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
+            {
+                var addToRoleResult = await userManager.AddToRoleAsync(adminUser, "Admin");
+                if (!addToRoleResult.Succeeded)
+                {
+                    var errors = string.Join("; ", addToRoleResult.Errors.Select(e => e.Description));
+                    throw new InvalidOperationException($"Failed to assign 'Admin' role to existing user '{adminEmail}': {errors}");
+                }
+            }
         }
     }
 }

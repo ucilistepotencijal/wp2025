@@ -30,10 +30,11 @@ else
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapStaticAssets();
 
@@ -47,4 +48,8 @@ app.MapRazorPages()
 
 IdentitySeeder.SeedRolesAsync(app.Services).Wait();
 
-app.Run();
+using(var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    await IdentitySeeder.SeedAdminUserAsync(services);
+}
