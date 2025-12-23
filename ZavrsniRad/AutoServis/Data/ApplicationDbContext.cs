@@ -95,15 +95,15 @@ namespace AutoServis.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Models.Appointment>()
-                .HasOne(a => a.Customer)
+                .HasOne(a => a.User)
                 .WithMany()
-                .HasForeignKey(a => a.CustomerId)
+                .HasForeignKey(a => a.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.Entity<Models.Vehicle>()
-                .HasOne(v => v.Customer)
+                .HasOne(v => v.User)
                 .WithMany()
-                .HasForeignKey(v => v.CustomerId)
+                .HasForeignKey(v => v.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

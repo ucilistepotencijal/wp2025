@@ -7,21 +7,29 @@ namespace AutoServis.Models
     {
         public int Id { get; set; }
 
+
         [Required(ErrorMessage = "Vrsta usluge je obavezna.")]
         public int ServiceTypeId { get; set; }
-        public ServiceType ServiceType { get; set; }
+        public ServiceType? ServiceType { get; set; }
+
 
         [Required(ErrorMessage = "Kupac je obavezan.")]
-        public int CustomerId { get; set; }
-        public IdentityUser Customer { get; set; }
+        public string UserId { get; set; } = string.Empty;
+        public IdentityUser? User { get; set; }
+
+
         [Required(ErrorMessage = "Vozilo je obavezno.")]
         public int VehicleId { get; set; }
-        public Vehicle Vehicle { get; set; }
+        public Vehicle? Vehicle { get; set; }
+
         [Required(ErrorMessage = "Unesi datum i vrijeme termina.")]
         public DateTime ScheduledDate { get; set; }
+
         [Required]
         public AppointmentStatus Status { get; set; }
+
         public string? Notes { get; set; }
+
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
