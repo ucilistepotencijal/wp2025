@@ -9,23 +9,23 @@ namespace AutoServis.Data
         {
         }
 
-        public DbSet<AutoServis.Models.ServiceType> ServiceTypes { get; set; }
-        public DbSet<AutoServis.Models.Appointment> Appointments { get; set; }
-        public DbSet<AutoServis.Models.Vehicle> Vehicles { get; set; }
+        public DbSet<Models.ServiceType> ServiceTypes { get; set; }
+        public DbSet<Models.Appointment> Appointments { get; set; }
+        public DbSet<Models.Vehicle> Vehicles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<AutoServis.Models.ServiceType>()
+            builder.Entity<Models.ServiceType>()
                 .Property(st => st.Price)
                 .HasColumnType("decimal(10,2)");
 
-            builder.Entity<AutoServis.Models.ServiceType>()
+            builder.Entity<Models.ServiceType>()
                 .HasIndex(st => st.Name)
                 .IsUnique();
 
-            builder.Entity<AutoServis.Models.ServiceType>().HasData(
+            builder.Entity<Models.ServiceType>().HasData(
                 new Models.ServiceType
                 {
                     Id = 1,
@@ -82,25 +82,25 @@ namespace AutoServis.Data
                 }
             );
 
-            builder.Entity<AutoServis.Models.Appointment>()
+            builder.Entity<Models.Appointment>()
                 .HasOne(a => a.ServiceType)
                 .WithMany()
                 .HasForeignKey(a => a.ServiceTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<AutoServis.Models.Appointment>()
+            builder.Entity<Models.Appointment>()
                 .HasOne(a => a.Vehicle)
                 .WithMany()
                 .HasForeignKey(a => a.VehicleId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<AutoServis.Models.Appointment>()
+            builder.Entity<Models.Appointment>()
                 .HasOne(a => a.Customer)
                 .WithMany()
                 .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<AutoServis.Models.Vehicle>()
+            builder.Entity<Models.Vehicle>()
                 .HasOne(v => v.Customer)
                 .WithMany()
                 .HasForeignKey(v => v.CustomerId)
