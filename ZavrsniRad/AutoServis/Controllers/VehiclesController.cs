@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AutoServis.Data;
 using AutoServis.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace AutoServis.Controllers
 {
@@ -28,12 +22,14 @@ namespace AutoServis.Controllers
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Vehicles.Include(v => v.User);
             var userId = _userManager.GetUserId(User);
-            var vehicles = _context.Vehicles.Where(v => v.UserId == userId).Include(v => v.User).ToListAsync();
-            return View(await vehicles);
-        }
+            var vehicles = await _context.Vehicles
+                .Where(v => v.UserId == userId)
+                .Include(v => v.User)
+                .ToListAsync();
 
+            return View(vehicles);
+        }
 
         // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -43,9 +39,11 @@ namespace AutoServis.Controllers
                 return NotFound();
             }
 
+            var userId = _userManager.GetUserId(User);
             var vehicle = await _context.Vehicles
                 .Include(v => v.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == userId);
+
             if (vehicle == null)
             {
                 return NotFound();
@@ -57,24 +55,23 @@ namespace AutoServis.Controllers
         // GET: Vehicles/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
         // POST: Vehicles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // To protect from overposting attacks, bind only the editable properties (exclude UserId).
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Make,Model,Year,LicensePlate,Vin,UserId")] Vehicle vehicle)
+        public async Task<IActionResult> Create([Bind("Id,Make,Model,Year,LicensePlate,Vin")] Vehicle vehicle)
         {
             if (ModelState.IsValid)
             {
+                vehicle.UserId = _userManager.GetUserId(User);
                 _context.Add(vehicle);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
+
             return View(vehicle);
         }
 
@@ -86,49 +83,62 @@ namespace AutoServis.Controllers
                 return NotFound();
             }
 
+            var userId = _userManager.GetUserId(User);
             var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null)
+
+            if (vehicle == null || vehicle.UserId != userId)
             {
                 return NotFound();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
+
             return View(vehicle);
         }
 
         // POST: Vehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Bind only editable fields to avoid overposting (exclude UserId).
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Make,Model,Year,LicensePlate,Vin,UserId")] Vehicle vehicle)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Make,Model,Year,LicensePlate,Vin")] Vehicle input)
         {
-            if (id != vehicle.Id)
+            if (id != input.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(vehicle);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VehicleExists(vehicle.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                return View(input);
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", vehicle.UserId);
-            return View(vehicle);
+
+            var userId = _userManager.GetUserId(User);
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id && v.UserId == userId);
+            if (vehicle == null)
+            {
+                return NotFound();
+            }
+
+            // update allowed fields only
+            vehicle.Make = input.Make;
+            vehicle.Model = input.Model;
+            vehicle.Year = input.Year;
+            vehicle.LicensePlate = input.LicensePlate;
+            vehicle.Vin = input.Vin;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!VehicleExists(vehicle.Id))
+                {
+                    return NotFound();
+                }
+
+                throw;
+            }
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Vehicles/Delete/5
@@ -139,9 +149,11 @@ namespace AutoServis.Controllers
                 return NotFound();
             }
 
+            var userId = _userManager.GetUserId(User);
             var vehicle = await _context.Vehicles
                 .Include(v => v.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == userId);
+
             if (vehicle == null)
             {
                 return NotFound();
@@ -155,12 +167,15 @@ namespace AutoServis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle != null)
+            var userId = _userManager.GetUserId(User);
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id && v.UserId == userId);
+
+            if (vehicle == null)
             {
-                _context.Vehicles.Remove(vehicle);
+                return NotFound();
             }
 
+            _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
