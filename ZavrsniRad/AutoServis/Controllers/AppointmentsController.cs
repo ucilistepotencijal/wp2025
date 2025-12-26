@@ -1,10 +1,10 @@
 ﻿using System.Security.Claims;
+using AutoServis.Data;
+using AutoServis.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using AutoServis.Data;
-using AutoServis.Models;
 
 namespace AutoServis.Controllers
 {
@@ -18,14 +18,58 @@ namespace AutoServis.Controllers
             _context = context;
         }
 
-        private string GetCurrentUserId()
-        {
-            return User.FindFirstValue(ClaimTypes.NameIdentifier);
-        }
+        private string CurrentUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier)!;
+        private bool IsAdmin() => User.IsInRole("Admin");
 
-        private bool IsElevatedUser()
+        private async Task PopulateDropdownsAsync(string? selectedUserId, int? selectedVehicleId, int? selectedServiceTypeId)
         {
-            return User.IsInRole("Admin");
+            // Service types (samo aktivni ako imaš IsActive, inače svi)
+            ViewData["ServiceTypeId"] = new SelectList(
+                await _context.ServiceTypes.OrderBy(s => s.Name).ToListAsync(),
+                "Id", "Name", selectedServiceTypeId
+            );
+
+            if (IsAdmin())
+            {
+                // Admin bira usera (prikaz email)
+                var users = await _context.Users
+                    .OrderBy(u => u.Email)
+                    .Select(u => new { u.Id, Text = (u.Email ?? u.UserName) })
+                    .ToListAsync();
+
+                ViewData["UserId"] = new SelectList(users, "Id", "Text", selectedUserId);
+
+                // Admin bira vozilo (prikaz registracija + vlasnik)
+                var vehicles = await _context.Vehicles
+                    .Include(v => v.User)
+                    .Where(v => v.IsActive)
+                    .OrderBy(v => v.LicensePlate)
+                    .Select(v => new
+                    {
+                        v.Id,
+                        Text = $"{v.LicensePlate} ({(v.User.Email ?? v.User.UserName)})",
+                        v.UserId
+                    })
+                    .ToListAsync();
+
+                ViewData["VehicleId"] = new SelectList(vehicles, "Id", "Text", selectedVehicleId);
+            }
+            else
+            {
+                var userId = CurrentUserId();
+
+                // User ne bira usera (ali dropdown i dalje postoji ako neki scaffold view očekuje)
+                ViewData["UserId"] = new SelectList(new[] { new { Id = userId, Text = "" } }, "Id", "Text", userId);
+
+                // User bira samo svoja aktivna vozila
+                var vehicles = await _context.Vehicles
+                    .Where(v => v.UserId == userId && v.IsActive)
+                    .OrderBy(v => v.LicensePlate)
+                    .Select(v => new { v.Id, Text = v.LicensePlate })
+                    .ToListAsync();
+
+                ViewData["VehicleId"] = new SelectList(vehicles, "Id", "Text", selectedVehicleId);
+            }
         }
 
         // GET: Appointments
@@ -37,13 +81,17 @@ namespace AutoServis.Controllers
                 .Include(a => a.Vehicle)
                 .AsQueryable();
 
-            if (!IsElevatedUser())
+            if (!IsAdmin())
             {
-                var currentUserId = GetCurrentUserId();
-                query = query.Where(a => a.UserId == currentUserId);
+                var uid = CurrentUserId();
+                query = query.Where(a => a.UserId == uid);
             }
 
-            return View(await query.ToListAsync());
+            var list = await query
+                .OrderByDescending(a => a.ScheduledDate)
+                .ToListAsync();
+
+            return View(list);
         }
 
         // GET: Appointments/Details/5
@@ -51,75 +99,84 @@ namespace AutoServis.Controllers
         {
             if (id == null) return NotFound();
 
-            var appointment = await _context.Appointments
+            var appt = await _context.Appointments
                 .Include(a => a.ServiceType)
                 .Include(a => a.User)
                 .Include(a => a.Vehicle)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (appointment == null) return NotFound();
+            if (appt == null) return NotFound();
 
-            if (!IsElevatedUser() && appointment.UserId != GetCurrentUserId())
-            {
+            if (!IsAdmin() && appt.UserId != CurrentUserId())
                 return Forbid();
-            }
 
-            return View(appointment);
+            return View(appt);
         }
 
         // GET: Appointments/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name");
+            var selectedUserId = IsAdmin() ? null : CurrentUserId();
+            await PopulateDropdownsAsync(selectedUserId, null, null);
 
-            if (IsElevatedUser())
+            // useru ne daj status/createdAt u formi
+            return View(new Appointment
             {
-                ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
-            }
-            else
-            {
-                var currentUserId = GetCurrentUserId();
-                ViewData["UserId"] = new SelectList(_context.Users.Where(u => u.Id == currentUserId), "Id", "Id", currentUserId);
-            }
-
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate");
-            return View();
+                ScheduledDate = DateTime.Now.AddDays(1),
+                Status = AppointmentStatus.Scheduled
+            });
         }
 
         // POST: Appointments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ServiceTypeId,UserId,VehicleId,ScheduledDate,Status,Notes")] Appointment appointment)
+        public async Task<IActionResult> Create([Bind("ServiceTypeId,UserId,VehicleId,ScheduledDate,Status,Notes")] Appointment input)
         {
-            if (!IsElevatedUser())
+            if (!IsAdmin())
             {
-                // Force the appointment to belong to the current user
-                appointment.UserId = GetCurrentUserId();
-            }
-
-            // Server-side defaults
-            appointment.CreatedAt = DateTime.UtcNow;
-
-            if (ModelState.IsValid)
-            {
-                _context.Add(appointment);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-
-            ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", appointment.ServiceTypeId);
-
-            if (IsElevatedUser())
-            {
-                ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", appointment.UserId);
+                // user: uvijek za sebe
+                input.UserId = CurrentUserId();
+                // user: status se ne bira
+                input.Status = AppointmentStatus.Scheduled;
             }
             else
             {
-                ViewData["UserId"] = new SelectList(_context.Users.Where(u => u.Id == appointment.UserId), "Id", "Id", appointment.UserId);
+                if (string.IsNullOrWhiteSpace(input.UserId))
+                    ModelState.AddModelError("UserId", "Korisnik je obavezan.");
             }
 
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate", appointment.VehicleId);
-            return View(appointment);
+            // Validacija vozila:
+            // - user ne smije birati tuđe vozilo
+            // - admin: vozilo mora odgovarati izabranom useru (da se ne “pomiješa”)
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == input.VehicleId);
+            if (vehicle == null || !vehicle.IsActive)
+            {
+                ModelState.AddModelError("VehicleId", "Odabrano vozilo nije valjano.");
+            }
+            else
+            {
+                if (!IsAdmin() && vehicle.UserId != input.UserId)
+                    ModelState.AddModelError("VehicleId", "Možete odabrati samo svoje vozilo.");
+
+                if (IsAdmin() && vehicle.UserId != input.UserId)
+                    ModelState.AddModelError("VehicleId", "Odabrano vozilo ne pripada odabranom korisniku.");
+            }
+
+            input.CreatedAt = DateTime.UtcNow;
+
+            if (!ModelState.IsValid)
+            {
+                await PopulateDropdownsAsync(
+                    IsAdmin() ? input.UserId : CurrentUserId(),
+                    input.VehicleId,
+                    input.ServiceTypeId
+                );
+                return View(input);
+            }
+
+            _context.Appointments.Add(input);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Appointments/Edit/5
@@ -127,85 +184,85 @@ namespace AutoServis.Controllers
         {
             if (id == null) return NotFound();
 
-            var appointment = await _context.Appointments.FindAsync(id);
-            if (appointment == null) return NotFound();
+            var appt = await _context.Appointments.FindAsync(id);
+            if (appt == null) return NotFound();
 
-            if (!IsElevatedUser() && appointment.UserId != GetCurrentUserId())
-            {
+            if (!IsAdmin() && appt.UserId != CurrentUserId())
                 return Forbid();
-            }
 
-            ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", appointment.ServiceTypeId);
+            await PopulateDropdownsAsync(
+                IsAdmin() ? appt.UserId : CurrentUserId(),
+                appt.VehicleId,
+                appt.ServiceTypeId
+            );
 
-            if (IsElevatedUser())
-            {
-                ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", appointment.UserId);
-            }
-            else
-            {
-                ViewData["UserId"] = new SelectList(_context.Users.Where(u => u.Id == appointment.UserId), "Id", "Id", appointment.UserId);
-            }
-
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate", appointment.VehicleId);
-            return View(appointment);
+            return View(appt);
         }
 
         // POST: Appointments/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceTypeId,VehicleId,ScheduledDate,Status,Notes")] Appointment input)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceTypeId,UserId,VehicleId,ScheduledDate,Status,Notes")] Appointment input)
         {
             if (id != input.Id) return NotFound();
 
-            var appointmentToUpdate = await _context.Appointments.FindAsync(id);
-            if (appointmentToUpdate == null) return NotFound();
+            var appt = await _context.Appointments.FindAsync(id);
+            if (appt == null) return NotFound();
 
-            if (!IsElevatedUser() && appointmentToUpdate.UserId != GetCurrentUserId())
-            {
+            if (!IsAdmin() && appt.UserId != CurrentUserId())
                 return Forbid();
-            }
 
-            // Update allowed fields only (prevent overposting of UserId and CreatedAt)
-            appointmentToUpdate.ServiceTypeId = input.ServiceTypeId;
-            appointmentToUpdate.VehicleId = input.VehicleId;
-            appointmentToUpdate.ScheduledDate = input.ScheduledDate;
-            appointmentToUpdate.Status = input.Status;
-            appointmentToUpdate.Notes = input.Notes;
-
-            if (ModelState.IsValid)
+            // User: ne smije mijenjati UserId ni Status
+            if (!IsAdmin())
             {
-                try
-                {
-                    _context.Update(appointmentToUpdate);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AppointmentExists(appointmentToUpdate.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-
-            ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", appointmentToUpdate.ServiceTypeId);
-
-            if (IsElevatedUser())
-            {
-                ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", appointmentToUpdate.UserId);
+                input.UserId = appt.UserId;
+                input.Status = appt.Status;
             }
             else
             {
-                ViewData["UserId"] = new SelectList(_context.Users.Where(u => u.Id == appointmentToUpdate.UserId), "Id", "Id", appointmentToUpdate.UserId);
+                if (string.IsNullOrWhiteSpace(input.UserId))
+                    ModelState.AddModelError("UserId", "Korisnik je obavezan.");
             }
 
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "LicensePlate", appointmentToUpdate.VehicleId);
-            return View(appointmentToUpdate);
+            // Validacija vozila (isto kao Create)
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == input.VehicleId);
+            if (vehicle == null || !vehicle.IsActive)
+            {
+                ModelState.AddModelError("VehicleId", "Odabrano vozilo nije valjano.");
+            }
+            else
+            {
+                if (!IsAdmin() && vehicle.UserId != input.UserId)
+                    ModelState.AddModelError("VehicleId", "Možete odabrati samo svoje vozilo.");
+
+                if (IsAdmin() && vehicle.UserId != input.UserId)
+                    ModelState.AddModelError("VehicleId", "Odabrano vozilo ne pripada odabranom korisniku.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                await PopulateDropdownsAsync(
+                    IsAdmin() ? input.UserId : CurrentUserId(),
+                    input.VehicleId,
+                    input.ServiceTypeId
+                );
+                return View(input);
+            }
+
+            // Update allowed fields
+            appt.ServiceTypeId = input.ServiceTypeId;
+            appt.VehicleId = input.VehicleId;
+            appt.ScheduledDate = input.ScheduledDate;
+            appt.Notes = input.Notes;
+
+            if (IsAdmin())
+            {
+                appt.UserId = input.UserId;
+                appt.Status = input.Status;
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Appointments/Delete/5
@@ -213,20 +270,18 @@ namespace AutoServis.Controllers
         {
             if (id == null) return NotFound();
 
-            var appointment = await _context.Appointments
+            var appt = await _context.Appointments
                 .Include(a => a.ServiceType)
                 .Include(a => a.User)
                 .Include(a => a.Vehicle)
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(a => a.Id == id);
 
-            if (appointment == null) return NotFound();
+            if (appt == null) return NotFound();
 
-            if (!IsElevatedUser() && appointment.UserId != GetCurrentUserId())
-            {
+            if (!IsAdmin() && appt.UserId != CurrentUserId())
                 return Forbid();
-            }
 
-            return View(appointment);
+            return View(appt);
         }
 
         // POST: Appointments/Delete/5
@@ -234,22 +289,15 @@ namespace AutoServis.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var appointment = await _context.Appointments.FindAsync(id);
-            if (appointment == null) return NotFound();
+            var appt = await _context.Appointments.FindAsync(id);
+            if (appt == null) return NotFound();
 
-            if (!IsElevatedUser() && appointment.UserId != GetCurrentUserId())
-            {
+            if (!IsAdmin() && appt.UserId != CurrentUserId())
                 return Forbid();
-            }
 
-            _context.Appointments.Remove(appointment);
+            _context.Appointments.Remove(appt);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AppointmentExists(int id)
-        {
-            return _context.Appointments.Any(e => e.Id == id);
         }
     }
 }
