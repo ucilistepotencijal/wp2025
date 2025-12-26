@@ -39,5 +39,8 @@ namespace AutoServis.Models
 
         [ForeignKey(nameof(UserId))]
         public IdentityUser? User { get; set; }
+
+        [Display(Name = "Aktivno")]
+        public bool IsActive { get; set; } = true;
     }
 }

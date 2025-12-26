@@ -1,7 +1,8 @@
 ﻿@model AutoServis.Models.Vehicle
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodavanje vozila";
+    var isAdmin = User.IsInRole("Admin");
 }
 
 <h1>Dodavanje</h1>
@@ -42,6 +43,20 @@
                 <input asp-for="Vin" class="form-control" />
                 <span asp-validation-for="Vin" class="text-danger"></span>
             </div>
+
+            @if (isAdmin)
+            {
+                <div class="mb-3">
+                    <label asp-for="UserId" class="form-label">Vlasnik (korisnik)</label>
+                    <select asp-for="UserId" class="form-select" asp-items='@(ViewData["UserId"] as SelectList)'></select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+
+                <div class="form-check mb-3">
+                    <input class="form-check-input" asp-for="IsActive" />
+                    <label class="form-check-label" asp-for="IsActive">Aktivno</label>
+                </div>
+            }
 
             <button type="submit" class="btn btn-primary">Dodaj</button>
             <a asp-action="Index" class="btn btn-secondary">Natrag na popis</a>
