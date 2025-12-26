@@ -23,7 +23,6 @@ namespace AutoServis.Controllers
 
         private async Task PopulateDropdownsAsync(string? selectedUserId, int? selectedVehicleId, int? selectedServiceTypeId)
         {
-            // Service types (samo aktivni ako imaš IsActive, inače svi)
             ViewData["ServiceTypeId"] = new SelectList(
                 await _context.ServiceTypes.OrderBy(s => s.Name).ToListAsync(),
                 "Id", "Name", selectedServiceTypeId
@@ -31,7 +30,6 @@ namespace AutoServis.Controllers
 
             if (IsAdmin())
             {
-                // Admin bira usera (prikaz email)
                 var users = await _context.Users
                     .OrderBy(u => u.Email)
                     .Select(u => new { u.Id, Text = (u.Email ?? u.UserName) })
@@ -39,7 +37,6 @@ namespace AutoServis.Controllers
 
                 ViewData["UserId"] = new SelectList(users, "Id", "Text", selectedUserId);
 
-                // Admin bira vozilo (prikaz registracija + vlasnik)
                 var vehicles = await _context.Vehicles
                     .Include(v => v.User)
                     .Where(v => v.IsActive)
@@ -58,10 +55,8 @@ namespace AutoServis.Controllers
             {
                 var userId = CurrentUserId();
 
-                // User ne bira usera (ali dropdown i dalje postoji ako neki scaffold view očekuje)
                 ViewData["UserId"] = new SelectList(new[] { new { Id = userId, Text = "" } }, "Id", "Text", userId);
 
-                // User bira samo svoja aktivna vozila
                 var vehicles = await _context.Vehicles
                     .Where(v => v.UserId == userId && v.IsActive)
                     .OrderBy(v => v.LicensePlate)
@@ -72,7 +67,6 @@ namespace AutoServis.Controllers
             }
         }
 
-        // GET: Appointments
         public async Task<IActionResult> Index()
         {
             var query = _context.Appointments
@@ -94,7 +88,6 @@ namespace AutoServis.Controllers
             return View(list);
         }
 
-        // GET: Appointments/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
@@ -113,13 +106,11 @@ namespace AutoServis.Controllers
             return View(appt);
         }
 
-        // GET: Appointments/Create
         public async Task<IActionResult> Create()
         {
             var selectedUserId = IsAdmin() ? null : CurrentUserId();
             await PopulateDropdownsAsync(selectedUserId, null, null);
 
-            // useru ne daj status/createdAt u formi
             return View(new Appointment
             {
                 ScheduledDate = DateTime.Now.AddDays(1),
@@ -127,17 +118,19 @@ namespace AutoServis.Controllers
             });
         }
 
-        // POST: Appointments/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ServiceTypeId,UserId,VehicleId,ScheduledDate,Status,Notes")] Appointment input)
-        {
+        {          
             if (!IsAdmin())
             {
-                // user: uvijek za sebe
                 input.UserId = CurrentUserId();
-                // user: status se ne bira
                 input.Status = AppointmentStatus.Scheduled;
+
+                ModelState.Remove(nameof(input.UserId));
+                ModelState.Remove("UserId");
+                ModelState.Remove(nameof(input.Status));
+                ModelState.Remove("Status");
             }
             else
             {
@@ -145,9 +138,6 @@ namespace AutoServis.Controllers
                     ModelState.AddModelError("UserId", "Korisnik je obavezan.");
             }
 
-            // Validacija vozila:
-            // - user ne smije birati tuđe vozilo
-            // - admin: vozilo mora odgovarati izabranom useru (da se ne “pomiješa”)
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == input.VehicleId);
             if (vehicle == null || !vehicle.IsActive)
             {
@@ -155,6 +145,10 @@ namespace AutoServis.Controllers
             }
             else
             {
+                input.Vehicle = vehicle;
+                ModelState.Remove(nameof(input.Vehicle));
+                ModelState.Remove("Vehicle");
+
                 if (!IsAdmin() && vehicle.UserId != input.UserId)
                     ModelState.AddModelError("VehicleId", "Možete odabrati samo svoje vozilo.");
 
@@ -162,7 +156,21 @@ namespace AutoServis.Controllers
                     ModelState.AddModelError("VehicleId", "Odabrano vozilo ne pripada odabranom korisniku.");
             }
 
+            var serviceType = await _context.ServiceTypes.FirstOrDefaultAsync(s => s.Id == input.ServiceTypeId);
+            if (serviceType == null)
+            {
+                ModelState.AddModelError("ServiceTypeId", "Odabrana usluga nije valjana.");
+            }
+            else
+            {
+                input.ServiceType = serviceType;
+                ModelState.Remove(nameof(input.ServiceType));
+                ModelState.Remove("ServiceType");
+            }
+
             input.CreatedAt = DateTime.UtcNow;
+            ModelState.Remove(nameof(input.CreatedAt));
+            ModelState.Remove("CreatedAt");
 
             if (!ModelState.IsValid)
             {
@@ -179,7 +187,6 @@ namespace AutoServis.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Appointments/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -199,7 +206,6 @@ namespace AutoServis.Controllers
             return View(appt);
         }
 
-        // POST: Appointments/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ServiceTypeId,UserId,VehicleId,ScheduledDate,Status,Notes")] Appointment input)
@@ -212,11 +218,15 @@ namespace AutoServis.Controllers
             if (!IsAdmin() && appt.UserId != CurrentUserId())
                 return Forbid();
 
-            // User: ne smije mijenjati UserId ni Status
             if (!IsAdmin())
             {
                 input.UserId = appt.UserId;
                 input.Status = appt.Status;
+
+                ModelState.Remove(nameof(input.UserId));
+                ModelState.Remove("UserId");
+                ModelState.Remove(nameof(input.Status));
+                ModelState.Remove("Status");
             }
             else
             {
@@ -224,7 +234,6 @@ namespace AutoServis.Controllers
                     ModelState.AddModelError("UserId", "Korisnik je obavezan.");
             }
 
-            // Validacija vozila (isto kao Create)
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == input.VehicleId);
             if (vehicle == null || !vehicle.IsActive)
             {
@@ -232,11 +241,27 @@ namespace AutoServis.Controllers
             }
             else
             {
+                input.Vehicle = vehicle;
+                ModelState.Remove(nameof(input.Vehicle));
+                ModelState.Remove("Vehicle");
+
                 if (!IsAdmin() && vehicle.UserId != input.UserId)
                     ModelState.AddModelError("VehicleId", "Možete odabrati samo svoje vozilo.");
 
                 if (IsAdmin() && vehicle.UserId != input.UserId)
                     ModelState.AddModelError("VehicleId", "Odabrano vozilo ne pripada odabranom korisniku.");
+            }
+
+            var serviceType = await _context.ServiceTypes.FirstOrDefaultAsync(s => s.Id == input.ServiceTypeId);
+            if (serviceType == null)
+            {
+                ModelState.AddModelError("ServiceTypeId", "Odabrana usluga nije valjana.");
+            }
+            else
+            {
+                input.ServiceType = serviceType;
+                ModelState.Remove(nameof(input.ServiceType));
+                ModelState.Remove("ServiceType");
             }
 
             if (!ModelState.IsValid)
@@ -249,7 +274,6 @@ namespace AutoServis.Controllers
                 return View(input);
             }
 
-            // Update allowed fields
             appt.ServiceTypeId = input.ServiceTypeId;
             appt.VehicleId = input.VehicleId;
             appt.ScheduledDate = input.ScheduledDate;
@@ -265,7 +289,6 @@ namespace AutoServis.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Appointments/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -284,7 +307,6 @@ namespace AutoServis.Controllers
             return View(appt);
         }
 
-        // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
