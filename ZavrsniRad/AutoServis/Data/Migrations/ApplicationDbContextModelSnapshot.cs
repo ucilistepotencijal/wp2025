@@ -162,6 +162,9 @@ namespace AutoServis.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LicensePlate")
                         .IsRequired()
                         .HasMaxLength(15)

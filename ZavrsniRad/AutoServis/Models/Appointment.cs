@@ -7,33 +7,38 @@ namespace AutoServis.Models
     {
         public int Id { get; set; }
 
-        [Display(Name = "Vrsta usluge")]
-
-        [Required(ErrorMessage = "Vrsta usluge je obavezna.")]
+        
         public int ServiceTypeId { get; set; }
-        public ServiceType? ServiceType { get; set; }
-        [Display(Name = "Kupac")]
-        public string UserId { get; set; } = string.Empty;
-        public IdentityUser? User { get; set; }
-        [Display(Name = "Vozilo")]
 
-        [Required(ErrorMessage = "Vozilo je obavezno.")]
+        [Display(Name = "Usluga")]
+        [Required(ErrorMessage = "Odaberute uslugu.")]
+
+        public ServiceType? ServiceType { get; set; }
+        
+        public string UserId { get; set; } = string.Empty;
+
+        [Display(Name = "Kupac")]
+        public IdentityUser? User { get; set; }
+
         public int VehicleId { get; set; }
+        [Display(Name = "Vozilo")]
+        [Required(ErrorMessage = "Vozilo je obavezno.")]
+
         public Vehicle? Vehicle { get; set; }
-        [Display(Name = "Datum i vrijeme termina")]
+        [Display(Name = "Datum i vrijeme")]
 
         [Required(ErrorMessage = "Unesi datum i vrijeme termina.")]
         [DataType(DataType.DateTime)]
         public DateTime ScheduledDate { get; set; }
 
-        [Display(Name = "Status termina")]
+        [Display(Name = "Status")]
         [Required]
         public AppointmentStatus Status { get; set; }
 
-        [Display(Name = "Napomene")]
+        [Display(Name = "Napomena")]
         public string? Notes { get; set; }
 
-        [Display(Name = "Datum i vrijeme kreiranja termina")]
+        [Display(Name = "Datum i vrijeme kreiranja")]
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
