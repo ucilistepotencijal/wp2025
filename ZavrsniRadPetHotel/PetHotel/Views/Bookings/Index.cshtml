@@ -1,0 +1,53 @@
+﻿@model IEnumerable<PetHotel.Models.Booking>
+
+@{
+    ViewData["Title"] = "Rezervacije";
+}
+
+<h1 class="mb-4">📅 Pregled rezervacija</h1>
+
+<table class="table table-hover align-middle shadow-sm rounded bg-white">
+    <thead class="table-light">
+        <tr>
+            <th>Pas</th>
+            <th>Termin (Dolazak - Odlazak)</th>
+            <th>Usluga</th>
+            <th>Status</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="fw-bold">@item.Pet?.Name</td>
+                <td>@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()</td>
+                <td>@item.ServiceType?.Name</td>
+                <td>
+                    @switch (item.Status)
+                    {
+                        case BookingStatus.Scheduled:
+                            <span class="badge rounded-pill bg-primary">Zakazano</span>
+                            break;
+                        case BookingStatus.InProgress:
+                            <span class="badge rounded-pill bg-warning text-dark">U hotelu 🐕</span>
+                            break;
+                        case BookingStatus.Completed:
+                            <span class="badge rounded-pill bg-success">Završeno</span>
+                            break;
+                        case BookingStatus.Cancelled:
+                            <span class="badge rounded-pill bg-danger">Otkazano</span>
+                            break;
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light border">Pregled</a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Status</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
