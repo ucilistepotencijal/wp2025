@@ -79,17 +79,17 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        // 1. Pokušaj seedanja uloga (Admin, Korisnik) - asinkrono
+        // 1. Pokuï¿½aj seedanja uloga (Admin, Korisnik) - asinkrono
         await IdentitySeeder.SeedRolesAsync(services);
 
-        // 2. Pokušaj seedanja tvojih usluga (No?enje, Kupanje...) - sinkrono
+        // 2. Pokuï¿½aj seedanja tvojih usluga (No?enje, Kupanje...) - sinkrono
         SeedData.Initialize(services);
     }
     catch (Exception ex)
     {
-        // Ispis greške u Output prozor ako nešto po?e po zlu
+        // Ispis greï¿½ke u Output prozor ako neï¿½to po?e po zlu
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "Dogodila se greška prilikom inicijalizacije baze podataka.");
+        logger.LogError(ex, "Dogodila se greï¿½ka prilikom inicijalizacije baze podataka.");
     }
 }
 

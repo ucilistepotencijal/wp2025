@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims; // Dodano za prepoznavanje korisnika
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,24 +25,43 @@ namespace PetHotel.Controllers
         // GET: Pets
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Pets.Include(p => p.User);
-            return View(await applicationDbContext.ToListAsync());
+            // Dohvaćamo ID trenutno prijavljenog korisnika
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            IQueryable<Pet> petsQuery;
+
+            // Ako želiš da Admin vidi sve, a ostali samo svoje:
+            if (User.IsInRole("Admin"))
+            {
+                petsQuery = _context.Pets.Include(p => p.User);
+            }
+            else
+            {
+                // Običan korisnik vidi samo svoje ljubimce
+                petsQuery = _context.Pets
+                    .Where(p => p.UserId == currentUserId)
+                    .Include(p => p.User);
+            }
+
+            return View(await petsQuery.ToListAsync());
         }
 
         // GET: Pets/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var pet = await _context.Pets
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pet == null)
+
+            if (pet == null) return NotFound();
+
+            // Sigurnosna provjera: Ne dopusti korisniku da gleda tuđeg ljubimca preko linka
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
-                return NotFound();
+                return Forbid();
             }
 
             return View(pet);
@@ -50,14 +70,12 @@ namespace PetHotel.Controllers
         // GET: Pets/Create
         public IActionResult Create()
         {
-            // Zamijeni "Id" s "Email" (ili "UserName") na kraju ove linije:
+            // Prikazujemo Email umjesto ID-a u padajućem izborniku
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
         // POST: Pets/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Breed,Size,BirthYear,MicrochipNumber,IsSocialized,PersonalNotes,IsActive,UserId")] Pet pet)
@@ -68,38 +86,35 @@ namespace PetHotel.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", pet.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", pet.UserId);
             return View(pet);
         }
 
         // GET: Pets/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var pet = await _context.Pets.FindAsync(id);
-            if (pet == null)
+            if (pet == null) return NotFound();
+
+            // Sigurnosna provjera za Edit
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
-                return NotFound();
+                return Forbid();
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", pet.UserId);
+
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", pet.UserId);
             return View(pet);
         }
 
         // POST: Pets/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Breed,Size,BirthYear,MicrochipNumber,IsSocialized,PersonalNotes,IsActive,UserId")] Pet pet)
         {
-            if (id != pet.Id)
-            {
-                return NotFound();
-            }
+            if (id != pet.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -110,35 +125,31 @@ namespace PetHotel.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PetExists(pet.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!PetExists(pet.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", pet.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", pet.UserId);
             return View(pet);
         }
 
         // GET: Pets/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var pet = await _context.Pets
                 .Include(p => p.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (pet == null)
+
+            if (pet == null) return NotFound();
+
+            // Sigurnosna provjera za Delete
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
-                return NotFound();
+                return Forbid();
             }
 
             return View(pet);
