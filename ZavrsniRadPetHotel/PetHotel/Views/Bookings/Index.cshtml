@@ -1,56 +1,73 @@
-﻿<div class="container mt-4">
+﻿@model IEnumerable<PetHotel.Models.Booking>
+
+@{
+    ViewData["Title"] = "Popis rezervacija";
+}
+
+<div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold text-dark">Popis rezervacija</h2>
+        <h1 class="text-primary fw-bold">📅 Popis rezervacija</h1>
         <a asp-action="Create" class="btn btn-primary shadow-sm">
-            <i class="fas fa-calendar-plus me-2"></i> Nova rezervacija
+            + Nova rezervacija
         </a>
     </div>
 
-    <div class="table-responsive">
-        <table class="table table-sapotel">
-            <thead>
-                <tr>
-                    <th>Ljubimac</th>
-                    <th>Datum dolaska</th>
-                    <th>Datum odlaska</th>
-                    <th>Usluga</th>
-                    <th>Napomena</th>
-                    <th class="text-center">Akcije</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td class="fw-bold">
-                            <i class="fas fa-paw text-primary me-2"></i> @item.Pet?.Name
-                        </td>
-                        <td>
-                            <span class="text-muted"><i class="far fa-calendar-alt me-1"></i></span>
-                            @item.StartDate.ToShortDateString()
-                        </td>
-                        <td>
-                            <span class="text-muted"><i class="far fa-calendar-check me-1"></i></span>
-                            @item.EndDate.ToShortDateString()
-                        </td>
-                        <td>
-                            <span class="badge bg-info text-dark" style="background-color: #e3f2fd !important; border: 1px solid #90caf9 !important;">
-                                @item.ServiceType?.Name
-                            </span>
-                        </td>
-                        <td>
-                            <small class="text-muted italic">
-                                @(string.IsNullOrEmpty(item.Notes) ? "Nema napomene" : item.Notes)
-                            </small>
-                        </td>
-                        <td class="text-center">
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn btn-edit">Uredi</a>
-                            <a asp-action="Details" asp-route-id="@item.Id" class="action-btn btn-details">Detalji</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="action-btn btn-delete">Obriši</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr class="text-secondary">
+                            <th class="ps-4">Ljubimac</th>
+                            <th>Termin (Od - Do)</th>
+                            <th>Usluga</th>
+                            <th>Status</th>
+                            <th>Napomena</th>
+                            <th class="text-center">Akcije</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-bold text-dark">🐾 @item.Pet?.Name</div>
+                                </td>
+                                <td>
+                                    <div class="small">
+                                        @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge bg-info-subtle text-info border border-info-subtle fw-normal">
+                                        @item.ServiceType?.Name
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (item.Status.ToString() == "Confirmed")
+                                    {
+                                        <span class="badge bg-success">Potvrđeno</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-warning text-dark">U obradi</span>
+                                    }
+                                </td>
+                                <td>
+                                    <small class="text-muted italic">
+                                        @(string.IsNullOrEmpty(item.Notes) ? "—" : item.Notes)
+                                    </small>
+                                </td>
+                                <td class="text-center">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-1">Uredi</a>
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-1">Detalji</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Obriši</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

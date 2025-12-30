@@ -1,66 +1,79 @@
 ﻿@model PetHotel.Models.Booking
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalji rezervacije";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <h1 class="text-primary mb-4">📄 Detalji rezervacije</h1>
 
-<div>
-    <h4>Booking</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EndDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Pet)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Pet.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ServiceType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ServiceType.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white p-3 d-flex justify-content-between align-items-center">
+            <h3 class="mb-0">Rezervacija br. #@Model.Id</h3>
+            <span class="badge bg-light text-primary fw-bold">
+                @Model.CreatedAt.ToString("dd.MM.yyyy. HH:mm")
+            </span>
+        </div>
+        <div class="card-body p-4">
+            <div class="row">
+                <div class="col-md-6 border-end">
+                    <h5 class="text-muted text-uppercase small fw-bold">Ljubimac</h5>
+                    <p class="fs-4 fw-bold">🐾 @Model.Pet?.Name</p>
+                    <hr />
+
+                    <h5 class="text-muted text-uppercase small fw-bold">Usluga</h5>
+                    <p class="fs-5">@Model.ServiceType?.Name</p>
+                </div>
+
+                <div class="col-md-6 ps-md-4">
+                    <h5 class="text-muted text-uppercase small fw-bold">Termin boravka</h5>
+                    <div class="d-flex align-items-center mb-2">
+                        <div class="text-center me-3 p-2 bg-light rounded">
+                            <small class="d-block text-uppercase">Dolazak</small>
+                            <span class="fw-bold">@Model.StartDate.ToString("dd.MM.yyyy.")</span>
+                        </div>
+                        <i class="bi bi-arrow-right text-muted"></i>
+                        <div class="text-center ms-3 p-2 bg-light rounded">
+                            <small class="d-block text-uppercase">Odlazak</small>
+                            <span class="fw-bold">@Model.EndDate.ToString("dd.MM.yyyy.")</span>
+                        </div>
+                    </div>
+                    <hr />
+
+                    <h5 class="text-muted text-uppercase small fw-bold">Status</h5>
+                    <p>
+                        @if (Model.Status.ToString() == "Confirmed")
+                        {
+                            <span class="badge bg-success px-3">Potvrđeno ✅</span>
+                        }
+                        else if (Model.Status.ToString() == "Cancelled")
+                        {
+                            <span class="badge bg-danger px-3">Otkazano ❌</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark px-3">U obradi ⏳</span>
+                        }
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="p-3 bg-light rounded">
+                        <h5 class="text-muted text-uppercase small fw-bold">Napomene korisnika</h5>
+                        <p class="mb-0 fst-italic">
+                            @(string.IsNullOrEmpty(Model.Notes) ? "Nema dodatnih napomena za ovaj boravak." : Model.Notes)
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light p-3">
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary px-4">Uredi</a>
+                <a asp-action="Index" class="btn btn-outline-secondary">Povratak na popis</a>
+            </div>
+        </div>
+    </div>
 </div>

@@ -1,82 +1,81 @@
 ﻿@model PetHotel.Models.Pet
 
 @{
-    ViewData["Title"] = "Dodaj ljubimca";
+    ViewData["Title"] = ViewContext.RouteData.Values["action"].ToString() == "Create" ? "Dodaj ljubimca" : "Uredi ljubimca";
 }
 
-@if (TempData["Message"] != null)
-{
-    <div class="alert alert-warning alert-dismissible fade show shadow-sm" role="alert">
-        <strong>🐾 Napomena:</strong> @TempData["Message"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+<h1 class="text-primary">@ViewData["Title"]</h1>
+<hr />
 
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h3 class="mb-0"><span style="font-size: 1.2rem;">1. KORAK:</span> Registracija ljubimca</h3>
+<div class="row">
+    <div class="col-md-8 col-lg-6">
+        <form asp-action="@ViewContext.RouteData.Values["action"]">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (ViewContext.RouteData.Values["action"].ToString() == "Edit")
+            {
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+            }
+
+            <div class="card shadow-sm p-4">
+                <div class="form-group mb-3">
+                    <label asp-for="Name" class="control-label fw-bold">Ime ljubimca</label>
+                    <input asp-for="Name" class="form-control" placeholder="Unesite ime psa" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
-                <div class="card-body p-4" style="background-color: #fdfaf5;">
-                    <form asp-action="Create">
-                        <input type="hidden" asp-for="UserId" value="placeholder" />
 
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label asp-for="Breed" class="control-label fw-bold">Pasmina</label>
+                        <input asp-for="Breed" class="form-control" />
+                    </div>
+                    <div class="col-md-6 form-group mb-3">
+                        <label asp-for="Size" class="control-label fw-bold">Veličina</label>
+                        <select asp-for="Size" class="form-control">
+                            <option value="Mali">Mali (do 10kg)</option>
+                            <option value="Srednji">Srednji (10-25kg)</option>
+                            <option value="Veliki">Veliki (preko 25kg)</option>
+                        </select>
+                    </div>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Name" class="form-label fw-bold text-dark">Ime psa</label>
-                                <input asp-for="Name" class="form-control border-primary-subtle" placeholder="npr. Buddy" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
+                <div class="row">
+                    <div class="col-md-6 form-group mb-3">
+                        <label asp-for="BirthYear" class="control-label fw-bold">Godina rođenja</label>
+                        <input asp-for="BirthYear"
+                               class="form-control"
+                               type="number"
+                               max="@DateTime.Now.Year"
+                               step="1" />
+                        <span asp-validation-for="BirthYear" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 form-group mb-3">
+                        <label asp-for="MicrochipNumber" class="control-label fw-bold">Broj mikročipa</label>
+                        <input asp-for="MicrochipNumber" class="form-control" />
+                    </div>
+                </div>
 
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="Size" class="form-label fw-bold text-dark">Veličina psa</label>
-                                <input asp-for="Size" class="form-control border-primary-subtle" placeholder="Mali, Srednji, Veliki" />
-                                <span asp-validation-for="Size" class="text-danger"></span>
-                            </div>
-                        </div>
+                <div class="form-check mb-3 p-0 ms-4">
+                    <input class="form-check-input" asp-for="IsSocialized" />
+                    <label class="form-check-label ms-2">Pas je socijaliziran</label>
+                </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="BirthYear" class="form-label fw-bold text-dark">Godina rođenja</label>
-                                <input asp-for="BirthYear" type="text" inputmode="numeric" class="form-control border-primary-subtle" placeholder="2020" />
-                                <span asp-validation-for="BirthYear" class="text-danger"></span>
-                            </div>
+                <div class="form-check mb-3 p-0 ms-4">
+                    <input class="form-check-input" asp-for="IsActive" />
+                    <label class="form-check-label ms-2">Ljubimac je trenutno aktivan u hotelu</label>
+                </div>
 
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="MicrochipNumber" class="form-label fw-bold text-dark">Broj mikročipa</label>
-                                <input asp-for="MicrochipNumber" class="form-control border-primary-subtle" />
-                                <span asp-validation-for="MicrochipNumber" class="text-danger"></span>
-                            </div>
-                        </div>
+                <div class="form-group mb-4">
+                    <label asp-for="PersonalNotes" class="control-label fw-bold">Napomene</label>
+                    <textarea asp-for="PersonalNotes" class="form-control" rows="3" placeholder="Alergije, posebna prehrana, strahovi..."></textarea>
+                </div>
 
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" asp-for="IsSocialized" style="cursor:pointer;" />
-                                    <label class="form-check-label fw-bold" asp-for="IsSocialized">Socijaliziran</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" asp-for="IsActive" style="cursor:pointer;" />
-                                    <label class="form-check-label fw-bold" asp-for="IsActive">Aktivan</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <hr />
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                            <a asp-action="Index" class="btn btn-outline-secondary px-4">Odustani</a>
-                            <button type="submit" class="btn btn-primary px-5 shadow">Spremi šapicu</button>
-                        </div>
-                    </form>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-success px-4">Spremi</button>
+                    <a asp-action="Index" class="btn btn-secondary">Odustani</a>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

@@ -147,3 +147,15 @@ body {
     background-color: #ffebee;
     color: #c62828;
 }
+
+/* Sakriva strelice za Chrome, Safari, Edge i Operu */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Sakriva strelice za Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}

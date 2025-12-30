@@ -1,72 +1,64 @@
 ﻿@model PetHotel.Models.Pet
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalji ljubimca";
 }
 
-<h1>Details</h1>
+<div class="container mt-4">
+    <h1 class="text-primary mb-4">🐾 Detalji o ljubimcu</h1>
 
-<div>
-    <h4>Pet</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Breed)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Breed)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Size)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Size)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthYear)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BirthYear)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MicrochipNumber)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MicrochipNumber)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsSocialized)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsSocialized)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonalNotes)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PersonalNotes)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.User.Id)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div class="card shadow border-0">
+        <div class="card-header bg-primary text-white p-3">
+            <h3 class="mb-0">Profil: @Model.Name</h3>
+        </div>
+        <div class="card-body p-4">
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Pasmina:</div>
+                <div class="col-sm-8">@(Model.Breed ?? "Nije navedeno")</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Veličina:</div>
+                <div class="col-sm-8">@Model.Size</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Godina rođenja:</div>
+                <div class="col-sm-8">@Model.BirthYear.</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Broj mikročipa:</div>
+                <div class="col-sm-8">@Model.MicrochipNumber</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Socijaliziran:</div>
+                <div class="col-sm-8">
+                    @if (Model.IsSocialized)
+                    {
+                        <span class="badge bg-success">Da ✅</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Ne ❌</span>
+                    }
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-4 fw-bold text-muted">Status aktivnosti:</div>
+                <div class="col-sm-8">
+                    @(Model.IsActive ? "Aktivan u hotelu 🏨" : "Trenutno nije u hotelu")
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 fw-bold text-muted">Napomene:</div>
+                <div class="col-sm-8">
+                    <p class="fst-italic">@(Model.PersonalNotes ?? "Nema dodatnih napomena.")</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer bg-light p-3">
+            <div class="d-flex gap-2">
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning px-4">Uredi</a>
+                <a asp-action="Index" class="btn btn-outline-secondary">Povratak na listu</a>
+            </div>
+        </div>
+    </div>
 </div>
