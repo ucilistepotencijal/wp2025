@@ -12,7 +12,7 @@ using PetHotel.Models;
 
 namespace PetHotel.Controllers
 {
-    [Authorize] // Osigurava da samo prijavljeni korisnici mogu pristupiti kontroleru
+    [Authorize]
     public class PetsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,15 +23,11 @@ namespace PetHotel.Controllers
         }
 
         // GET: Pets
-        // Prikazuje samo ljubimce trenutnog korisnika (ili sve ako je Admin)
         public async Task<IActionResult> Index()
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // Osnovni upit s uključenim podacima o korisniku/vlasniku
             var petsQuery = _context.Pets.Include(p => p.User).AsQueryable();
 
-            // Ako korisnik nije Admin, filtriraj samo njegove ljubimce
             if (!User.IsInRole("Admin"))
             {
                 petsQuery = petsQuery.Where(p => p.UserId == currentUserId);
@@ -51,7 +47,6 @@ namespace PetHotel.Controllers
 
             if (pet == null) return NotFound();
 
-            // Sigurnosna provjera: Ne dopusti pristup tuđim ljubimcima
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
@@ -72,10 +67,7 @@ namespace PetHotel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Pet pet)
         {
-            // 1. Automatski dodijeli ID trenutno prijavljenog korisnika
             pet.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            // 2. Ručno ukloni UserId i User iz validacije (za svaki slučaj uz [ValidateNever])
             ModelState.Remove("UserId");
             ModelState.Remove("User");
 
@@ -97,7 +89,6 @@ namespace PetHotel.Controllers
             var pet = await _context.Pets.FindAsync(id);
             if (pet == null) return NotFound();
 
-            // Sigurnosna provjera za Edit
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
@@ -114,10 +105,8 @@ namespace PetHotel.Controllers
         {
             if (id != pet.Id) return NotFound();
 
-            // Ponovno dodijeli UserId kako bi se spriječilo "otimanje" ljubimca promjenom ID-a u formi
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Ako nije admin, forsiraj vlasništvo na trenutnog korisnika
             if (!User.IsInRole("Admin"))
             {
                 pet.UserId = currentUserId;
@@ -154,7 +143,6 @@ namespace PetHotel.Controllers
 
             if (pet == null) return NotFound();
 
-            // Sigurnosna provjera za Delete
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
@@ -169,15 +157,27 @@ namespace PetHotel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var pet = await _context.Pets.FindAsync(id);
+            // PRONAĐI PSA UKLJUČUJUĆI NJEGOVE REZERVACIJE
+            var pet = await _context.Pets
+                .Include(p => p.Bookings) // Važno: uključujemo listu rezervacija
+                .FirstOrDefaultAsync(m => m.Id == id);
 
             if (pet != null)
             {
-                // Dodatna sigurnosna provjera prije brisanja
                 var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                // Provjera vlasništva ili admin prava
                 if (pet.UserId == currentUserId || User.IsInRole("Admin"))
                 {
+                    // 1. Ručno obriši sve rezervacije povezane s tim psom
+                    if (pet.Bookings != null && pet.Bookings.Any())
+                    {
+                        _context.Bookings.RemoveRange(pet.Bookings);
+                    }
+
+                    // 2. Sada obriši samog psa
                     _context.Pets.Remove(pet);
+
                     await _context.SaveChangesAsync();
                 }
             }

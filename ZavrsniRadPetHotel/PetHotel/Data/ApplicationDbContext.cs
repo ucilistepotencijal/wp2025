@@ -21,13 +21,11 @@ namespace PetHotel.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Isključujemo automatsko brisanje rezervacija kada se obriše pas
-            // kako bismo izbjegli "multiple cascade paths" grešku
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.Pet)
-                .WithMany() // Ako pas ima listu rezervacija, stavi .WithMany(p => p.Bookings)
-                .HasForeignKey(b => b.PetId)
-                .OnDelete(DeleteBehavior.Restrict); // OVO rješava grešku 1785
+                .WithMany(p => p.Bookings) // Povezujemo listu iz Pet modela
+                .HasForeignKey(b => b.PetId) // Koristimo POSTOJEĆI PetId
+                .OnDelete(DeleteBehavior.Cascade); // Ako želiš da brisanje psa briše rezervacije
         }
     }
 }

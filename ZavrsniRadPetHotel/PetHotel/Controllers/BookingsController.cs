@@ -34,7 +34,6 @@ namespace PetHotel.Controllers
 
             if (!User.IsInRole("Admin"))
             {
-                // Običan korisnik vidi samo rezervacije za svoje ljubimce
                 bookingsQuery = bookingsQuery.Where(b => b.Pet.UserId == currentUserId);
             }
 
@@ -67,10 +66,12 @@ namespace PetHotel.Controllers
         {
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // Korisnik bira samo svoje ljubimce
-            var mojiLjubimci = _context.Pets.Where(p => p.UserId == currentUserId);
+            // ADMIN vidi sve ljubimce u sustavu, KORISNIK samo svoje
+            var ljubimciZaOdabir = User.IsInRole("Admin")
+                ? _context.Pets
+                : _context.Pets.Where(p => p.UserId == currentUserId);
 
-            ViewData["PetId"] = new SelectList(mojiLjubimci, "Id", "Name");
+            ViewData["PetId"] = new SelectList(ljubimciZaOdabir, "Id", "Name");
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name");
             return View();
         }
@@ -78,27 +79,32 @@ namespace PetHotel.Controllers
         // POST: Bookings/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Booking booking)
+        public async Task<IActionResult> Create([Bind("PetId,ServiceTypeId,StartDate,EndDate,Status,Notes")] Booking booking)
         {
-            // 1. OBAVEZNO: Uzmi ID korisnika i dodijeli ga rezervaciji
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            booking.UserId = userId;
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            // 2. Očisti validaciju za navigacijska polja
+            // Postavljamo UserId na trenutnog korisnika
+            booking.UserId = currentUserId;
+
+            // Čišćenje validacije za navigacijska polja (Pet, ServiceType, User)
             ModelState.Remove("Pet");
             ModelState.Remove("ServiceType");
-            ModelState.Remove("UserId");
             ModelState.Remove("User");
+            ModelState.Remove("UserId");
 
             if (ModelState.IsValid)
             {
                 _context.Add(booking);
-                await _context.SaveChangesAsync(); // Ovo više neće bacati SQL Foreign Key grešku
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            // Ako dođe do greške, ponovno napuni padajuće izbornike
-            ViewData["PetId"] = new SelectList(_context.Pets.Where(p => p.UserId == userId), "Id", "Name", booking.PetId);
+            // Ako validacija ne prođe, ponovno napuni liste
+            var ljubimciZaOdabir = User.IsInRole("Admin")
+                ? _context.Pets
+                : _context.Pets.Where(p => p.UserId == currentUserId);
+
+            ViewData["PetId"] = new SelectList(ljubimciZaOdabir, "Id", "Name", booking.PetId);
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", booking.ServiceTypeId);
             return View(booking);
         }
@@ -117,7 +123,11 @@ namespace PetHotel.Controllers
                 return Forbid();
             }
 
-            ViewData["PetId"] = new SelectList(_context.Pets.Where(p => p.UserId == currentUserId), "Id", "Name", booking.PetId);
+            var ljubimciZaOdabir = User.IsInRole("Admin")
+                ? _context.Pets
+                : _context.Pets.Where(p => p.UserId == booking.Pet.UserId);
+
+            ViewData["PetId"] = new SelectList(ljubimciZaOdabir, "Id", "Name", booking.PetId);
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", booking.ServiceTypeId);
             return View(booking);
         }
@@ -129,14 +139,11 @@ namespace PetHotel.Controllers
         {
             if (id != booking.Id) return NotFound();
 
-            // Osiguraj UserId i u editu
-            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            booking.UserId = currentUserId;
-
+            // Zadržavamo originalni UserId pri uređivanju
             ModelState.Remove("Pet");
             ModelState.Remove("ServiceType");
-            ModelState.Remove("UserId");
             ModelState.Remove("User");
+            ModelState.Remove("UserId");
 
             if (ModelState.IsValid)
             {
@@ -153,7 +160,7 @@ namespace PetHotel.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["PetId"] = new SelectList(_context.Pets.Where(p => p.UserId == currentUserId), "Id", "Name", booking.PetId);
+            ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Name", booking.PetId);
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", booking.ServiceTypeId);
             return View(booking);
         }
@@ -193,22 +200,23 @@ namespace PetHotel.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // METODA ZA IZVJEŠTAJ KOJA JE NEDOSTAJALA
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AdminReport()
+        {
+            var reportData = await _context.Bookings
+                .Include(b => b.Pet)
+                .Include(b => b.ServiceType)
+                .OrderByDescending(b => b.StartDate)
+                .AsNoTracking()
+                .ToListAsync();
+
+            return View(reportData);
+        }
+
         private bool BookingExists(int id)
         {
             return _context.Bookings.Any(e => e.Id == id);
-        }
-
-
-        // GET: Bookings/AdminReport
-        [Authorize(Roles = "Admin")] // Samo admin smije vidjeti pare!
-public async Task<IActionResult> AdminReport()
-        {
-            var reportData = _context.Bookings
-                .Include(b => b.Pet)
-                .Include(b => b.ServiceType)
-                .AsNoTracking(); // Dodaj ovo za bolji performans izvještaja
-
-            return View(await reportData.ToListAsync());
         }
     }
 }

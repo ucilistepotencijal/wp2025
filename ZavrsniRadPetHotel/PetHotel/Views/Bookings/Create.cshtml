@@ -1,68 +1,117 @@
 ﻿@model PetHotel.Models.Booking
 
 @{
-    ViewData["Title"] = "Nova rezervacija";
+    ViewData["Title"] = "Nova Rezervacija";
 }
-<div asp-validation-summary="All" class="text-danger"></div>
-<div class="form-group d-none">
-    <label asp-for="UserId" class="control-label"></label>
-    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
 
-</div>
-<div class="container mt-4">
+<style>
+    body {
+        background-color: #fefefe;
+    }
+
+    .create-card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        background: white;
+    }
+
+    .btn-save {
+        background-color: #ff9800;
+        border: none;
+        color: white;
+        padding: 10px 25px;
+        border-radius: 8px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .btn-save:hover {
+            background-color: #e68a00;
+            transform: translateY(-2px);
+        }
+
+    .form-label {
+        font-weight: 600;
+        color: #555;
+    }
+
+    .form-control, .form-select {
+        border-radius: 8px;
+        border: 1px solid #eee;
+        padding: 12px;
+    }
+
+        .form-control:focus {
+            border-color: #ffcc80;
+            box-shadow: 0 0 0 0.25rem rgba(255, 152, 0, 0.1);
+        }
+</style>
+
+<div class="container py-5">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-lg border-0">
-                <div class="card-header bg-primary text-white text-center py-3">
-                    <h3 class="mb-0"><span style="font-size: 1.2rem;">2. KORAK:</span> Rezervacija termina</h3>
-                </div>
-                <div class="card-body p-4" style="background-color: #fdfaf5;">
-                    <form asp-action="Create">
-                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div class="col-md-7">
+            <div class="mb-4 text-center">
+                <h2 class="fw-bold">📅 Rezerviraj smještaj</h2>
+                <p class="text-muted">Ispunite detalje boravka za vašu njuškicu</p>
+            </div>
 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="StartDate" class="form-label fw-bold text-dark">Datum dolaska</label>
-                                <input asp-for="StartDate" type="date" class="form-control border-primary-subtle" />
-                                <span asp-validation-for="StartDate" class="text-danger"></span>
-                            </div>
+            <div class="card create-card p-4">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-                            <div class="col-md-6 mb-3">
-                                <label asp-for="EndDate" class="form-label fw-bold text-dark">Datum odlaska</label>
-                                <input asp-for="EndDate" type="date" class="form-control border-primary-subtle" />
-                                <span asp-validation-for="EndDate" class="text-danger"></span>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="PetId" class="form-label fw-bold text-dark">Odaberite ljubimca</label>
-                            <select asp-for="PetId" class="form-select border-primary-subtle shadow-sm" asp-items="ViewBag.PetId">
-                                <option value="">-- Vaši ljubimci --</option>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="PetId" class="form-label">Odaberi ljubimca</label>
+                            <select asp-for="PetId" class="form-select" asp-items="ViewBag.PetId">
+                                <option value="">-- Odaberite psa --</option>
                             </select>
+                            <span asp-validation-for="PetId" class="text-danger small"></span>
                         </div>
 
-                        <div class="mb-3">
-                            <label asp-for="ServiceTypeId" class="form-label fw-bold text-dark">Vrsta usluge</label>
-                            <select asp-for="ServiceTypeId" class="form-select border-primary-subtle shadow-sm" asp-items="ViewBag.ServiceTypeId">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ServiceTypeId" class="form-label">Vrsta usluge</label>
+                            <select asp-for="ServiceTypeId" class="form-select" asp-items="ViewBag.ServiceTypeId">
                                 <option value="">-- Odaberite uslugu --</option>
                             </select>
+                            <span asp-validation-for="ServiceTypeId" class="text-danger small"></span>
                         </div>
+                    </div>
 
-                        <div class="mb-4">
-                            <label asp-for="Notes" class="form-label fw-bold text-dark">Napomena (hrana, lijekovi...)</label>
-                            <textarea asp-for="Notes" class="form-control border-primary-subtle" rows="3" placeholder="Ima li vaša šapica posebne potrebe?"></textarea>
-                            <span asp-validation-for="Notes" class="text-danger"></span>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="StartDate" class="form-label">Datum dolaska</label>
+                            <input asp-for="StartDate" class="form-control" type="date" />
+                            <span asp-validation-for="StartDate" class="text-danger small"></span>
                         </div>
-
-                        <hr />
-
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                            <a asp-action="Index" class="btn btn-outline-secondary px-4">Povratak</a>
-                            <button type="submit" class="btn btn-primary px-5 shadow">Potvrdi rezervaciju</button>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="EndDate" class="form-label">Datum odlaska</label>
+                            <input asp-for="EndDate" class="form-control" type="date" />
+                            <span asp-validation-for="EndDate" class="text-danger small"></span>
                         </div>
-                    </form>
-                </div>
+                    </div>
+
+                    
+
+                    @* NOVO POLJE: NAPOMENA *@
+                    <div class="mb-3">
+                        <label asp-for="Notes" class="form-label">Napomena (hrana, lijekovi, ponašanje...)</label>
+                        <textarea asp-for="Notes" class="form-control" rows="3" placeholder="Napišite važne informacije ovdje..."></textarea>
+                        <span asp-validation-for="Notes" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-save shadow-sm">Potvrdi rezervaciju</button>
+                        <a asp-action="Index" class="btn btn-link text-muted mt-2">Odustani</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

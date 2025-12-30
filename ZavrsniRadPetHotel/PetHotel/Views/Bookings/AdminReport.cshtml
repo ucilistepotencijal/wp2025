@@ -20,49 +20,100 @@
     }
 }
 
-<div class="container mt-4">
-    @* NASLOV I GUMB ZA PRINT *@
-    <div class="d-flex justify-content-between align-items-end mb-4">
-        <div>
-            <h2 class="fw-bold text-dark mb-0">🐾 Upravljanje Hotelom</h2>
-            <p class="text-muted small mb-0">Pregled stanja na dan @danas.ToShortDateString()</p>
-        </div>
-        <button onclick="window.print()" class="btn btn-light btn-sm border shadow-sm">
-            🖨️ Isprintaj dnevnik
-        </button>
+<style>
+    body {
+        background-color: #fefefe;
+    }
+
+    .table-orange {
+        background-color: #fff3e0;
+        color: #e65100;
+        border-bottom: 2px solid #ffcc80;
+    }
+
+    .stat-card {
+        border: none;
+        border-top: 4px solid;
+        border-radius: 8px;
+        transition: 0.3s;
+    }
+
+    .card-income {
+        border-top-color: #4caf50;
+        background-color: #f1f8e9;
+    }
+
+    .card-bookings {
+        border-top-color: #2196f3;
+        background-color: #e3f2fd;
+    }
+
+    .card-active {
+        border-top-color: #ff9800;
+        background-color: #fff3e0;
+    }
+
+    .today-section {
+        background-color: #fafafa;
+        border-radius: 15px;
+        border: 1px solid #eee;
+        padding: 25px;
+    }
+
+    .pet-pill {
+        background: white;
+        border: 1px solid #ffe0b2;
+        border-left: 4px solid #ff9800;
+        border-radius: 10px;
+    }
+    /* Stil za bilješke da ne zauzimaju previše mjesta */
+    .note-text {
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        cursor: help;
+    }
+</style>
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <h2 class="fw-bold m-0 text-dark">🐾 Kontrolni Centar</h2>
+        <button onclick="window.print()" class="btn btn-outline-warning btn-sm shadow-sm text-dark">🖨️ Isprintaj izvještaj</button>
     </div>
 
-    @* 1. STATISTIČKE KARTICE - Skladnije boje *@
-    <div class="row g-3 mb-4">
+    @* 1. STATISTIKA *@
+    <div class="row g-4 mb-5">
         <div class="col-md-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body p-4 border-bottom border-4 border-success rounded-top">
-                    <h6 class="text-uppercase text-muted small fw-bold">Ukupni Prihod</h6>
-                    <h3 class="fw-bold mb-0">@ukupnaZaradaHotela.ToString("N2") €</h3>
+            <div class="card stat-card card-income shadow-sm">
+                <div class="card-body text-center p-4">
+                    <small class="text-uppercase fw-bold text-muted">Ukupna Zarada</small>
+                    <h2 class="fw-bold mt-2 mb-0" style="color: #2e7d32;">@ukupnaZaradaHotela.ToString("N2") €</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body p-4 border-bottom border-4 border-primary rounded-top">
-                    <h6 class="text-uppercase text-muted small fw-bold">Sve Rezervacije</h6>
-                    <h3 class="fw-bold mb-0">@Model.Count()</h3>
+            <div class="card stat-card card-bookings shadow-sm">
+                <div class="card-body text-center p-4">
+                    <small class="text-uppercase fw-bold text-muted">Rezervacije</small>
+                    <h2 class="fw-bold mt-2 mb-0" style="color: #1565c0;">@Model.Count()</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card shadow-sm border-0 h-100">
-                <div class="card-body p-4 border-bottom border-4 border-info rounded-top">
-                    <h6 class="text-uppercase text-muted small fw-bold">Trenutno Gostiju</h6>
-                    <h3 class="fw-bold mb-0">@brojAktivnih <small class="text-muted small">njuškica</small></h3>
+            <div class="card stat-card card-active shadow-sm">
+                <div class="card-body text-center p-4">
+                    <small class="text-uppercase fw-bold text-muted">Gosti u kući</small>
+                    <h2 class="fw-bold mt-2 mb-0" style="color: #ef6c00;">@brojAktivnih 🐶</h2>
                 </div>
             </div>
         </div>
     </div>
 
-    @* 2. DANAS U HOTELU - Bez bljeskanja, čišće kartice *@
-    <div class="mb-5">
-        <h5 class="fw-bold mb-3 text-secondary">🕒 Trenutno prisutni gosti</h5>
+    @* 2. TRENUTNI GOSTI *@
+    <div class="today-section mb-5 shadow-sm">
+        <h5 class="fw-bold mb-4 text-dark"><i class="bi bi-clock"></i> Danas u hotelu:</h5>
         <div class="row g-3">
             @{
                 var danasnjiGosti = Model.Where(b => b.StartDate.Date <= danas && b.EndDate.Date >= danas).ToList();
@@ -70,27 +121,20 @@
 
             @if (!danasnjiGosti.Any())
             {
-                <div class="col-12">
-                    <div class="p-4 bg-light rounded text-center border">
-                        <p class="text-muted mb-0">Danas nema aktivnih njuškica u hotelu.</p>
-                    </div>
-                </div>
+                <div class="col-12 text-center py-2 text-muted italic">Danas nema prijavljenih gostiju.</div>
             }
             else
             {
                 @foreach (var gost in danasnjiGosti)
                 {
-                    <div class="col-md-4 col-lg-3">
-                        <div class="card h-100 shadow-sm border-0">
-                            <div class="card-body p-3">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h6 class="fw-bold mb-0">🐾 @gost.Pet?.Name</h6>
-                                    <span class="badge bg-info text-white small">@gost.ServiceType?.Name</span>
+                    <div class="col-md-3">
+                        <div class="card pet-pill shadow-sm h-100">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h6 class="fw-bold mb-0">@gost.Pet?.Name</h6>
+                                    <small class="text-muted">@gost.ServiceType?.Name</small>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center mt-3">
-                                    <span class="small text-muted">Soba: #@gost.PetId</span>
-                                    <a asp-controller="Pets" asp-action="Details" asp-route-id="@gost.PetId" class="btn btn-sm btn-outline-primary py-0 px-2" style="font-size: 0.8rem;">Profil</a>
-                                </div>
+                                <a asp-controller="Pets" asp-action="Details" asp-route-id="@gost.PetId" class="btn btn-sm btn-link text-warning p-0">Profil</a>
                             </div>
                         </div>
                     </div>
@@ -99,41 +143,60 @@
         </div>
     </div>
 
-    @* 3. POVIJEST - Elegantna tablica *@
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white py-3 border-bottom">
-            <h6 class="mb-0 fw-bold text-dark text-uppercase small">Povijest i obračuni</h6>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light text-muted small">
-                        <tr>
-                            <th class="ps-4">Gost</th>
-                            <th>Usluga</th>
-                            <th>Termin boravka</th>
-                            <th>Dana</th>
-                            <th class="text-end pe-4">Iznos</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.OrderByDescending(x => x.StartDate))
-                        {
-                            var dani = (item.EndDate - item.StartDate).Days;
-                            if (dani <= 0) dani = 1;
-                            var ukupno = dani * (item.ServiceType?.Price ?? 0);
+    @* 3. TABLICA S NOVIM KOLONAMA *@
+    <div class="card border-0 shadow-sm overflow-hidden">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle m-0">
+                <thead>
+                    <tr class="table-orange">
+                        <th class="ps-4 py-3">Ljubimac</th>
+                        <th class="py-3">Status</th>
+                        <th class="py-3">Vrsta Usluge</th>
+                        <th class="py-3">Razdoblje</th>
+                        <th class="py-3">Napomena</th>
+                        <th class="py-3 text-center">Dani</th>
+                        <th class="text-end pe-4 py-3">Ukupna Cijena</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.OrderByDescending(x => x.StartDate))
+                    {
+                        var dani = (item.EndDate - item.StartDate).Days;
+                        if (dani <= 0) dani = 1;
+                        var ukupno = dani * (item.ServiceType?.Price ?? 0);
 
-                            <tr>
-                                <td class="ps-4 fw-bold">@item.Pet?.Name</td>
-                                <td><span class="text-muted">@item.ServiceType?.Name</span></td>
-                                <td class="small">@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()</td>
-                                <td>@dani</td>
-                                <td class="text-end pe-4 fw-bold text-dark">@ukupno.ToString("N2") €</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        <tr>
+                            <td>
+                                @if (item.Status == PetHotel.Models.BookingStatus.Scheduled)
+                                {
+                                    <span class="badge bg-info text-dark">Rezervirano</span>
+                                }
+                                else if (item.Status == PetHotel.Models.BookingStatus.InProgress)
+                                {
+                                    <span class="badge bg-primary">U hotelu</span>
+                                }
+                                else if (item.Status == PetHotel.Models.BookingStatus.Completed)
+                                {
+                                    <span class="badge bg-success">Odjavljen</span>
+                                }
+                                else if (item.Status == PetHotel.Models.BookingStatus.Cancelled)
+                                {
+                                    <span class="badge bg-danger">Otkazano</span>
+                                }
+                            </td>
+                            <td><span class="badge rounded-pill bg-light text-dark border">@item.ServiceType?.Name</span></td>
+                            <td class="small text-muted">@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()</td>
+                            <td>
+                                <div class="note-text text-muted small" title="@item.Notes">
+                                    @(string.IsNullOrEmpty(item.Notes) ? "-" : item.Notes)
+                                </div>
+                            </td>
+                            <td class="text-center">@dani</td>
+                            <td class="text-end pe-4 fw-bold" style="color: #e65100;">@ukupno.ToString("N2") €</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

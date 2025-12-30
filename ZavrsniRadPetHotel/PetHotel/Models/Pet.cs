@@ -24,5 +24,6 @@ namespace PetHotel.Models
         [ValidateNever]
         public string? UserId { get; set; }
         public virtual Microsoft.AspNetCore.Identity.IdentityUser? User { get; set; }
+        public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

@@ -43,7 +43,7 @@ namespace PetHotel.Models
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 
         [Display(Name = "Status rezervacije")]
-        public BookingStatus Status { get; set; } = BookingStatus.Scheduled;
+        public BookingStatus Status { get; set; }
 
         // Veza sa psom
         [Required]
