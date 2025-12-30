@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using PetHotel.Data; // Provjeri je li ovo tvoj to?an namespace (ime projekta.Data)
+using PetHotel.Data;
 using PetHotel.Models;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
@@ -24,7 +24,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => {
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 })
-.AddRoles<IdentityRole>() // Omogu?uje Admin ulogu
+.AddRoles<IdentityRole>() // Omogu?uje uloge (npr. Admin)
 .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
@@ -41,7 +41,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
 
 var app = builder.Build();
 
-// --- 4. KONFIGURACIJA HTTP CJEVOVODA (MIDDLEWARE) ---
+// --- 4. KONFIGURACIJA PIPELINE-A (MIDDLEWARE) ---
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
@@ -52,7 +52,7 @@ else
     app.UseHsts();
 }
 
-// Postavljanje HR kulture za datume i brojeve
+// Postavljanje HR kulture za datume, brojeve i kalendare
 CultureInfo.DefaultThreadCurrentCulture = hrCulture;
 CultureInfo.DefaultThreadCurrentUICulture = hrCulture;
 app.UseRequestLocalization();
@@ -62,7 +62,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// VAŽNO: Autentifikacija mora biti prije autorizacije
+// Autentifikacija i Autorizacija
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -72,17 +72,24 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 
-// --- 5. SEEDANJE ULOGA (Stvaranje Admina) ---
+// --- 5. AUTOMATSKO PUNJENJE BAZE (SEEDING) ---
+// Koristimo jedan blok za uloge i za tvoje po?etne usluge
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     try
     {
+        // 1. Pokušaj seedanja uloga (Admin, Korisnik) - asinkrono
         await IdentitySeeder.SeedRolesAsync(services);
+
+        // 2. Pokušaj seedanja tvojih usluga (No?enje, Kupanje...) - sinkrono
+        SeedData.Initialize(services);
     }
     catch (Exception ex)
     {
-        // Ako nemaš još IdentitySeeder.cs, privremeno zakomentiraj red iznad (stavi // ispred)
+        // Ispis greške u Output prozor ako nešto po?e po zlu
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Dogodila se greška prilikom inicijalizacije baze podataka.");
     }
 }
 

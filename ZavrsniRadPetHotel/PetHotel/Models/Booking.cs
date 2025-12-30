@@ -11,7 +11,7 @@ namespace PetHotel.Models
         [Display(Name = "Otkazano")] Cancelled
     }
 
-    public class Booking
+    public class Booking : IValidatableObject
     {
         public int Id { get; set; }
 
@@ -25,7 +25,17 @@ namespace PetHotel.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
-        [Display(Name = "Dodatne napomene za ovaj boravak")]
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (EndDate <= StartDate)
+            {
+                yield return new ValidationResult(
+                    "Datum odlaska (Check-out) mora biti nakon datuma dolaska (Check-in).",
+                    new[] { nameof(EndDate) });
+            }
+        }
+
+            [Display(Name = "Dodatne napomene za ovaj boravak")]
         public string? Notes { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;

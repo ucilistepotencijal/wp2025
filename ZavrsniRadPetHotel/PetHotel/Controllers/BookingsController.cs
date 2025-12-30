@@ -49,16 +49,22 @@ namespace PetHotel.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
-            // Ovdje postavljamo što će se vidjeti u padajućim izbornicima
+            // Provjeravamo ima li u bazi ijedan pas (ako želiš strože, provjeri ima li pas za trenutnog korisnika)
+            var hasPets = _context.Pets.Any();
+
+            if (!hasPets)
+            {
+                // Ako nema pasa, šaljemo korisnika na stranicu za dodavanje psa uz poruku
+                TempData["Message"] = "Morate dodati barem jednog ljubimca prije nego što napravite rezervaciju!";
+                return RedirectToAction("Create", "Pets");
+            }
+
             ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Name");
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name");
-
-            // POPRAVLJENO: Prikazuje Email umjesto Id-a
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
 
             return View();
         }
-
         // POST: Bookings/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

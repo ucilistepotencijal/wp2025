@@ -1,8 +1,36 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Početna";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Šapotel</h1>
+        <p class="lead text-muted italic">"Vi na putu, šape na žurku!"</p>
+    </div>
+
+    <div class="row justify-content-center g-4">
+        <div class="col-md-5">
+            <div class="card h-100 shadow-sm border-primary text-center p-4">
+                <div class="card-body">
+                    <h2 class="h4 fw-bold mb-3">1. Korak</h2>
+                    <p class="text-muted small">Prvo registrirajte svog ljubimca u naš sustav.</p>
+                    <a asp-controller="Pets" asp-action="Create" class="btn btn-primary btn-lg w-100 shadow-sm">
+                        <i class="fas fa-plus"></i> Dodaj ljubimca
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-5">
+            <div class="card h-100 shadow-sm text-center p-4">
+                <div class="card-body">
+                    <h2 class="h4 fw-bold mb-3">2. Korak</h2>
+                    <p class="text-muted small">Nakon unosa ljubimca, rezervirajte termin.</p>
+                    <a asp-controller="Bookings" asp-action="Create" class="btn btn-outline-primary btn-lg w-100 shadow-sm">
+                        Rezerviraj termin
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
