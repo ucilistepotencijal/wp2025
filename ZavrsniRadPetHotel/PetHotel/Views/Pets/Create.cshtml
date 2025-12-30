@@ -1,72 +1,77 @@
 ﻿@model PetHotel.Models.Pet
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Dodaj ljubimca";
 }
 
-<h1>Create</h1>
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white text-center py-3">
+                    <h3 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Novi ljubimac</h3>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Create">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-<h4>Pet</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Name" class="form-label fw-bold">Ime psa</label>
+                                <input asp-for="Name" class="form-control" placeholder="npr. Buddy" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Size" class="form-label fw-bold">Veličina psa</label>
+                                <input asp-for="Size" class="form-control" placeholder="Mali, Srednji, Veliki" />
+                                <span asp-validation-for="Size" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="BirthYear" class="form-label fw-bold">Godina rođenja</label>
+                                <input asp-for="BirthYear" type="text" inputmode="numeric" class="form-control" placeholder="2020" />
+                                <span asp-validation-for="BirthYear" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="MicrochipNumber" class="form-label fw-bold">Broj mikročipa</label>
+                                <input asp-for="MicrochipNumber" class="form-control" />
+                                <span asp-validation-for="MicrochipNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="UserId" class="form-label fw-bold">Vlasnik (Korisnik)</label>
+                            <select asp-for="UserId" class="form-select shadow-sm" asp-items="ViewBag.UserId">
+                                <option value="">-- Odaberite vlasnika --</option>
+                            </select>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" asp-for="IsSocialized" />
+                                    <label class="form-check-label" asp-for="IsSocialized">Socijaliziran</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check form-switch mt-2">
+                                    <input class="form-check-input" asp-for="IsActive" />
+                                    <label class="form-check-label" asp-for="IsActive">Aktivan</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">Odustani</a>
+                            <button type="submit" class="btn btn-primary px-5 shadow">Spremi</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Breed" class="control-label"></label>
-                <input asp-for="Breed" class="form-control" />
-                <span asp-validation-for="Breed" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Size" class="control-label"></label>
-                <select asp-for="Size" class="form-control"></select>
-                <span asp-validation-for="Size" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BirthYear" class="control-label"></label>
-                <input asp-for="BirthYear" class="form-control" />
-                <span asp-validation-for="BirthYear" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MicrochipNumber" class="control-label"></label>
-                <input asp-for="MicrochipNumber" class="form-control" />
-                <span asp-validation-for="MicrochipNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsSocialized" /> @Html.DisplayNameFor(model => model.IsSocialized)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PersonalNotes" class="control-label"></label>
-                <input asp-for="PersonalNotes" class="form-control" />
-                <span asp-validation-for="PersonalNotes" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <select asp-for="UserId" class ="form-control" asp-items="ViewBag.UserId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

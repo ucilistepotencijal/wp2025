@@ -48,7 +48,8 @@ namespace PetHotel.Controllers
         // GET: Pets/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            // Zamijeni "Id" s "Email" (ili "UserName") na kraju ove linije:
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
