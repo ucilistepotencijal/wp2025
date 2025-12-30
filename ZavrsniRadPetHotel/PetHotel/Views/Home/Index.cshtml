@@ -2,35 +2,65 @@
     ViewData["Title"] = "Početna";
 }
 
-<div class="container py-5">
-    <div class="text-center mb-5">
-        <h1 class="display-4 fw-bold text-primary">Šapotel</h1>
-        <p class="lead text-muted italic">"Vi na putu, šape na žurku!"</p>
+<div class="p-5 mb-4 rounded-3 shadow-sm border-0 text-white"
+     style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/images/banner.jpg') center center no-repeat;
+            background-size: cover;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;">
+    <div class="container-fluid py-5 text-center">
+        <h1 class="display-2 fw-bold" style="text-shadow: 2px 2px 10px rgba(0,0,0,0.9);">Šapotel</h1>
+        <p class="fs-3 italic mb-4" style="text-shadow: 1px 1px 5px rgba(0,0,0,0.8);">"Vi na putu, šape na žurku!"</p>
+        <hr class="my-4" style="width: 150px; margin: auto; border: 3px solid #e67e22; opacity: 1;">
     </div>
+</div>
 
+<div class="container mt-n5">
     <div class="row justify-content-center g-4">
         <div class="col-md-5">
-            <div class="card h-100 shadow-sm border-primary text-center p-4">
-                <div class="card-body">
-                    <h2 class="h4 fw-bold mb-3">1. Korak</h2>
-                    <p class="text-muted small">Prvo registrirajte svog ljubimca u naš sustav.</p>
-                    <a asp-controller="Pets" asp-action="Create" class="btn btn-primary btn-lg w-100 shadow-sm">
-                        <i class="fas fa-plus"></i> Dodaj ljubimca
-                    </a>
+            <div class="card h-100 shadow-lg border-0 text-center overflow-hidden position-relative"
+                 style="min-height: 350px; border-radius: 20px;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                            background: linear-gradient(rgba(230, 126, 34, 0.85), rgba(211, 84, 0, 0.85)),
+                                        url('/images/kartica.jpg') center 20% no-repeat;
+                            background-size: cover; z-index: 1;">
+                </div>
+
+                <div class="card-body position-relative z-index-2 d-flex flex-column justify-content-center p-4 text-white" style="z-index: 2;">
+                    <h2 class="display-6 fw-bold mb-2">1. KORAK</h2>
+                    <h4 class="mb-4 fw-light">Registracija šapice</h4>
+                    <p class="small mb-4">Prvi korak do najbolje žurke je unos podataka o tvom ljubimcu.</p>
+                    <div class="mt-auto">
+                        <a asp-controller="Pets" asp-action="Create" class="btn btn-light btn-lg w-100 shadow fw-bold text-primary" style="color: #e67e22 !important; border-radius: 10px;">
+                            <i class="fas fa-dog me-2"></i> Dodaj ljubimca
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-5">
-            <div class="card h-100 shadow-sm text-center p-4">
-                <div class="card-body">
-                    <h2 class="h4 fw-bold mb-3">2. Korak</h2>
-                    <p class="text-muted small">Nakon unosa ljubimca, rezervirajte termin.</p>
-                    <a asp-controller="Bookings" asp-action="Create" class="btn btn-outline-primary btn-lg w-100 shadow-sm">
-                        Rezerviraj termin
-                    </a>
+            <div class="card h-100 shadow-lg border-0 text-center overflow-hidden position-relative"
+                 style="min-height: 350px; border-radius: 20px;">
+                <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                            background: linear-gradient(rgba(39, 174, 96, 0.85), rgba(30, 132, 73, 0.85)),
+                                        url('/images/kartica.jpg') center 20% no-repeat;
+                            background-size: cover; z-index: 1;">
+                </div>
+
+                <div class="card-body position-relative z-index-2 d-flex flex-column justify-content-center p-4 text-white" style="z-index: 2;">
+                    <h2 class="display-6 fw-bold mb-2">2. KORAK</h2>
+                    <h4 class="mb-4 fw-light">Rezervacija žurke</h4>
+                    <p class="small mb-4">Odaberi termin i osiguraj svom psu nezaboravan boravak kod nas.</p>
+                    <div class="mt-auto">
+                        <a asp-controller="Bookings" asp-action="Create" class="btn btn-light btn-lg w-100 shadow fw-bold text-success" style="color: #27ae60 !important; border-radius: 10px;">
+                            <i class="fas fa-calendar-check me-2"></i> Rezerviraj termin
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

@@ -3,55 +3,57 @@
 @{
     ViewData["Title"] = "Dodaj ljubimca";
 }
+
 @if (TempData["Message"] != null)
 {
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Napomena:</strong> @TempData["Message"]
+    <div class="alert alert-warning alert-dismissible fade show shadow-sm" role="alert">
+        <strong>🐾 Napomena:</strong> @TempData["Message"]
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
+
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow border-0">
+            <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white text-center py-3">
-                    <h3 class="mb-0"><i class="bi bi-plus-circle me-2"></i>Novi ljubimac</h3>
+                    <h3 class="mb-0"><span style="font-size: 1.2rem;">1. KORAK:</span> Registracija ljubimca</h3>
                 </div>
-                <div class="card-body p-4">
+                <div class="card-body p-4" style="background-color: #fdfaf5;">
                     <form asp-action="Create">
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label asp-for="Name" class="form-label fw-bold">Ime psa</label>
-                                <input asp-for="Name" class="form-control" placeholder="npr. Buddy" />
+                                <label asp-for="Name" class="form-label fw-bold text-dark">Ime psa</label>
+                                <input asp-for="Name" class="form-control border-primary-subtle" placeholder="npr. Buddy" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="Size" class="form-label fw-bold">Veličina psa</label>
-                                <input asp-for="Size" class="form-control" placeholder="Mali, Srednji, Veliki" />
+                                <label asp-for="Size" class="form-label fw-bold text-dark">Veličina psa</label>
+                                <input asp-for="Size" class="form-control border-primary-subtle" placeholder="Mali, Srednji, Veliki" />
                                 <span asp-validation-for="Size" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label asp-for="BirthYear" class="form-label fw-bold">Godina rođenja</label>
-                                <input asp-for="BirthYear" type="text" inputmode="numeric" class="form-control" placeholder="2020" />
+                                <label asp-for="BirthYear" class="form-label fw-bold text-dark">Godina rođenja</label>
+                                <input asp-for="BirthYear" type="text" inputmode="numeric" class="form-control border-primary-subtle" placeholder="2020" />
                                 <span asp-validation-for="BirthYear" class="text-danger"></span>
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label asp-for="MicrochipNumber" class="form-label fw-bold">Broj mikročipa</label>
-                                <input asp-for="MicrochipNumber" class="form-control" />
+                                <label asp-for="MicrochipNumber" class="form-label fw-bold text-dark">Broj mikročipa</label>
+                                <input asp-for="MicrochipNumber" class="form-control border-primary-subtle" />
                                 <span asp-validation-for="MicrochipNumber" class="text-danger"></span>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label asp-for="UserId" class="form-label fw-bold">Vlasnik (Korisnik)</label>
-                            <select asp-for="UserId" class="form-select shadow-sm" asp-items="ViewBag.UserId">
+                            <label asp-for="UserId" class="form-label fw-bold text-dark">Vlasnik (Korisnik)</label>
+                            <select asp-for="UserId" class="form-select border-primary-subtle shadow-sm" asp-items="ViewBag.UserId">
                                 <option value="">-- Odaberite vlasnika --</option>
                             </select>
                         </div>
@@ -59,21 +61,23 @@
                         <div class="row mb-4">
                             <div class="col-md-6">
                                 <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" asp-for="IsSocialized" />
-                                    <label class="form-check-label" asp-for="IsSocialized">Socijaliziran</label>
+                                    <input class="form-check-input" asp-for="IsSocialized" style="cursor:pointer;" />
+                                    <label class="form-check-label fw-bold" asp-for="IsSocialized">Socijaliziran</label>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" asp-for="IsActive" />
-                                    <label class="form-check-label" asp-for="IsActive">Aktivan</label>
+                                    <input class="form-check-input" asp-for="IsActive" style="cursor:pointer;" />
+                                    <label class="form-check-label fw-bold" asp-for="IsActive">Aktivan</label>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <hr />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
                             <a asp-action="Index" class="btn btn-outline-secondary px-4">Odustani</a>
-                            <button type="submit" class="btn btn-primary px-5 shadow">Spremi</button>
+                            <button type="submit" class="btn btn-primary px-5 shadow">Spremi šapicu</button>
                         </div>
                     </form>
                 </div>

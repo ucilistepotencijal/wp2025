@@ -1,49 +1,50 @@
-﻿@model IEnumerable<PetHotel.Models.Pet>
+﻿<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-dark">Popis šapica</h2>
+        <a asp-action="Create" class="btn btn-primary shadow-sm">
+            <i class="fas fa-plus"></i> Dodaj novog ljubimca
+        </a>
+    </div>
 
-@{
-    ViewData["Title"] = "Popis ljubimaca";
-}
-
-<h1 class="my-4">Popis ljubimaca</h1>
-
-<p>
-    <a asp-action="Create" class="btn btn-primary">Dodaj novog ljubimca</a>
-</p>
-
-<table class="table table-striped table-bordered mt-3">
-    <thead class="table-dark">
-        <tr>
-            <th>Ime</th>
-            <th>Pasmina</th>
-            <th>Veličina</th>
-            <th>Godina</th>
-            <th>Mikročip</th>
-            <th>Socijaliziran</th>
-            <th>Aktivan</th>
-            <th>Vlasnik</th>
-            <th>Akcije</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td><strong>@item.Name</strong></td>
-                <td>@item.Breed</td>
-                <td>@item.Size</td>
-                <td>@item.BirthYear</td>
-                <td>@item.MicrochipNumber</td>
-                <td>@(item.IsSocialized ? "Da" : "Ne")</td>
-                <td>@(item.IsActive ? "Da" : "Ne")</td>
-                <td>
-                    @item.User?.Email
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-sapotel">
+            <thead>
+                <tr>
+                    <th>Ime</th>
+                    <th>Veličina</th>
+                    <th>Godina</th>
+                    <th>Mikročip</th>
+                    <th class="text-center">Socijaliziran</th>
+                    <th class="text-center">Aktivan</th>
+                    <th>Vlasnik</th>
+                    <th class="text-center">Akcije</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="fw-bold">@item.Name</td>
+                        <td><span class="badge bg-light text-dark border">@item.Size</span></td>
+                        <td>@item.BirthYear.</td>
+                        <td><small class="text-muted">@item.MicrochipNumber</small></td>
+                        <td class="text-center">
+                            @(item.IsSocialized ? "✅ Da" : "❌ Ne")
+                        </td>
+                        <td class="text-center">
+                            <span class="badge @(item.IsActive ? "bg-success" : "bg-danger")">
+                                @(item.IsActive ? "Aktivan" : "Neaktivan")
+                            </span>
+                        </td>
+                        <td>@item.User?.Email</td>
+                        <td class="text-center">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn btn-edit">Uredi</a>
+                            <a asp-action="Details" asp-route-id="@item.Id" class="action-btn btn-details">Detalji</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="action-btn btn-delete">Obriši</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

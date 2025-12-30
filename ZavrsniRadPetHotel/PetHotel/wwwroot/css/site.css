@@ -1,31 +1,149 @@
+:root {
+    --primary-color: #e67e22; /* Topla naran?asta */
+    --secondary-color: #27ae60; /* Prirodna zelena */
+    --accent-color: #f1c40f; /* Žuta za detalje */
+    --light-bg: #fdfaf5; /* Krem pozadina za forme */
+}
+
+/* 1. OSNOVNE BOJE I GUMBI */
+.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+/* Forsiramo naran?astu i za okvire */
+.border-primary {
+    border-color: var(--primary-color) !important;
+}
+
+/* Ako koristiš suptilnije okvire iz novog Bootstrapa */
+.border-primary-subtle {
+    border-color: #ffcc80 !important;
+}
+
+.text-primary {
+    color: var(--primary-color) !important;
+}
+
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: white !important;
+}
+
+    .btn-primary:hover {
+        background-color: #d35400 !important;
+        border-color: #d35400 !important;
+    }
+
+/* 2. NAVIGACIJA */
+.navbar {
+    background-color: #ffffff !important;
+    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0,0,0,.05);
+}
+
+.navbar-brand {
+    color: var(--primary-color) !important;
+    font-weight: bold;
+}
+
+/* 3. FORME I FOKUS (Micanje plave boje) */
+.form-control:focus, .form-select:focus, .form-check-input:focus {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 0 0 0.25rem rgba(230, 126, 34, 0.25) !important; /* Naran?asti sjaj umjesto plavog */
+}
+
+.border-primary-subtle {
+    border-color: #ffcc80 !important;
+}
+
+/* 4. STRUKTURA STRANICE */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
+    html {
+        font-size: 16px;
+    }
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background-color: #f8f9fa; /* Lagana siva pozadina cijele stranice */
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+/* 5. POSEBNI STILOVI ZA ŠAPOTEL */
+.card-header.bg-primary {
+    border-bottom: 0;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+.italic {
+    font-style: italic;
+}
+
+/* Moderna Šapotel Tablica */
+.table-sapotel {
+    border-collapse: separate;
+    border-spacing: 0 10px; /* Razmak izme?u redova */
+}
+
+    .table-sapotel thead th {
+        background-color: var(--primary-color) !important;
+        color: white !important;
+        border: none;
+        padding: 15px;
+    }
+
+        .table-sapotel thead th:first-child {
+            border-radius: 10px 0 0 10px;
+        }
+
+        .table-sapotel thead th:last-child {
+            border-radius: 0 10px 10px 0;
+        }
+
+    .table-sapotel tbody tr {
+        background-color: white;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        transition: transform 0.2s;
+    }
+
+        .table-sapotel tbody tr:hover {
+            transform: scale(1.01);
+            background-color: #fff9f4;
+        }
+
+    .table-sapotel td {
+        padding: 15px;
+        vertical-align: middle;
+        border: none !important;
+    }
+
+/* Stilovi za akcijske gumbe u tablici */
+.action-btn {
+    padding: 5px 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px;
+}
+
+.btn-edit {
+    background-color: #fff3e0;
+    color: #e67e22;
+}
+
+.btn-details {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.btn-delete {
+    background-color: #ffebee;
+    color: #c62828;
 }
