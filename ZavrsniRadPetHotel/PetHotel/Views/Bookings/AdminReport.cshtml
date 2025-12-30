@@ -1,0 +1,56 @@
+﻿@model IEnumerable<PetHotel.Models.Booking>
+
+@{
+    ViewData["Title"] = "Admin Dashboard - Zarada";
+    decimal ukupnaZaradaHotela = 0;
+}
+
+<div class="container mt-4">
+    <h1 class="text-primary fw-bold mb-0">💼 Admin Panel</h1>
+    <p class="text-muted mb-4">Pregled poslovanja i projekcija zarade</p>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr class="text-secondary small">
+                            <th class="ps-4">Ljubimac</th>
+                            <th>Usluga</th>
+                            <th>Termin</th>
+                            <th>Dana</th>
+                            <th>Cijena/dan</th>
+                            <th class="text-end pe-4">Ukupno</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            var dani = (item.EndDate - item.StartDate).Days;
+                            if (dani <= 0) dani = 1;
+
+                            var cijenaPoDanu = item.ServiceType?.Price ?? 0;
+                            var ukupnoRezervacija = dani * cijenaPoDanu;
+                            ukupnaZaradaHotela += ukupnoRezervacija;
+
+                            <tr>
+                                <td class="ps-4 fw-bold">🐾 @item.Pet?.Name</td>
+                                <td><span class="badge bg-light text-primary border">@item.ServiceType?.Name</span></td>
+                                <td class="small">@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()</td>
+                                <td>@dani</td>
+                                <td>@cijenaPoDanu.ToString("F2") €</td>
+                                <td class="text-end pe-4 fw-bold text-dark">@ukupnoRezervacija.ToString("F2") €</td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot class="table-light fw-bold">
+                        <tr>
+                            <td colspan="5" class="text-end ps-4 py-3">SVEUKUPNI PRIHOD:</td>
+                            <td class="text-end pe-4 py-3 fs-5 text-primary">@ukupnaZaradaHotela.ToString("F2") €</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

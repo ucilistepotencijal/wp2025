@@ -41,8 +41,22 @@
                                     Admin Panel
                                 </a>
                                 <ul class="dropdown-menu shadow" aria-labelledby="adminDropdown">
-                                    <li><a class="dropdown-item" asp-controller="ServiceTypes" asp-action="Index">Upravljanje uslugama</a></li>
-                                    <li><a class="dropdown-item" asp-controller="AdminUsers" asp-action="Index">Korisnici</a></li>
+                                    <li>
+                                        <a class="dropdown-item fw-bold text-primary" asp-controller="Bookings" asp-action="AdminReport">
+                                            💰 Izvještaj zarade
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ServiceTypes" asp-action="Index">
+                                            Upravljanje uslugama
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="AdminUsers" asp-action="Index">
+                                            Korisnici
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         }

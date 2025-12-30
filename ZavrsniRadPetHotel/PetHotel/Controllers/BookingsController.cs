@@ -197,5 +197,18 @@ namespace PetHotel.Controllers
         {
             return _context.Bookings.Any(e => e.Id == id);
         }
+
+
+        // GET: Bookings/AdminReport
+        [Authorize(Roles = "Admin")] // Samo admin smije vidjeti pare!
+public async Task<IActionResult> AdminReport()
+        {
+            var reportData = _context.Bookings
+                .Include(b => b.Pet)
+                .Include(b => b.ServiceType)
+                .AsNoTracking(); // Dodaj ovo za bolji performans izvještaja
+
+            return View(await reportData.ToListAsync());
+        }
     }
 }
