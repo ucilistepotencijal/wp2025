@@ -3,7 +3,11 @@
 @{
     ViewData["Title"] = "Nova rezervacija";
 }
-
+<div asp-validation-summary="All" class="text-danger"></div>
+<div class="form-group d-none">
+    <label asp-for="UserId" class="control-label"></label>
+    <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+</div>
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">

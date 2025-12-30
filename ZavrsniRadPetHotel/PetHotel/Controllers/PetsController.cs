@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims; // Dodano za prepoznavanje korisnika
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,7 +12,7 @@ using PetHotel.Models;
 
 namespace PetHotel.Controllers
 {
-    [Authorize]
+    [Authorize] // Osigurava da samo prijavljeni korisnici mogu pristupiti kontroleru
     public class PetsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,24 +23,18 @@ namespace PetHotel.Controllers
         }
 
         // GET: Pets
+        // Prikazuje samo ljubimce trenutnog korisnika (ili sve ako je Admin)
         public async Task<IActionResult> Index()
         {
-            // Dohvaćamo ID trenutno prijavljenog korisnika
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            IQueryable<Pet> petsQuery;
+            // Osnovni upit s uključenim podacima o korisniku/vlasniku
+            var petsQuery = _context.Pets.Include(p => p.User).AsQueryable();
 
-            // Ako želiš da Admin vidi sve, a ostali samo svoje:
-            if (User.IsInRole("Admin"))
+            // Ako korisnik nije Admin, filtriraj samo njegove ljubimce
+            if (!User.IsInRole("Admin"))
             {
-                petsQuery = _context.Pets.Include(p => p.User);
-            }
-            else
-            {
-                // Običan korisnik vidi samo svoje ljubimce
-                petsQuery = _context.Pets
-                    .Where(p => p.UserId == currentUserId)
-                    .Include(p => p.User);
+                petsQuery = petsQuery.Where(p => p.UserId == currentUserId);
             }
 
             return View(await petsQuery.ToListAsync());
@@ -57,7 +51,7 @@ namespace PetHotel.Controllers
 
             if (pet == null) return NotFound();
 
-            // Sigurnosna provjera: Ne dopusti korisniku da gleda tuđeg ljubimca preko linka
+            // Sigurnosna provjera: Ne dopusti pristup tuđim ljubimcima
             var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (pet.UserId != currentUserId && !User.IsInRole("Admin"))
             {
@@ -70,23 +64,28 @@ namespace PetHotel.Controllers
         // GET: Pets/Create
         public IActionResult Create()
         {
-            // Prikazujemo Email umjesto ID-a u padajućem izborniku
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
         // POST: Pets/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Breed,Size,BirthYear,MicrochipNumber,IsSocialized,PersonalNotes,IsActive,UserId")] Pet pet)
+        public async Task<IActionResult> Create(Pet pet)
         {
+            // 1. Automatski dodijeli ID trenutno prijavljenog korisnika
+            pet.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // 2. Ručno ukloni UserId i User iz validacije (za svaki slučaj uz [ValidateNever])
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
+
             if (ModelState.IsValid)
             {
                 _context.Add(pet);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", pet.UserId);
+
             return View(pet);
         }
 
@@ -105,16 +104,27 @@ namespace PetHotel.Controllers
                 return Forbid();
             }
 
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", pet.UserId);
             return View(pet);
         }
 
         // POST: Pets/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Breed,Size,BirthYear,MicrochipNumber,IsSocialized,PersonalNotes,IsActive,UserId")] Pet pet)
+        public async Task<IActionResult> Edit(int id, Pet pet)
         {
             if (id != pet.Id) return NotFound();
+
+            // Ponovno dodijeli UserId kako bi se spriječilo "otimanje" ljubimca promjenom ID-a u formi
+            var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            // Ako nije admin, forsiraj vlasništvo na trenutnog korisnika
+            if (!User.IsInRole("Admin"))
+            {
+                pet.UserId = currentUserId;
+            }
+
+            ModelState.Remove("UserId");
+            ModelState.Remove("User");
 
             if (ModelState.IsValid)
             {
@@ -130,7 +140,6 @@ namespace PetHotel.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", pet.UserId);
             return View(pet);
         }
 
@@ -161,12 +170,18 @@ namespace PetHotel.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var pet = await _context.Pets.FindAsync(id);
+
             if (pet != null)
             {
-                _context.Pets.Remove(pet);
+                // Dodatna sigurnosna provjera prije brisanja
+                var currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (pet.UserId == currentUserId || User.IsInRole("Admin"))
+                {
+                    _context.Pets.Remove(pet);
+                    await _context.SaveChangesAsync();
+                }
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 

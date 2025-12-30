@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation; // Dodano za [ValidateNever]
 using System.ComponentModel.DataAnnotations;
 
 namespace PetHotel.Models
@@ -25,6 +26,7 @@ namespace PetHotel.Models
         [DataType(DataType.Date)]
         public DateTime EndDate { get; set; }
 
+        // Logika za provjeru datuma
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (EndDate <= StartDate)
@@ -35,7 +37,7 @@ namespace PetHotel.Models
             }
         }
 
-            [Display(Name = "Dodatne napomene za ovaj boravak")]
+        [Display(Name = "Dodatne napomene za ovaj boravak")]
         public string? Notes { get; set; }
 
         public DateTime CreatedAt { get; set; } = DateTime.Now;
@@ -47,17 +49,23 @@ namespace PetHotel.Models
         [Required]
         [Display(Name = "Pas")]
         public int PetId { get; set; }
+
+        [ValidateNever] // Sprječava grešku jer ne šaljemo cijeli objekt kroz formu
         public virtual Pet? Pet { get; set; }
 
         // Veza s tipom usluge
         [Required]
         [Display(Name = "Usluga")]
         public int ServiceTypeId { get; set; }
+
+        [ValidateNever] // Sprječava grešku za tip usluge
         public virtual ServiceType? ServiceType { get; set; }
 
-        // Vlasnik
-        [Required]
+        // Vlasnik - Ovdje je bio glavni problem
+        [ValidateNever] // Ovo je ključno da sustav ne traži UserId unutar forme
         public string UserId { get; set; } = string.Empty;
+
+        [ValidateNever]
         public virtual IdentityUser? User { get; set; }
     }
 }

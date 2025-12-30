@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace PetHotel.Models
 {
@@ -20,7 +21,8 @@ namespace PetHotel.Models
         public bool IsActive { get; set; }
 
         // Ovo rješava grešku u PetsControlleru (Include(p => p.User))
+        [ValidateNever]
         public string? UserId { get; set; }
-        public virtual IdentityUser? User { get; set; }
+        public virtual Microsoft.AspNetCore.Identity.IdentityUser? User { get; set; }
     }
 }

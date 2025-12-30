@@ -21,6 +21,8 @@
                 </div>
                 <div class="card-body p-4" style="background-color: #fdfaf5;">
                     <form asp-action="Create">
+                        <input type="hidden" asp-for="UserId" value="placeholder" />
+
                         <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
                         <div class="row">
@@ -49,13 +51,6 @@
                                 <input asp-for="MicrochipNumber" class="form-control border-primary-subtle" />
                                 <span asp-validation-for="MicrochipNumber" class="text-danger"></span>
                             </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label asp-for="UserId" class="form-label fw-bold text-dark">Vlasnik (Korisnik)</label>
-                            <select asp-for="UserId" class="form-select border-primary-subtle shadow-sm" asp-items="ViewBag.UserId">
-                                <option value="">-- Odaberite vlasnika --</option>
-                            </select>
                         </div>
 
                         <div class="row mb-4">
