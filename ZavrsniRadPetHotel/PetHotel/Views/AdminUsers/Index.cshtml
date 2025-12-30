@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<IdentityUser>
+
+@{
+    ViewData["Title"] = "Popis korisnika";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-6 text-primary"><i class="bi bi-people-fill"></i> Registrirani korisnici</h1>
+        <span class="badge bg-secondary">Ukupno: @Model.Count()</span>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Email / Korisničko ime</th>
+                        <th>ID Korisnika</th>
+                        <th class="text-center">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td class="align-middle fw-bold">@user.Email</td>
+                            <td class="align-middle text-muted small">@user.Id</td>
+                            <td class="text-center">
+                                @if (user.EmailConfirmed)
+                                {
+                                    <span class="badge bg-success text-white">Potvrđen</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-warning text-dark">Čeka potvrdu</span>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
