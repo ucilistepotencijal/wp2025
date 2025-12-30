@@ -22,27 +22,26 @@ namespace PetHotel.Controllers
         // GET: Bookings
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Bookings.Include(b => b.Pet).Include(b => b.ServiceType).Include(b => b.User);
-            return View(await applicationDbContext.ToListAsync());
+            // Include osigurava da imamo podatke o psu, usluzi i korisniku (emailu) za tablicu
+            var bookings = _context.Bookings
+                .Include(b => b.Pet)
+                .Include(b => b.ServiceType)
+                .Include(b => b.User);
+            return View(await bookings.ToListAsync());
         }
 
         // GET: Bookings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var booking = await _context.Bookings
                 .Include(b => b.Pet)
                 .Include(b => b.ServiceType)
                 .Include(b => b.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
+
+            if (booking == null) return NotFound();
 
             return View(booking);
         }
@@ -50,15 +49,17 @@ namespace PetHotel.Controllers
         // GET: Bookings/Create
         public IActionResult Create()
         {
+            // Ovdje postavljamo što će se vidjeti u padajućim izbornicima
             ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Name");
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+
+            // POPRAVLJENO: Prikazuje Email umjesto Id-a
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
+
             return View();
         }
 
         // POST: Bookings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,StartDate,EndDate,Notes,CreatedAt,Status,PetId,ServiceTypeId,UserId")] Booking booking)
@@ -69,42 +70,37 @@ namespace PetHotel.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            // Ako dođe do greške, ponovno punimo liste (prikazujemo Email)
             ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Name", booking.PetId);
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", booking.ServiceTypeId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", booking.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", booking.UserId);
             return View(booking);
         }
 
         // GET: Bookings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var booking = await _context.Bookings.FindAsync(id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
+            if (booking == null) return NotFound();
+
             ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Name", booking.PetId);
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", booking.ServiceTypeId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", booking.UserId);
+
+            // POPRAVLJENO: Prikazuje Email kod uređivanja
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", booking.UserId);
+
             return View(booking);
         }
 
         // POST: Bookings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,StartDate,EndDate,Notes,CreatedAt,Status,PetId,ServiceTypeId,UserId")] Booking booking)
         {
-            if (id != booking.Id)
-            {
-                return NotFound();
-            }
+            if (id != booking.Id) return NotFound();
 
             if (ModelState.IsValid)
             {
@@ -115,40 +111,30 @@ namespace PetHotel.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookingExists(booking.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    if (!BookingExists(booking.Id)) return NotFound();
+                    else throw;
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["PetId"] = new SelectList(_context.Pets, "Id", "Name", booking.PetId);
             ViewData["ServiceTypeId"] = new SelectList(_context.ServiceTypes, "Id", "Name", booking.ServiceTypeId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", booking.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", booking.UserId);
             return View(booking);
         }
 
         // GET: Bookings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var booking = await _context.Bookings
                 .Include(b => b.Pet)
                 .Include(b => b.ServiceType)
                 .Include(b => b.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (booking == null)
-            {
-                return NotFound();
-            }
+
+            if (booking == null) return NotFound();
 
             return View(booking);
         }
