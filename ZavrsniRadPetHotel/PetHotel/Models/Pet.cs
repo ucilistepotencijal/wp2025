@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace PetHotel.Models
@@ -13,7 +12,10 @@ namespace PetHotel.Models
 
         // Dodaj ova polja da Index.cshtml prestane javljati greške:
         public string? Breed { get; set; }
-        public string? Size { get; set; } // Ovo će odblokirati ono crno polje!
+        public string? Size { get; set; }
+
+        [Required(ErrorMessage = "Godina rođenja je obavezna")]
+        [Range(2000, 2100, ErrorMessage = "Godina rođenja mora biti između 2000 i trenutne godine")]
         public int BirthYear { get; set; }
         public string? MicrochipNumber { get; set; }
         public bool IsSocialized { get; set; }

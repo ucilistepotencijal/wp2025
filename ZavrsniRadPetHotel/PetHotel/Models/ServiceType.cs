@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PetHotel.Models
 {
@@ -15,6 +16,7 @@ namespace PetHotel.Models
 
         [Required(ErrorMessage = "Cijena je obavezna")]
         [Display(Name = "Cijena po danu/tretmanu (EUR)")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         [Display(Name = "Aktivna ponuda")]

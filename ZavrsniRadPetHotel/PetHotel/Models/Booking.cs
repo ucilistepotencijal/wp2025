@@ -61,7 +61,6 @@ namespace PetHotel.Models
         [ValidateNever] // Sprječava grešku za tip usluge
         public virtual ServiceType? ServiceType { get; set; }
 
-        // Vlasnik - Ovdje je bio glavni problem
         [ValidateNever] // Ovo je ključno da sustav ne traži UserId unutar forme
         public string UserId { get; set; } = string.Empty;
 
