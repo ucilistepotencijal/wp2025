@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace AutoServis.Data
 {
@@ -23,7 +21,7 @@ namespace AutoServis.Data
                 }
             }
 
-            const string adminEmail = "merisumic@gmail.com";
+            const string adminEmail = "voditelj@ucilistepotencijal.hr";
             const string adminPassword = "Admin123!";
 
             var adminUser = await userManager.FindByEmailAsync(adminEmail);

@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AutoServis.Data;
+﻿using AutoServis.Data;
 using AutoServis.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoServis.Controllers
 {
@@ -19,13 +20,37 @@ namespace AutoServis.Controllers
             _userManager = userManager;
         }
 
+        private bool IsAdmin() => User.IsInRole("Admin");
+
+        private async Task PopulateUsersAsync(string? selectedUserId = null)
+        {
+            var users = await _context.Users
+                .OrderBy(u => u.Email)
+                .Select(u => new
+                {
+                    u.Id,
+                    Text = (u.Email ?? u.UserName)
+                })
+                .ToListAsync();
+
+            ViewData["UserId"] = new SelectList(users, "Id", "Text", selectedUserId);
+        }
+
         // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            var userId = _userManager.GetUserId(User);
-            var vehicles = await _context.Vehicles
-                .Where(v => v.UserId == userId)
+            var query = _context.Vehicles
                 .Include(v => v.User)
+                .AsQueryable();
+
+            if (!IsAdmin())
+            {
+                var userId = _userManager.GetUserId(User);
+                query = query.Where(v => v.UserId == userId && v.IsActive);
+            }
+
+            var vehicles = await query
+                .OrderByDescending(v => v.Id)
                 .ToListAsync();
 
             return View(vehicles);
@@ -34,155 +59,188 @@ namespace AutoServis.Controllers
         // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var userId = _userManager.GetUserId(User);
-            var vehicle = await _context.Vehicles
+            var query = _context.Vehicles
                 .Include(v => v.User)
-                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == userId);
+                .AsQueryable();
 
-            if (vehicle == null)
+            if (!IsAdmin())
             {
-                return NotFound();
+                var userId = _userManager.GetUserId(User);
+                query = query.Where(v => v.UserId == userId && v.IsActive);
             }
+
+            var vehicle = await query.FirstOrDefaultAsync(v => v.Id == id);
+            if (vehicle == null) return NotFound();
 
             return View(vehicle);
         }
 
         // GET: Vehicles/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            if (IsAdmin())
+                await PopulateUsersAsync();
+
+            // customeru ne prikazujemo UserId/IsActive, ali model može imati default
+            return View(new Vehicle { IsActive = true });
         }
 
         // POST: Vehicles/Create
-        // To protect from overposting attacks, bind only the editable properties (exclude UserId).
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Make,Model,Year,LicensePlate,Vin")] Vehicle vehicle)
+        public async Task<IActionResult> Create([Bind("Make,Model,Year,LicensePlate,Vin,UserId,IsActive")] Vehicle input)
         {
-            if (ModelState.IsValid)
+            if (!IsAdmin())
             {
-                vehicle.UserId = _userManager.GetUserId(User);
-                _context.Add(vehicle);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                // Customer: uvijek za sebe i uvijek aktivno
+                input.UserId = _userManager.GetUserId(User)!;
+                input.IsActive = true;
+            }
+            else
+            {
+                // Admin: mora odabrati vlasnika (ili možeš dopustiti null ako želiš)
+                if (string.IsNullOrWhiteSpace(input.UserId))
+                    ModelState.AddModelError("UserId", "Vlasnik je obavezan.");
             }
 
-            return View(vehicle);
+            if (!ModelState.IsValid)
+            {
+                if (IsAdmin()) await PopulateUsersAsync(input.UserId);
+                return View(input);
+            }
+
+            _context.Vehicles.Add(input);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            if (id == null) return NotFound();
+
+            var query = _context.Vehicles
+                .Include(v => v.User)
+                .AsQueryable();
+
+            if (!IsAdmin())
             {
-                return NotFound();
+                var userId = _userManager.GetUserId(User);
+                query = query.Where(v => v.UserId == userId && v.IsActive);
             }
 
-            var userId = _userManager.GetUserId(User);
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            var vehicle = await query.FirstOrDefaultAsync(v => v.Id == id);
+            if (vehicle == null) return NotFound();
 
-            if (vehicle == null || vehicle.UserId != userId)
-            {
-                return NotFound();
-            }
+            if (IsAdmin())
+                await PopulateUsersAsync(vehicle.UserId);
 
             return View(vehicle);
         }
 
         // POST: Vehicles/Edit/5
-        // Bind only editable fields to avoid overposting (exclude UserId).
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Make,Model,Year,LicensePlate,Vin")] Vehicle input)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Make,Model,Year,LicensePlate,Vin,UserId,IsActive")] Vehicle input)
         {
-            if (id != input.Id)
+            if (id != input.Id) return NotFound();
+
+            var query = _context.Vehicles.AsQueryable();
+
+            if (!IsAdmin())
             {
-                return NotFound();
+                var userId = _userManager.GetUserId(User);
+                query = query.Where(v => v.UserId == userId && v.IsActive);
+            }
+
+            var vehicle = await query.FirstOrDefaultAsync(v => v.Id == id);
+            if (vehicle == null) return NotFound();
+
+            // Customer ne smije mijenjati vlasnika ni status
+            if (!IsAdmin())
+            {
+                input.UserId = vehicle.UserId;
+                input.IsActive = vehicle.IsActive;
+            }
+            else
+            {
+                if (string.IsNullOrWhiteSpace(input.UserId))
+                    ModelState.AddModelError("UserId", "Vlasnik je obavezan.");
             }
 
             if (!ModelState.IsValid)
             {
+                if (IsAdmin()) await PopulateUsersAsync(input.UserId);
                 return View(input);
             }
 
-            var userId = _userManager.GetUserId(User);
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id && v.UserId == userId);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
-            // update allowed fields only
             vehicle.Make = input.Make;
             vehicle.Model = input.Model;
             vehicle.Year = input.Year;
             vehicle.LicensePlate = input.LicensePlate;
             vehicle.Vin = input.Vin;
 
-            try
+            if (IsAdmin())
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!VehicleExists(vehicle.Id))
-                {
-                    return NotFound();
-                }
-
-                throw;
+                vehicle.UserId = input.UserId;
+                vehicle.IsActive = input.IsActive;
             }
 
+            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Vehicles/Delete/5
+        // GET: Vehicles/Delete/5 (admin-only)
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
-            var userId = _userManager.GetUserId(User);
+            if (!IsAdmin())
+                return Forbid();
+
             var vehicle = await _context.Vehicles
                 .Include(v => v.User)
-                .FirstOrDefaultAsync(m => m.Id == id && m.UserId == userId);
+                .FirstOrDefaultAsync(v => v.Id == id);
 
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            if (vehicle == null) return NotFound();
 
             return View(vehicle);
         }
 
-        // POST: Vehicles/Delete/5
+        // POST: Vehicles/Delete/5 (admin-only, fizičko brisanje)
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var userId = _userManager.GetUserId(User);
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id && v.UserId == userId);
+            if (!IsAdmin())
+                return Forbid();
 
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle == null) return NotFound();
 
             _context.Vehicles.Remove(vehicle);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VehicleExists(int id)
+        // POST: Vehicles/ToggleActive (admin-only)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleActive(int id)
         {
-            return _context.Vehicles.Any(e => e.Id == id);
+            if (!IsAdmin())
+                return Forbid();
+
+            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (vehicle == null) return NotFound();
+
+            vehicle.IsActive = !vehicle.IsActive;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
+

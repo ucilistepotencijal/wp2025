@@ -1,6 +1,8 @@
 using AutoServis.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,16 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
+
+var hrCulture = new CultureInfo("hr-HR");
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture(hrCulture);
+    options.SupportedCultures = new[] { hrCulture };
+    options.SupportedUICultures = new[] { hrCulture };
+});
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -29,6 +41,15 @@ else
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
+var culture = new CultureInfo("hr-HR");
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
+
+var locOptions = app.Services.GetRequiredService<
+    Microsoft.Extensions.Options.IOptions<RequestLocalizationOptions>>();
+
+app.UseRequestLocalization(locOptions.Value);
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

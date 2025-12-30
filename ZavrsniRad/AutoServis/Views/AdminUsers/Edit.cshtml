@@ -1,0 +1,69 @@
+﻿@using AutoServis.Models.Admin
+@model UserEditVM
+@{
+    ViewData["Title"] = "Uredi korisnika";
+}
+
+<h1 class="h4 mb-3">Uredi korisnika</h1>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <form asp-action="Edit" method="post" class="row g-3">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="col-md-6">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="UserName" class="form-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+                <div class="form-text">Ako ostaviš prazno, postavit će se na Email.</div>
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" asp-for="IsActive" />
+                    <label class="form-check-label" asp-for="IsActive"></label>
+                </div>
+                <div class="form-text">
+                    Ako je korisnik deaktiviran, neće se moći prijaviti.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Role</label>
+                <div class="row">
+                    @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" asp-for="Roles[i].Selected" />
+                                <input type="hidden" asp-for="Roles[i].Name" />
+                                <label class="form-check-label">@Model.Roles[i].Name</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-12 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Spremi</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Natrag</a>
+
+                <a asp-action="ResetPassword" asp-route-id="@Model.Id" class="btn btn-outline-warning ms-auto">
+                    Reset lozinke
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
