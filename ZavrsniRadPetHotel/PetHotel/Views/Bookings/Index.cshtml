@@ -1,53 +1,77 @@
 ﻿@model IEnumerable<PetHotel.Models.Booking>
 
 @{
-    ViewData["Title"] = "Rezervacije";
+    ViewData["Title"] = "Index";
 }
 
-<h1 class="mb-4">📅 Pregled rezervacija</h1>
+<h1>Index</h1>
 
-<table class="table table-hover align-middle shadow-sm rounded bg-white">
-    <thead class="table-light">
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
-            <th>Pas</th>
-            <th>Termin (Dolazak - Odlazak)</th>
-            <th>Usluga</th>
-            <th>Status</th>
-            <th>Akcije</th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ServiceType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.User)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td class="fw-bold">@item.Pet?.Name</td>
-                <td>@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString()</td>
-                <td>@item.ServiceType?.Name</td>
-                <td>
-                    @switch (item.Status)
-                    {
-                        case BookingStatus.Scheduled:
-                            <span class="badge rounded-pill bg-primary">Zakazano</span>
-                            break;
-                        case BookingStatus.InProgress:
-                            <span class="badge rounded-pill bg-warning text-dark">U hotelu 🐕</span>
-                            break;
-                        case BookingStatus.Completed:
-                            <span class="badge rounded-pill bg-success">Završeno</span>
-                            break;
-                        case BookingStatus.Cancelled:
-                            <span class="badge rounded-pill bg-danger">Otkazano</span>
-                            break;
-                    }
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-light border">Pregled</a>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Status</a>
-                    }
-                </td>
-            </tr>
-        }
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pet.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ServiceType.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.Id)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
