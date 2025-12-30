@@ -21,7 +21,7 @@ namespace AutoServis.Data
                 }
             }
 
-            const string adminEmail = "voditelj@ucilistepotencijal.hr";
+            const string adminEmail = "merisumic@gmail.com";
             const string adminPassword = "Admin123!";
 
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
