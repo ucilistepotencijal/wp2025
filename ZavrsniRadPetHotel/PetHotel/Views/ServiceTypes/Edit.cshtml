@@ -1,49 +1,58 @@
 ﻿@model PetHotel.Models.ServiceType
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Uredi uslugu";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4">
+    <h1 class="text-primary fw-bold">⚙️ Uredi uslugu</h1>
+    <hr />
 
-<h4>ServiceType</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-md-8 col-lg-6">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="card shadow-sm p-4 border-0">
+                    <div class="form-group mb-3">
+                        <label asp-for="Name" class="control-label fw-bold">Naziv usluge</label>
+                        <input asp-for="Name" class="form-control" placeholder="Npr. Noćenje s doručkom" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Description" class="control-label fw-bold">Opis</label>
+                        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Što sve usluga uključuje..."></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label asp-for="Price" class="control-label fw-bold">Cijena po danu (€)</label>
+                        <div class="input-group">
+                            <input asp-for="Price" class="form-control" type="number" step="0.01" />
+                            <span class="input-group-text">€</span>
+                        </div>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check mb-4 p-0 ms-4">
+                        <input class="form-check-input" asp-for="IsActive" />
+                        <label class="form-check-label ms-2 fw-bold">Usluga je aktivna i dostupna</label>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-4 shadow-sm">Spremi promjene</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary">Povratak na listu</a>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
