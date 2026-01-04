@@ -1,0 +1,40 @@
+﻿@model ErrorViewModel
+
+@*
+Pseudocode / Plan (detailed):
+1. Keep the existing Razor page structure and the @model directive.
+2. Preserve ViewData["Title"] assignment to retain page title metadata.
+3. Replace all user-facing English strings with Croatian translations:
+   - H1/H2 headings
+   - "Request ID" label appearing when Model.ShowRequestId is true
+   - "Development Mode" heading and explanatory paragraphs
+4. Ensure all Razor expressions and conditionals remain unchanged:
+   - Keep the conditional block that displays the RequestId when Model.ShowRequestId is true.
+   - Keep usage of @Model.RequestId and any HTML/CSS classes (e.g., "text-danger").
+5. Use Razor comment block for this pseudocode so it does not affect rendering.
+6. Keep markup semantics and accessibility (strong/paragraph/code) unchanged.
+*@
+@{
+    ViewData["Title"] = "Greška";
+}
+
+<h1 class="text-danger">Greška.</h1>
+<h2 class="text-danger">Došlo je do pogreške tijekom obrade vašeg zahtjeva.</h2>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        <strong>ID zahtjeva:</strong> <code>@Model.RequestId</code>
+    </p>
+}
+
+<h3>Razvojno okruženje</h3>
+<p>
+    Prebacivanje na <strong>Development</strong> okruženje prikazat će detaljnije informacije o pogrešci koja se dogodila.
+</p>
+<p>
+    <strong>Razvojno okruženje ne bi trebalo biti omogućeno za aplikacije koje su postavljene u produkciju.</strong>
+    To može rezultirati prikazivanjem osjetljivih informacija iz iznimaka krajnjim korisnicima.
+    Za lokalno otklanjanje pogrešaka omogućite <strong>Development</strong> okruženje postavljanjem varijable okruženja <strong>ASPNETCORE_ENVIRONMENT</strong> na <strong>Development</strong>
+    i ponovnim pokretanjem aplikacije.
+</p>

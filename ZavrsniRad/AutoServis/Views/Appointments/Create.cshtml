@@ -1,0 +1,66 @@
+﻿@model AutoServis.Models.Appointment
+
+@{
+    ViewData["Title"] = "Novi termin";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<h1>Novi termin</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="ServiceTypeId" class="form-label">Tip usluge</label>
+                <select asp-for="ServiceTypeId" class="form-select" asp-items="@(ViewData["ServiceTypeId"] as SelectList)"></select>
+                <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+            </div>
+
+            @if (isAdmin)
+            {
+                <div class="mb-3">
+                    <label asp-for="UserId" class="form-label">Korisnik</label>
+                    <select asp-for="UserId" class="form-select" asp-items="@(ViewData["UserId"] as SelectList)"></select>
+                    <span asp-validation-for="UserId" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="VehicleId" class="form-label">Vozilo</label>
+                <select asp-for="VehicleId" class="form-select" asp-items="@(ViewData["VehicleId"] as SelectList)"></select>
+                <span asp-validation-for="VehicleId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ScheduledDate" class="form-label">Datum i vrijeme</label>
+                <input asp-for="ScheduledDate" class="form-control" type="datetime-local" />
+                <span asp-validation-for="ScheduledDate" class="text-danger"></span>
+            </div>
+
+            @if (isAdmin)
+            {
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label">Status</label>
+                    <select asp-for="Status" class="form-select" asp-items="@(Html.GetEnumSelectList<AutoServis.Models.AppointmentStatus>())"></select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+            }
+
+            <div class="mb-3">
+                <label asp-for="Notes" class="form-label">Napomena</label>
+                <textarea asp-for="Notes" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Notes" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Spremi</button>
+            <a asp-action="Index" class="btn btn-secondary">Natrag</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

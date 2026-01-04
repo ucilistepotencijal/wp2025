@@ -1,0 +1,47 @@
+﻿@model List<Proizvodi>
+@{
+    ViewBag.Title = "Web Shop";
+}
+
+<h2>Web Shop</h2>
+
+<p>
+@Html.ActionLink("Pogledaj košaricu", "Index", "Cart")
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model[0].Naziv)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Cijena)</th>
+            <th>@Html.DisplayNameFor(model => model[0].Dostupan)</th>
+            <th>@Html.DisplayNameFor(model => model[0].VrijemeKreiranja)</th>
+            <th>@Html.DisplayNameFor(model => model[0].MjereProizvoda.Naziv)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Naziv)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cijena)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Dostupan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VrijemeKreiranja)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MjereProizvoda.Naziv)
+                </td>
+                <td>
+                    @Html.ActionLink("Dodaj u košaricu", "AddToCart", "Cart", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+

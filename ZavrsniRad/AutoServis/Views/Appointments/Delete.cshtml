@@ -1,0 +1,39 @@
+﻿@model AutoServis.Models.Appointment
+
+@{
+    ViewData["Title"] = "Brisanje termina";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<h1>Brisanje</h1>
+
+<div class="alert alert-warning">
+    Jeste li sigurni da želite obrisati ovaj termin?
+</div>
+
+<dl class="row">
+    <dt class="col-sm-3">Datum i vrijeme</dt>
+    <dd class="col-sm-9">@Model.ScheduledDate.ToString("dd.MM.yyyy. HH:mm")</dd>
+
+    <dt class="col-sm-3">Usluga</dt>
+    <dd class="col-sm-9">@Model.ServiceType?.Name</dd>
+
+    <dt class="col-sm-3">Vozilo</dt>
+    <dd class="col-sm-9">@Model.Vehicle?.LicensePlate</dd>
+
+    @if (isAdmin)
+    {
+        <dt class="col-sm-3">Korisnik</dt>
+        <dd class="col-sm-9">@((Model.User?.Email ?? Model.User?.UserName) ?? Model.UserId)</dd>
+    }
+
+    <dt class="col-sm-3">Status</dt>
+    <dd class="col-sm-9">@Model.Status</dd>
+</dl>
+
+<form asp-action="Delete" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Obriši</button>
+    <a asp-action="Index" class="btn btn-secondary">Odustani</a>
+</form>

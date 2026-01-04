@@ -1,0 +1,26 @@
+﻿@model int
+
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <title>Razvrstaj Slučajni Broj</title>
+</head>
+<body>
+    <div>
+       Slučajni broj: @Model
+    </div>
+    <div>
+        @if (Model > 99)
+        {
+            <label>Broj je troznamenkast</label>
+        }
+        else if (Model > 9)
+        {
+            <label>Broj je dvoznamenkast</label>
+        }
+        else
+        {
+            <label>Broj je jednoznamenkast</label>
+        }
+    </div>
+</body>

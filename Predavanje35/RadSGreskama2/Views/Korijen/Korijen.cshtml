@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dijeli</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+    <body>
+        <div>
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("broj")
+            <br />
+            <input type="submit" value="Izracunaj korijen" />
+        }
+        </div>
+        <div>
+        @ViewBag.Rezultat
+        @ViewBag.Greska
+        </div>
+</body>
