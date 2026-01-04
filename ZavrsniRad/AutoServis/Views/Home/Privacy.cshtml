@@ -1,40 +1,74 @@
 ﻿@{
     ViewData["Title"] = "Politika privatnosti";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>
-    Ova aplikacija za auto servis poštuje privatnost svojih korisnika
-    i obvezuje se na zaštitu osobnih podataka u skladu s važećim propisima.
-</p>
+<div class="container">
 
-<h4>Prikupljanje podataka</h4>
-<p>
-    Prikupljamo samo osnovne podatke potrebne za korištenje aplikacije,
-    kao što su korisnički račun, podaci o vozilima i termini servisa.
-</p>
+    <h2 class="mb-4">🔒 Politika privatnosti</h2>
 
-<h4>Korištenje podataka</h4>
-<p>
-    Prikupljeni podaci koriste se isključivo u svrhu upravljanja
-    servisnim uslugama, zakazivanja termina i komunikacije s korisnicima.
-</p>
+    <p class="text-muted">
+        Ova aplikacija za auto servis <strong>Kod Baje</strong> poštuje privatnost
+        svojih korisnika i obvezuje se na zaštitu osobnih podataka u skladu
+        s važećim propisima.
+    </p>
 
-<h4>Sigurnost podataka</h4>
-<p>
-    Poduzimamo razumne tehničke i organizacijske mjere kako bismo
-    osigurali zaštitu osobnih podataka od neovlaštenog pristupa,
-    gubitka ili zloupotrebe.
-</p>
+    <hr />
 
-<h4>Prava korisnika</h4>
-<p>
-    Korisnici imaju pravo uvida u svoje podatke, njihovu ispravku
-    ili brisanje, u skladu s funkcionalnostima aplikacije.
-</p>
+    <h4 class="mt-4">📋 Prikupljanje podataka</h4>
+    <p>
+        Prikupljamo samo osnovne podatke potrebne za korištenje aplikacije,
+        uključujući korisnički račun, podatke o vozilima i termine servisa.
+    </p>
 
-<h4>Kontakt</h4>
-<p>
-    Za sva pitanja vezana uz privatnost i obradu podataka,
-    korisnici se mogu obratiti administratoru sustava.
-</p>
+    <h4 class="mt-4">🛠️ Korištenje podataka</h4>
+    <p>
+        Prikupljeni podaci koriste se isključivo u svrhu upravljanja
+        servisnim uslugama, zakazivanja termina i komunikacije s korisnicima.
+    </p>
+
+    <h4 class="mt-4">🔐 Sigurnost podataka</h4>
+    <p>
+        Poduzimamo odgovarajuće tehničke i organizacijske mjere kako bismo
+        osigurali zaštitu osobnih podataka od neovlaštenog pristupa,
+        gubitka ili zloupotrebe.
+    </p>
+
+    <h4 class="mt-4">👤 Prava korisnika</h4>
+    <p>
+        Korisnici imaju pravo uvida u svoje osobne podatke,
+        njihovu ispravku ili brisanje, u skladu s funkcionalnostima aplikacije.
+    </p>
+
+    <h4 class="mt-4">🍪 Kolačići (Cookies)</h4>
+    <p>
+        Aplikacija koristi tehničke kolačiće potrebne za ispravno funkcioniranje
+        sustava prijave i rada aplikacije. Kolačići se ne koriste u marketinške
+        ili analitičke svrhe.
+    </p>
+
+    <h4 class="mt-4">⏳ Rok čuvanja podataka</h4>
+    <p>
+        Osobni podaci čuvaju se samo onoliko dugo koliko je potrebno
+        za ispunjenje svrhe za koju su prikupljeni, osim ako zakon ne
+        propisuje drugačije.
+    </p>
+
+    <h4 class="mt-4">✏️ Izmjene politike privatnosti</h4>
+    <p>
+        Zadržavamo pravo izmjene ove politike privatnosti u bilo kojem trenutku.
+        Sve promjene bit će objavljene na ovoj stranici.
+    </p>
+
+    <h4 class="mt-4">📞 Kontakt</h4>
+    <p>
+        Za sva pitanja vezana uz privatnost i obradu podataka,
+        korisnici se mogu obratiti administratoru sustava.
+    </p>
+
+    <a asp-controller="Home"
+       asp-action="Index"
+       class="btn btn-secondary mt-4">
+        ⬅ Povratak na početnu
+    </a>
+
+</div>

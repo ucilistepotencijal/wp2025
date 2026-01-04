@@ -60,7 +60,7 @@ namespace AutoServis.Data.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("AutoServis.Models.ServiceType", b =>
@@ -95,7 +95,7 @@ namespace AutoServis.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("ServiceTypes");
+                    b.ToTable("ServiceTypes", (string)null);
 
                     b.HasData(
                         new
@@ -195,7 +195,7 @@ namespace AutoServis.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicles", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

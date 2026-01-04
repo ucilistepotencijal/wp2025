@@ -121,7 +121,7 @@ namespace AutoServis.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ServiceTypeId,UserId,VehicleId,ScheduledDate,Status,Notes")] Appointment input)
-        {          
+        {
             if (!IsAdmin())
             {
                 input.UserId = CurrentUserId();
@@ -321,5 +321,18 @@ namespace AutoServis.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-    }
-}
+    
+    [Authorize(Roles = "Admin")]
+        [HttpPost]
+        public async Task<IActionResult> ChangeStatus(int id, AppointmentStatus status)
+        {
+            var appt = await _context.Appointments.FindAsync(id);
+            if (appt == null)
+                return NotFound();
+
+            appt.Status = status;
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+    } }    

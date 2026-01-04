@@ -1,59 +1,85 @@
 ﻿@model IEnumerable<AutoServis.Models.ServiceType>
 
 @{
-    ViewData["Title"] = "Tipovi usluga";
+    ViewData["Title"] = "Usluge";
 }
 
-<h1>Usluge</h1>
+<h2 class="mb-4">🔧 Usluge auto servisa</h2>
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Dodaj novu</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DurationMinutes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DurationMinutes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Uredi</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Detalji</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Obriši</a>
-            </td>
-        </tr>
+<a asp-action="Create" class="btn btn-primary mb-4">
+    ➕ Dodaj novu uslugu
+</a>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm service-card @(item.IsActive ? "" : "service-inactive")">
+                <div class="card-body d-flex flex-column">
+
+                    <h5 class="card-title fw-bold">
+                        @item.Name
+                    </h5>
+
+                    <p class="card-text text-muted flex-grow-1">
+                        @(string.IsNullOrWhiteSpace(item.Description)
+                                            ? "Opis nije unesen."
+                                            : item.Description)
+                    </p>
+
+                    <ul class="list-unstyled mb-3">
+                        <li>
+                            ⏱ Trajanje:
+                            <strong>@item.DurationMinutes min</strong>
+                        </li>
+
+                        @if (item.Price > 0)
+                        {
+                            <li>
+                                💶 Cijena:
+                                <strong>@item.Price.ToString("0.00") €</strong>
+                            </li>
+                        }
+
+                        <li>
+                            Status:
+                            @if (item.IsActive)
+                            {
+                                <span class="badge bg-success">Aktivna</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary">Neaktivna</span>
+                            }
+                        </li>
+                    </ul>
+
+                    <div class="mt-auto d-flex gap-2">
+                        <a asp-action="Edit"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-outline-primary">
+                            ✏️ Uredi
+                        </a>
+
+                        <a asp-action="Details"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-outline-secondary">
+                            👁 Detalji
+                        </a>
+
+                        <a asp-action="Delete"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-outline-danger">
+                            🗑 Obriši
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">Nema definiranih usluga.</p>
 }
-    </tbody>
-</table>

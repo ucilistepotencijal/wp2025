@@ -1,14 +1,113 @@
-﻿@{
-    ViewData["Title"] = "Početna stranica";
+﻿@model IEnumerable<AutoServis.Models.ServiceType>
+
+@{
+    ViewData["Title"] = "Početna";
+    var isAdmin = User.IsInRole("Admin");
 }
 
-<div class="text-center">
-    <h1 class="display-4 mb-3">Dobrodošli</h1>
-    <p class="lead">
-        Dobrodošli u aplikaciju za upravljanje auto servisom.
-    </p>
-    <p class="text-muted">
-        Ovdje možete pregledavati <a asp-controller="Vehicles" asp-action="Index">vozila</a>, upravljati <a asp-controller="Appointments" asp-action="Index">terminima</a> servisa
-        i pratiti status <a asp-controller="ServiceTypes" asp-action="Index">usluga</a>.
-    </p>
-</div>
+<!-- HERO -->
+<section class="hero-section text-center text-white">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3">
+            Dobrodošli u auto servis <span class="brand">Kod Baje</span>
+        </h1>
+
+        <p class="lead mb-4">
+            Pouzdan servis • Brza usluga • Iskusni majstori
+        </p>
+
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a asp-controller="Appointments" asp-action="Create"
+               class="btn btn-primary btn-lg">
+                Zakaži termin
+            </a>
+
+            <a asp-controller="ServiceTypes" asp-action="Index"
+               class="btn btn-outline-light btn-lg">
+                Naše usluge
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- USLUGE -->
+<section class="container mt-5">
+    <h2 class="text-center mb-4">🔧 Najčešće usluge</h2>
+
+    <div class="row">
+        @foreach (var s in Model)
+        {
+            <div class="col-md-3 mb-4">
+                <div class="card h-100 shadow-sm service-card">
+                    <div class="card-body text-center">
+                        <h5 class="fw-bold">@s.Name</h5>
+
+                        <p class="text-muted">
+                            @(string.IsNullOrWhiteSpace(s.Description)
+                                                    ? "Profesionalna usluga u našem servisu."
+                                                    : s.Description)
+                        </p>
+
+                        <p class="fw-bold text-primary">
+                            @s.Price.ToString("0.00") €
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- ZAŠTO MI -->
+<section class="container mt-5">
+    <div class="row text-center">
+        <div class="col-md-4 mb-4">
+            <h4>🔧 Kvalitetna usluga</h4>
+            <p class="text-muted">
+                Provjereni dijelovi i moderna oprema.
+            </p>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h4>🚗 Brzi termini</h4>
+            <p class="text-muted">
+                Jednostavno zakazivanje bez čekanja.
+            </p>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <h4>🛠️ Iskustvo</h4>
+            <p class="text-muted">
+                Dugogodišnje iskustvo u auto industriji.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ADMIN MINI DASHBOARD -->
+@if (isAdmin)
+{
+    <section class="container mt-5">
+        <h3 class="mb-3">📊 Brzi pregled (Admin)</h3>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5>🚗 Aktivna vozila</h5>
+                        <p class="display-6">@ViewBag.VehicleCount</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5>📅 Termini danas</h5>
+                        <p class="display-6">@ViewBag.TodayAppointments</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}

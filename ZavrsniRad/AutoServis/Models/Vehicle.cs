@@ -42,5 +42,12 @@ namespace AutoServis.Models
 
         [Display(Name = "Aktivno")]
         public bool IsActive { get; set; } = true;
+
+        public ICollection<Appointment> Appointments { get; set; }
+            = new List<Appointment>();
     }
 }
+
+
+
+    

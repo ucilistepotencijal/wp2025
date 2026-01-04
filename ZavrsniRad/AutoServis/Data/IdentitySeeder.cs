@@ -22,7 +22,7 @@ namespace AutoServis.Data
             }
 
             const string adminEmail = "plecicdomagoj@gmail.com";
-            const string adminPassword = "admin123";
+            const string adminPassword = "Admin123.";
 
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)

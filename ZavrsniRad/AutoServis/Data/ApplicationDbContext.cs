@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using AutoServis.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AutoServis.Data
@@ -88,9 +89,9 @@ namespace AutoServis.Data
                 .HasForeignKey(a => a.ServiceTypeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Entity<Models.Appointment>()
+            builder.Entity<Appointment>()
                 .HasOne(a => a.Vehicle)
-                .WithMany()
+                .WithMany(v => v.Appointments)
                 .HasForeignKey(a => a.VehicleId)
                 .OnDelete(DeleteBehavior.Restrict);
 

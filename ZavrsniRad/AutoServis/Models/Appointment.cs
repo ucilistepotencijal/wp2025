@@ -7,33 +7,32 @@ namespace AutoServis.Models
     {
         public int Id { get; set; }
 
-        
+        [Display(Name = "Usluga")]
+        [Required(ErrorMessage = "Odaberite uslugu.")]
         public int ServiceTypeId { get; set; }
 
-        [Display(Name = "Usluga")]
-        [Required(ErrorMessage = "Odaberute uslugu.")]
-
         public ServiceType? ServiceType { get; set; }
-        
+
+        [Required]
         public string UserId { get; set; } = string.Empty;
 
         [Display(Name = "Kupac")]
         public IdentityUser? User { get; set; }
 
-        public int VehicleId { get; set; }
         [Display(Name = "Vozilo")]
         [Required(ErrorMessage = "Vozilo je obavezno.")]
+        public int VehicleId { get; set; }
 
         public Vehicle? Vehicle { get; set; }
-        [Display(Name = "Datum i vrijeme")]
 
+        [Display(Name = "Datum i vrijeme")]
         [Required(ErrorMessage = "Unesi datum i vrijeme termina.")]
         [DataType(DataType.DateTime)]
         public DateTime ScheduledDate { get; set; }
 
         [Display(Name = "Status")]
         [Required]
-        public AppointmentStatus Status { get; set; }
+        public AppointmentStatus Status { get; set; } = AppointmentStatus.Scheduled;
 
         [Display(Name = "Napomena")]
         public string? Notes { get; set; }
@@ -43,7 +42,6 @@ namespace AutoServis.Models
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            // Reject unset/default dates
             if (ScheduledDate == default || ScheduledDate == DateTime.MinValue)
             {
                 yield return new ValidationResult(
@@ -52,7 +50,6 @@ namespace AutoServis.Models
                 yield break;
             }
 
-            // Compare using UTC to match CreatedAt
             if (ScheduledDate < DateTime.Now)
             {
                 yield return new ValidationResult(

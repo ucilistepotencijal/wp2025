@@ -1,0 +1,93 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<h2 class="mb-4">📊 Admin Dashboard</h2>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h5>🚗 Aktivna vozila</h5>
+                <p class="display-6">@ViewBag.ActiveVehicles</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h5>📅 Termini danas</h5>
+                <p class="display-6">@ViewBag.TodayAppointments</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h5>🧾 Ukupno termina</h5>
+                <p class="display-6">
+                    @(ViewBag.Scheduled + ViewBag.InProgress + ViewBag.Completed + ViewBag.Cancelled)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="mb-3">📌 Status termina</h4>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card text-center border-warning">
+            <div class="card-body">
+                <h6>🕒 Zakazani</h6>
+                <p class="display-6">@ViewBag.Scheduled</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center border-info">
+            <div class="card-body">
+                <h6>🔧 U tijeku</h6>
+                <p class="display-6">@ViewBag.InProgress</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center border-success">
+            <div class="card-body">
+                <h6>✅ Završeni</h6>
+                <p class="display-6">@ViewBag.Completed</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card text-center border-danger">
+            <div class="card-body">
+                <h6>❌ Otkazani</h6>
+                <p class="display-6">@ViewBag.Cancelled</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4 class="mb-3">⚡ Brze akcije</h4>
+
+<div class="d-flex gap-3 flex-wrap">
+    <a asp-controller="Vehicles" asp-action="Index" class="btn btn-outline-primary">
+        🚗 Vozila
+    </a>
+
+    <a asp-controller="Appointments" asp-action="Index" class="btn btn-outline-secondary">
+        📅 Termini
+    </a>
+
+    <a asp-controller="ServiceTypes" asp-action="Index" class="btn btn-outline-dark">
+        🔧 Usluge
+    </a>
+</div>
+
