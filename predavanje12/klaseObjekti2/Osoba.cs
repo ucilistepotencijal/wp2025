@@ -4,35 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace klaseObjekti2
+namespace KlaseObjekti2
 {
     internal class Osoba
-    {
+    {   //Static članovi odnose se na cijelu klasu
+        //Private modifikator pristupa označava privatne članove klase
         private static int brojOsoba = 0;
-
-        public static int dohvatiBrojOsoba()
+        public static int DohvatiBrojOsoba()
         {
             return brojOsoba;
         }
 
-       public Osoba()
+        //konstruktor klase Osoba
+        public Osoba()
         {
             brojOsoba++;
         }
 
         public Osoba (string ime, string prezime)
         {
-            brojOsoba++;
+            Ime = ime;
+            Prezime = prezime;
         }
 
-        public string ime {  get; set; }
 
-        public string prezime { get; set; }
 
-        public string punoIme()
+         //Modifikator pristupa public omogućuje pristupanje svojstvima, metodama i događajima izvan definicije klase
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+
+        //Definicija metode (funkcije)
+        public string PunoIme()
         {
-            return ime + " " + prezime;
+            return Ime + " " + Prezime;
         }
-
     }
 }

@@ -1,22 +1,21 @@
-﻿
-using klaseObjekti2;
+﻿using KlaseObjekti2;
 
 Osoba o = new Osoba();
-o.ime = "matko";
-o.prezime = " matkovic";
+o.Ime = "Matko";
+o.Prezime = "Matković";
+Console.WriteLine(o.PunoIme());
 
-Console.WriteLine(o.punoIme());
-
-Console.WriteLine("broj osoba je: " + Osoba.dohvatiBrojOsoba());
+Console.WriteLine("Broj osoba je: " + Osoba.DohvatiBrojOsoba());
 
 Osoba o2 = new Osoba();
-o2.ime = "ana";
-o2.prezime = "anic";
-Console.WriteLine(o2.punoIme());
+o2.Ime = "Ana";
+o2.Prezime = "Anić";
+Console.WriteLine(o2.PunoIme());
 
-Console.WriteLine("broj osoba je: " + Osoba.dohvatiBrojOsoba());
+Console.WriteLine("Broj osoba je: " + Osoba.DohvatiBrojOsoba());
 
-Osoba o3 = new Osoba();
-Console.WriteLine(o3.punoIme());
+Osoba o3 = new Osoba("Ivana", "Ivanović");
+Console.WriteLine(o3.PunoIme());
 
-Console.WriteLine("broj osoba je: " + Osoba.dohvatiBrojOsoba());
+Console.WriteLine("Broj osoba je: " + Osoba.DohvatiBrojOsoba());
+

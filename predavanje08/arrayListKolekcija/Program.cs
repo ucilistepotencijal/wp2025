@@ -1,13 +1,11 @@
-﻿
-
-using System.Collections;
-using System.Net.WebSockets;
+﻿using System.Collections; //dodan je namespace System.Collections
 
 ArrayList nizBrojeva = new ArrayList();
 
+//unos brojeva
 for (int i = 0; i < 3; i++)
 {
-    Console.WriteLine("unesi {0}. broj: ",i +1);
+    Console.Write("Unesi {0}. broj: ", i + 1);
     int broj = int.Parse(Console.ReadLine());
     nizBrojeva.Add(broj);
 }
@@ -20,8 +18,9 @@ nizBrojeva.Reverse();
 
 nizBrojeva.Add("a");
 
-Console.WriteLine("ispis clanova niza: ");
-for(int i = 0; i< nizBrojeva.Count; i++)
+Console.WriteLine("Ispis članova niza: ");
+for (int i = 0; i < nizBrojeva.Count; i++)
 {
     Console.WriteLine(nizBrojeva[i]);
 }
+

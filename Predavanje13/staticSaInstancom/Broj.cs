@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace staticSaInstancom
+namespace StaticSaInstancom
 {
     internal class Broj
     {
-        public bool savrsen(int broj)
-        {
+        public bool Savrsen(int broj)
+        {            
             int suma = 0;
-            for (int i = 0; i < broj; i++)
+
+            for (int i = 1; i < broj; i++)
             {
                 if (broj % i == 0)
                 {
                     suma += i;
                 }
             }
+
             if (broj == suma)
             {
                 return true;
@@ -27,10 +29,11 @@ namespace staticSaInstancom
                 return false;
             }
         }
-        public static bool prost(int broj)
+
+        public static bool Prost(int broj)
         {
             int brojDjelitelja = 0;
-            for (int i = 0; i < broj; i++)
+            for (int i = 1; i <= broj; i++)
             {
                 if (broj % i == 0)
                 {

@@ -4,36 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace automobili
+namespace Automobili
 {
     internal class Automobil
     {
-        public string Marka {  get; set; }
+        //Svojstva
+        public string Marka { get; set; }
         public double KS { get; set; }
-        public double osnovnaCijena { get; set; }
+        public double OsnovnaCijena { get; set; }
 
-        public double iznosPoreza()
+        //Metode
+        public double IznosPoreza()
         {
-            double postotak = 0; 
-            if (KS < 50 )
+            double postotak = 0;
+            if (KS < 50)
             {
                 postotak = 0.05;
             }
-            else if (KS <150)
+            else if (KS < 150)
             {
                 postotak = 0.1;
             }
             else
             {
-                postotak = 1.5;
+                postotak = 0.15;
             }
-            return osnovnaCijena * postotak;
+            return OsnovnaCijena * postotak;
         }
-
-        public double ukupnaCijena()
+        public double UkupnaCijena()
         {
-            return osnovnaCijena + iznosPoreza();
+            return OsnovnaCijena + IznosPoreza();
         }
-
     }
 }

@@ -8,32 +8,27 @@ namespace Vozila_DAL
 {
     public class Zrakoplovi
     {
-        public static List<Zrakoplov> zrakoploviBaza = new List<Zrakoplov>()
+        public static List<Zrakoplov> ZrakoploviBaza = new List<Zrakoplov>()
         {
-            new Zrakoplov{Naziv = "boeing 747", Boja ="bijela", KS =240000},
-            new Zrakoplov{ Naziv = "Airbus A320", Boja = "Siva", KS = 180000, Tvrtka = "Airbus" },
-            new Zrakoplov{ Naziv = "Cessna 172", Boja = "Plava", KS = 160, Tvrtka = "Cessna" },
-            new Zrakoplov{ Naziv = "F-16 Falcon", Boja = "Siva", KS = 29000, Tvrtka = "Lockheed Martin" },
-            new Zrakoplov{ Naziv = "Antonov 225", Boja = "Bijela", KS = 282000, Tvrtka = "Antonov" }
+            new Zrakoplov{Naziv = "Boeing 747", Boja = "bijela", KS = 240000},
+            new Zrakoplov{Naziv = "Cessna 172 SkyHaek", Boja = "crvena", KS = 180},
+            new Zrakoplov{Naziv = "Boeing 737", Boja = "plava", KS = 54000},
+            new Zrakoplov{Naziv = "Airbus A320neo", Boja = "bijela", KS = 60000},
+            new Zrakoplov{Naziv = "Antonov an-225", Boja = "bijela", KS = 310000}
         };
 
-        public static List<Zrakoplov> dohvatiZrakoplove()
+        public static List<Zrakoplov> DohvatiZrakoplove()
         {
             List<Zrakoplov> dohvaceniZrakoplovi = new List<Zrakoplov>();
-                foreach (Zrakoplov zrakoplov in zrakoploviBaza)
-                {
-                Zrakoplov novi = new Zrakoplov
-                {
-                    Naziv = zrakoplov.Naziv,
-                    Boja = zrakoplov.Boja,
-                    KS = zrakoplov.KS,
-                    Tvrtka = zrakoplov.Tvrtka
-                };
-
-                dohvaceniZrakoplovi.Add(novi);
+            foreach (Zrakoplov zrakoplov in ZrakoploviBaza)
+            {
+                Zrakoplov z = new Zrakoplov();
+                z.Naziv = zrakoplov.Naziv;
+                z.Boja = zrakoplov.Boja;
+                z.KS = zrakoplov.KS;
+                dohvaceniZrakoplovi.Add(z);
             }
             return dohvaceniZrakoplovi;
         }
-
     }
 }

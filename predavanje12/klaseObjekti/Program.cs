@@ -1,29 +1,26 @@
-﻿
-using System.Threading.Channels;
-using klaseObjekti;
+﻿using KlaseObjekti;
 
-osoba osoba = new osoba();
-osoba.ime = "Pero";
-osoba.prezime = "Peric";
+Osoba osoba = new Osoba();
+osoba.Ime = "Pero";
+osoba.Prezime = "Perić";
 
-string punoIme = osoba.vratiPunoIme();
-Console.WriteLine();
+string punoIme = osoba.VratiPunoIme();
 
-Console.WriteLine("puno ime osobe je " +  punoIme);
+Console.WriteLine("Puno ime osobe je " + punoIme);
 
-osoba osoba2 = new osoba();
-Console.WriteLine("unesi ime:  ");
-osoba2.ime = Console.ReadLine();
+Osoba osoba2 = new Osoba();
+Console.Write("Unesi ime: ");
+osoba2.Ime = Console.ReadLine();
 
-Console.Write("unesi prrezime:  ");
-osoba2.prezime = Console.ReadLine();
+Console.Write("Unesi prezime: ");
+osoba2.Prezime = Console.ReadLine();
 
-Console.WriteLine("puno ime je {0}", osoba2.vratiPunoIme());
+Console.WriteLine("Puno ime je {0}", osoba2.VratiPunoIme());
 
-osoba osoba3 = new osoba
+Osoba osoba3 = new Osoba
 {
-    ime = "josip",
-    prezime = "josipovic"
+    Ime = "Josip",
+    Prezime = "Josipović"
 };
 
-Console.WriteLine(osoba3.vratiPunoIme());
+Console.WriteLine(osoba3.VratiPunoIme());

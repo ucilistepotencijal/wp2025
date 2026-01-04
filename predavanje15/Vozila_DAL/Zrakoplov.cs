@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace Vozila_DAL
 {
-    public class Zrakoplov : Vozilo
+    public class Zrakoplov: Vozilo
     {
-
         public string Tvrtka { get; set; }
-        private List<string> zrakopovi = new List<string>();
 
         public override string ToString()
         {
-            return $"Zrakoplov: {Naziv}, Tvrtka: {Tvrtka}";
+            return $"Naziv: {Naziv}, Tvrtka: {Tvrtka}";
         }
-    }   
+    }
 }

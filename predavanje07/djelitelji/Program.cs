@@ -1,49 +1,53 @@
-﻿using System.Data;
+﻿/*Napiši program u kojem se za uneseni prirodni broj ispisuju svi njegovi djelitelji. Ako je broj 
+djeljiv samo sa 1 i sa samim sobom (ima ukupno 2 djelitelja), ispisuje se dodatna poruka „Broj
+je prost“, inače se ispisuje „Broj nije prost“.
+*/
 
-int broj = -1;
+int iBroj = -1;
 bool bFlag = true;
 do
 {
-    Console.WriteLine("unesi prirodan broj: ");
-    try
-    {
-        broj = int.Parse(Console.ReadLine());
-        if(broj <= 0)
-        {
-            throw new Exception();
-        }
-        bFlag = true;   
+    Console.Write("Unesi prirodan broj: ");
+	try
+	{
+        iBroj = int.Parse(Console.ReadLine());
+		if (iBroj <= 0)
+		{
+			throw new Exception();
+		}
+		bFlag = true;
     }
-    catch (Exception)
-    {
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine("Neispravan unos!");
+	catch (Exception)
+	{
+		Console.ForegroundColor = ConsoleColor.Red;
+		Console.WriteLine("Neispravan unos!");
         Console.ForegroundColor = ConsoleColor.Gray;
 
+        bFlag = false;
+	}  
 
-        bFlag = false;  
-    }
+} while (!bFlag); // ili: bFlag == false
 
-} while (!bFlag);
 
 int brojac = 0;
 Console.ForegroundColor = ConsoleColor.Green;
-Console.WriteLine("dijelitelji broja {0} su: ", broj); 
 
-for(int i = 1; i <= broj; i++)
+Console.WriteLine("Djelitelji broja {0} su: ", iBroj);
+
+for (int i = 1; i <= iBroj; i++)
 {
-    if(broj % i == 0)
-    {
+	if (iBroj % i == 0)
+	{
         Console.WriteLine(i);
-        brojac++;
-    }
+		brojac++;
+	}
 }
+
 if (brojac == 2)
 {
-    Console.WriteLine("broj {0} je prost", broj);
-
+    Console.WriteLine("Broj {0} je prost.", iBroj);
 }
-else 
+else
 {
-    Console.WriteLine("broj {0} nije prost", broj);
+    Console.WriteLine("Broj {0} nije prost.", iBroj);
 }

@@ -1,19 +1,17 @@
-﻿using System;
-using DAL;
+﻿using DAL;
 
 Console.WriteLine();
 Student student = new Student();
 student.Ime = "Marko";
 student.Prezime = "Marković";
-student.Mat = 5;
-student.Fiz = 4;
-student.Kem = 4;
-
+student.Matematika = 5;
+student.Fizika = 4;
+student.Kemija = 4;
 Console.WriteLine("Prosjek: " + Math.Round(student.VratiProsjek(), 2));
 
-List<Osoba>osoba = OsobeRepo.dohvatiOsobe();
+List<Osoba> osobe = OsobeRepo.DohvatiOsobe();
 
-foreach(Osoba o in osoba)
+foreach (Osoba o in osobe)
 {
-    Console.WriteLine("ime: {0}, prezime; {1}", o.Ime, o.Prezime);
+    Console.WriteLine("Ime: {0}, Prezime: {1}", o.Ime, o.Prezime);
 }

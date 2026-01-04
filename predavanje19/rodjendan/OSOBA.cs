@@ -4,16 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace rodjendan
+namespace Rodjendan
 {
     public class Osoba
     {
         public delegate void RodjendanDelegat(object sender, EventArgs e);
         public event RodjendanDelegat Rodjendan;
-
         public string Ime { get; set; }
         public string Prezime { get; set; }
-
         private DateTime datumRodjenja;
         public DateTime DatumRodjenja
         {
@@ -25,7 +23,9 @@ namespace rodjendan
             {
                 datumRodjenja = value;
                 if (Rodjendan != null)
+                {
                     Rodjendan(this, new EventArgs());
+                }
             }
         }
 
@@ -33,7 +33,7 @@ namespace rodjendan
         {
             get
             {
-                TimeSpan starost = DateTime.Now.Subtract(datumRodjenja);
+                TimeSpan starost = DateTime.Now.Subtract(DatumRodjenja);
                 return starost.Days / 365;
             }
         }
@@ -43,5 +43,4 @@ namespace rodjendan
             this.Prezime = prezime;
         }
     }
-
 }

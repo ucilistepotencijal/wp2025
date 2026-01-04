@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace zadatak3
+namespace Zadatak3
 {
-    internal class pas : zivotinje
+    internal class Pas : Zivotinja
     {
         private string ime;
         public string Ime
@@ -19,19 +19,24 @@ namespace zadatak3
             {
                 ime = value;
             }
-
         }
+
         private string pasmina;
         public string Pasmina
         {
-            get { return pasmina; }
-
-            set { pasmina = value; }
+            get
+            {
+                return pasmina;
+            }
+            set
+            {
+                pasmina = value;
+            }
         }
 
-        public new string glasajSe()
+        public new string GlasajSe()
         {
-            return "vau";
+            return "Vau!";
         }
         public override string ToString()
         {

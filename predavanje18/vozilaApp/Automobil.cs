@@ -4,9 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace vozilaApp
+namespace VozilaApp
 {
-    internal class Automobil
+    internal class Automobil: Vozilo
     {
+        public double Ccm { get; set; }
+
+        public override string ToString()
+        {
+            return string.Format("Naziv: {0}, KS: {1}", Naziv, KS);
+        }
     }
 }

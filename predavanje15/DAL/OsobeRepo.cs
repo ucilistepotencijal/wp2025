@@ -8,19 +8,20 @@ namespace DAL
 {
     public class OsobeRepo
     {
+        //glumi bazu podataka
         public static List<Osoba> osobe = new List<Osoba>()
         {
-            new Osoba() {Ime = "pero", Prezime = "peric"},
-            new Osoba() {Ime = "marko", Prezime = "markic"},
-            new Osoba() {Ime = "ana", Prezime = "anic"},
-            new Osoba() {Ime = "ivana", Prezime = "ivanovic"},
-            new Osoba() {Ime = "ivo", Prezime = "ivic"},
+            new Osoba() {Ime = "Pero", Prezime = "Perić"},
+            new Osoba() {Ime = "Marko", Prezime = "Markić"},
+            new Osoba() {Ime = "Ana", Prezime = "Anić"},
+            new Osoba() {Ime = "Ivana", Prezime = "Ivanović"},
+            new Osoba() {Ime = "Ivo", Prezime = "Ivić"}
         };
 
-        public static List<Osoba> dohvatiOsobe()
+        public static List<Osoba> DohvatiOsobe()
         {
             List<Osoba> dohvaceneOsobe = new List<Osoba>();
-            foreach(Osoba o in osobe)
+            foreach (Osoba o in osobe)
             {
                 Osoba novaOsoba = new Osoba();
                 novaOsoba.Ime = o.Ime;

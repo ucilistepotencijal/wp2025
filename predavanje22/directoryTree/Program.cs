@@ -1,24 +1,22 @@
-﻿Console.WriteLine("unesi putanju: ");
+﻿Console.Write("Unesi putanju: ");
 string putanja = Console.ReadLine();
-DohvatiDitrktorije(putanja);
-
+DohvatiDirektorije(putanja);
 
 partial class Program
 {
-    static void DohvatiDitrktorije(string putanja)
+    static void DohvatiDirektorije(string putanja)
     {
-        Console.WriteLine("{0}{1}",DohvatiDubinu(putanja), Path.GetFileName(putanja));
+        Console.WriteLine("{0}{1}", new string(' ', DohvatiDubinu(putanja) * 3) ,Path.GetFileName(putanja));
         string[] direktoriji = Directory.GetDirectories(putanja);
-        foreach(string item in direktoriji)
+        foreach (string item in direktoriji)
         {
             try
             {
-                DohvatiDitrktorije(item);
+                DohvatiDirektorije(item);
             }
             catch (Exception e)
             {
-
-                Console.WriteLine("greska: "+ e.Message);
+                Console.WriteLine("Greška: " + e.Message);
             }
         }
     }

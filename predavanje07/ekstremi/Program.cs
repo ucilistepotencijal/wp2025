@@ -1,21 +1,24 @@
-﻿
+﻿/*Napiši program u kojem se traži unos 10 prirodnih brojeva, a zaƟm se ispisuje najmanji i 
+najveći od njih.
+*/
 
+int minimum = int.MaxValue;
+int maximum = int.MinValue;    
 
-int min = int.MaxValue;
-int max = int.MinValue;
-
-for (int i = 0; i<10; i++)
+for (int i = 0; i < 10; i++)
 {
-    Console.WriteLine("unesi prirodan broj: ");
+    Console.Write("Unesi prirodan broj: ");
     int broj = int.Parse(Console.ReadLine());
-    if (broj > max)
+    if (broj > maximum)
     {
-        max = broj;
+        maximum = broj;
     }
-    if (broj < min)
+    if (broj < minimum)
     {
-        min = broj;
+        minimum = broj;
     }
 }
-Console.WriteLine("maximum je: "+ max);
-Console.WriteLine("minimum je: "+ min);
+
+Console.WriteLine("Maksimum je " + maximum);
+Console.WriteLine("Minimum je " + minimum);
+    

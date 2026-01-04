@@ -1,34 +1,33 @@
-﻿
-
-while(true)
+﻿while (true) // beskonačna petlja
 {
-    Console.Write("unesi ime: ");
+    Console.Write("Unesi ime: ");
     string ime = Console.ReadLine();
-    
-    if (ime.ToLower() != "kraj")
+
+    if (ime.ToLower() == "kraj")
     {
         break;
     }
-    Console.WriteLine("dobar dan, {0}", ime);
-    
-
+    Console.WriteLine("Dobar dan, {0}!", ime);
 }
-Console.WriteLine();
-string ime2 = "";
 
+Console.WriteLine();
+
+string ime2 = "";
+// pomoćna varijabla (flag) tipa boolean
 bool ponovi = true;
 
 while (ponovi)
 {
-    Console.Write("unesi ime: ");
+    Console.Write("Unesi ime: ");
     ime2 = Console.ReadLine();
 
-   if (ime2.ToLower() != "kraj")
+    if (ime2.ToLower() == "kraj")
     {
-        ponovi = false; 
+        ponovi = false;
     }
-   
-    Console.WriteLine("dobar dan, {0}", ime2);
+    else
+    {
+        Console.WriteLine("Dobar dan, {0}!", ime2);
+    }
 }
 Console.WriteLine();
-

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace zadatak3
+namespace Zadatak3
 {
-    internal class macka : zivotinje
+    internal class Macka: Zivotinja
     {
         private string boja;
         public string Boja
@@ -20,12 +20,10 @@ namespace zadatak3
                 boja = value;
             }
         }
-
-        public new string glasajSe()
+        public new string GlasajSe()
         {
-            return "mijau";
+            return "Mijau";
         }
-
         public override string ToString()
         {
             return "mačka";

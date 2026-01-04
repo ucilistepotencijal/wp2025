@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace klaseObjekti
+namespace KlaseObjekti
 {
-    internal class osoba
+    internal class Osoba
     {
-        public string ime { get; set; }
+        //Definicija svojstava
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
 
-        public string prezime { get; set; }
-
-        public string vratiPunoIme()
+        public string VratiPunoIme()
         {
-            return ime + " " + prezime;
+            return Ime + " " + Prezime;
         }
     }
 }

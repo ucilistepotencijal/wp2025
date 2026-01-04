@@ -1,21 +1,29 @@
-﻿
-Dictionary<string,string>rjecnik =  new Dictionary<string,string>();
+﻿/*
+ Napišite program koji traži unos riječi sve dok se ne unese riječ "kraj".
+1. Program sprema riječi u rječnik
+Program ispisuje:
+Riječi koje počinju slovom A: ...
+Riječi koje počinju slovom B: ...
+Riječi koje počinju slovom C: ...
+ */
+
+Dictionary<string,string> rjecnik = new Dictionary<string,string>();
 string unos = "";
 while (unos.ToLower() != "kraj")
 {
-    Console.Write("unesi rijec (za kraj unesi kraj)");
+    Console.Write("Unesi riječ (za kraj unesi 'kraj'): ");
     unos = Console.ReadLine();
-    string prvoSlovo = unos[0].ToString().ToUpper();
+    string prvoslovo = unos[0].ToString().ToUpper();
 
-    if(unos.ToLower() != "kraj" && unos != "")
+    if (unos.ToLower() != "kraj" && unos != "")
     {
-        if (rjecnik.ContainsKey(prvoSlovo))
+        if (rjecnik.ContainsKey(prvoslovo))
         {
-            rjecnik[prvoSlovo] += ", " + unos;
+            rjecnik[prvoslovo] += ", " + unos;
         }
         else
         {
-            rjecnik.Add(prvoSlovo, unos);
+            rjecnik.Add(prvoslovo, unos);
         }
     }
 }
@@ -23,5 +31,5 @@ List<string> lista = rjecnik.Keys.ToList();
 lista.Sort();
 foreach (string key in lista)
 {
-    Console.WriteLine("rijeci koje pocinju sa slovom {0}: {1}", key, rjecnik[key]);
+    Console.WriteLine("Riječi koje počinju slovom {0}: {1}", key, rjecnik[key]);
 }

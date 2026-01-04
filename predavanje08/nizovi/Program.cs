@@ -1,30 +1,27 @@
-﻿
+﻿//Nizovi  / Arrays
 
+//Deklaracija niza cijelih brojeva koji ima 3 elementa
 int[] nizBrojeva = new int[3];
 
-nizBrojeva[0] = 10;  
-nizBrojeva[1] = 20;
-nizBrojeva[2] = 30;
+//Inicijalizaicja niza
+nizBrojeva[0] = 10; //1. element s indeksom 0
+nizBrojeva[1] = 20; //2. element s indeksom 1
+nizBrojeva[2] = 30; //3. element s indeksom 2
 
-Console.WriteLine(nizBrojeva);
+Console.WriteLine(nizBrojeva); // ne ispisuje cijeli niz, nego ispisuje tip niza
 Console.WriteLine(nizBrojeva[1]);
 
-Console.WriteLine("------------------------");
+Console.WriteLine("-------------------------------");
 
 for (int i = 0; i < nizBrojeva.Length; i++)
 {
     Console.WriteLine(nizBrojeva[i]);
-
 }
 
-string[] nizStringova = new string[]; {"prvi", "drugi", "treci", "cetvrti" };
+//Deklaracija i inicijalizacija članova niza stringova
+string[] nizStringova = new string[] {"prvi", "drugi", "treći", "četvrti"};
 
-for(int i = 0;i < nizStringova.Length;i++)
+for (int i = 0;i < nizStringova.Length; i++)
 {
-    Console.WriteLine("rijec s indeksom {0} je {1}", i, nizStringova);
+    Console.WriteLine("Riječ s indeksom {0} je {1}", i, nizStringova[i]);
 }
-
-
-
-
-
