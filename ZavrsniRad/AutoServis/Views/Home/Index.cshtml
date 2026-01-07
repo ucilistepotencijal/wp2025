@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Početna";
     var isAdmin = User.IsInRole("Admin");
+    var isAuthenticated = User.Identity?.IsAuthenticated ?? false;
 }
 
 <!-- HERO -->
@@ -17,15 +18,46 @@
         </p>
 
         <div class="d-flex justify-content-center gap-3 flex-wrap">
-            <a asp-controller="Appointments" asp-action="Create"
+
+            <a asp-controller="Appointments"
+               asp-action="Create"
                class="btn btn-primary btn-lg">
                 Zakaži termin
             </a>
 
-            <a asp-controller="ServiceTypes" asp-action="Index"
+            <a asp-controller="ServiceTypes"
+               asp-action="Index"
                class="btn btn-outline-light btn-lg">
                 Naše usluge
             </a>
+
+            @if (!isAuthenticated)
+            {
+                <a asp-area="Identity"
+                   asp-page="/Account/Login"
+                   class="btn btn-outline-warning btn-lg">
+                    Prijava
+                </a>
+
+                <a asp-area="Identity"
+                   asp-page="/Account/Register"
+                   class="btn btn-outline-info btn-lg">
+                    Registracija
+                </a>
+            }
+            else
+            {
+                <form asp-area="Identity"
+                      asp-page="/Account/Logout"
+                      method="post"
+                      class="d-inline">
+                    <button type="submit"
+                            class="btn btn-outline-danger btn-lg">
+                        Odjava
+                    </button>
+                </form>
+            }
+
         </div>
     </div>
 </section>
@@ -93,7 +125,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <div class="card shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h5>🚗 Aktivna vozila</h5>
                         <p class="display-6">@ViewBag.VehicleCount</p>
                     </div>
@@ -102,7 +134,7 @@
 
             <div class="col-md-6 mb-3">
                 <div class="card shadow-sm">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h5>📅 Termini danas</h5>
                         <p class="display-6">@ViewBag.TodayAppointments</p>
                     </div>

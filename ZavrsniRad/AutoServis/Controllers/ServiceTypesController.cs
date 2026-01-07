@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using AutoServis.Data;
+﻿using AutoServis.Data;
 using AutoServis.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace AutoServis.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class ServiceTypesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,122 +15,100 @@ namespace AutoServis.Controllers
             _context = context;
         }
 
-        // GET: ServiceTypes
+        // 🔓 SVI (gost, customer, admin) MOGU VIDJETI POPIS USLUGA
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ServiceTypes.ToListAsync());
+            var services = await _context.ServiceTypes
+                .Where(s => s.IsActive)
+                .OrderBy(s => s.Name)
+                .ToListAsync();
+
+            return View(services);
         }
 
-        // GET: ServiceTypes/Details/5
+        // 🔒 SAMO ADMIN MOŽE VIDJETI DETALJE
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var serviceType = await _context.ServiceTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var serviceType = await _context.ServiceTypes.FindAsync(id);
             if (serviceType == null)
-            {
                 return NotFound();
-            }
 
             return View(serviceType);
         }
 
-        // GET: ServiceTypes/Create
+        // 🔒 SAMO ADMIN
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ServiceTypes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 🔒 SAMO ADMIN
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,DurationMinutes,Price,IsActive")] ServiceType serviceType)
+        public async Task<IActionResult> Create(ServiceType serviceType)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(serviceType);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(serviceType);
+            if (!ModelState.IsValid)
+                return View(serviceType);
+
+            _context.ServiceTypes.Add(serviceType);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: ServiceTypes/Edit/5
+        // 🔒 SAMO ADMIN
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var serviceType = await _context.ServiceTypes.FindAsync(id);
             if (serviceType == null)
-            {
                 return NotFound();
-            }
+
             return View(serviceType);
         }
 
-        // POST: ServiceTypes/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // 🔒 SAMO ADMIN
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,DurationMinutes,Price,IsActive")] ServiceType serviceType)
+        public async Task<IActionResult> Edit(int id, ServiceType serviceType)
         {
             if (id != serviceType.Id)
-            {
                 return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(serviceType);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ServiceTypeExists(serviceType.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(serviceType);
+            if (!ModelState.IsValid)
+                return View(serviceType);
+
+            _context.Update(serviceType);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: ServiceTypes/Delete/5
+        // 🔒 SAMO ADMIN
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
-            var serviceType = await _context.ServiceTypes
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var serviceType = await _context.ServiceTypes.FindAsync(id);
             if (serviceType == null)
-            {
                 return NotFound();
-            }
 
             return View(serviceType);
         }
 
-        // POST: ServiceTypes/Delete/5
+        // 🔒 SAMO ADMIN
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -145,15 +117,10 @@ namespace AutoServis.Controllers
             if (serviceType != null)
             {
                 _context.ServiceTypes.Remove(serviceType);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool ServiceTypeExists(int id)
-        {
-            return _context.ServiceTypes.Any(e => e.Id == id);
         }
     }
 }
