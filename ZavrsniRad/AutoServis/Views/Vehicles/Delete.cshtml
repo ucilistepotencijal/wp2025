@@ -1,0 +1,46 @@
+﻿@model AutoServis.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Brisanje vozila";
+    var isAdmin = User.IsInRole("Admin");
+}
+
+<h1>Brisanje</h1>
+
+<div class="alert alert-warning">
+    Jeste li sigurni da želite obrisati ovo vozilo? Ova radnja se ne može poništiti.
+</div>
+
+<div>
+    <h4>Vozilo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Marka</dt>
+        <dd class="col-sm-10">@Model.Make</dd>
+
+        <dt class="col-sm-2">Model</dt>
+        <dd class="col-sm-10">@Model.Model</dd>
+
+        <dt class="col-sm-2">Godina</dt>
+        <dd class="col-sm-10">@Model.Year</dd>
+
+        <dt class="col-sm-2">Registracija</dt>
+        <dd class="col-sm-10">@Model.LicensePlate</dd>
+
+        <dt class="col-sm-2">VIN</dt>
+        <dd class="col-sm-10">@Model.Vin</dd>
+
+        @if (isAdmin)
+        {
+            <dt class="col-sm-2">Vlasnik</dt>
+            <dd class="col-sm-10">@(Model.User?.Email ?? Model.UserId)</dd>
+        }
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Obriši</button>
+        <a asp-action="Index" class="btn btn-secondary">Natrag na popis</a>
+    </form>
+</div>
