@@ -1,31 +1,140 @@
-html {
-  font-size: 14px;
+﻿/* --- ANIMACIJE --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
+/* --- TIJELO I POZADINA --- */
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), url('/images/33.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+.main-content {
+    margin-top: 110px; /* Razmak da navbar ne prekrije sadržaj */
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+/* --- NAVIGACIJSKA TRAKA (Navbar) --- */
+.navbar {
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0;
 }
+
+.navbar-brand {
+    font-weight: 800 !important;
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: #ffffff !important;
+    text-transform: uppercase;
+}
+
+.nav-link-custom, .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-weight: 500;
+    margin: 0 5px;
+    transition: 0.3s;
+}
+
+    .nav-link-custom:hover {
+        color: #4682B4 !important; /* Čelično plava na hover */
+        transform: translateY(-2px);
+    }
+
+/* --- POČETNA STRANICA (Dashboard) --- */
+.selection-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.selection-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    transition: 0.3s;
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+    .selection-row:hover {
+        background: rgba(0, 0, 0, 0.5);
+        transform: translateX(10px);
+    }
+
+/* --- GUMBI --- */
+.btn-garage {
+    min-width: 180px;
+    padding: 12px 25px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none !important;
+    border-radius: 5px;
+    color: #ffffff !important;
+    transition: 0.3s;
+}
+
+.btn-vehicles {
+    background-color: #4682B4;
+}
+
+.btn-services {
+    background-color: #d35400;
+}
+
+.btn-appointments {
+    background-color: #c0392b;
+}
+
+.btn-garage:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 15px rgba(255,255,255,0.2);
+}
+
+/* --- FOOTER --- */
+.footer-custom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 15px 0;
+    color: #aaa;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Stil za kontakt broj u navigaciji */
+.navbar a[href^="tel:"] {
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.05);
+}
+
+    .navbar a[href^="tel:"]:hover {
+        background: rgba(70, 130, 180, 0.2);
+        border-color: #4682B4;
+        color: #4682B4 !important;
+    }

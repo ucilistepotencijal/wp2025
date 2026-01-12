@@ -3,61 +3,84 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Auto Servis</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - Auto Servis Lak</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AutoServis.styles.css" asp-append-version="true" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm fixed-top shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Auto Servis</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Auto Servis Lak</a>
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity?.IsAuthenticated ?? false)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">Vozila</a>
+                                <a class="nav-link nav-link-custom" asp-area="" asp-controller="Vehicles" asp-action="Index">Vozila</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointments" asp-action="Index">Termini</a>
+                                <a class="nav-link nav-link-custom" asp-area="" asp-controller="Appointments" asp-action="Index">Termini</a>
                             </li>
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="ServiceTypes" asp-action="Index">Usluge</a>
+                                    <a class="nav-link nav-link-custom" asp-area="" asp-controller="ServiceTypes" asp-action="Index">Usluge</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="AdminUsers" asp-action="Index">Administracija</a>
+                                    <a class="nav-link nav-link-custom" asp-controller="AdminUsers" asp-action="Index">Administracija</a>
                                 </li>
                             }
                         }
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+                            <a class="nav-link nav-link-custom" asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
                         </li>
                     </ul>
-                    <partial name="_LoginPartial" />
+
+                    <div class="d-flex align-items-center">
+                        @{
+                            var trenutniSat = DateTime.Now.Hour;
+                            var radnoVrijeme = trenutniSat >= 8 && trenutniSat < 16;
+                            var bojaStatusa = radnoVrijeme ? "#2ecc71" : "#e74c3c";
+                        }
+
+                        <div class="text-end d-none d-lg-block mx-3" style="min-width: 160px;">
+                            <span style="color: @bojaStatusa; font-size: 0.75rem; display: block; text-transform: uppercase; font-weight: bold; line-height: 1.1;">
+                                @(radnoVrijeme ? "● DOSTUPNI SMO" : "○ TRENUTNO ZATVORENO")
+                            </span>
+                            <a href="tel:+385912345678" class="text-white fw-bold" style="text-decoration: none; font-size: 1.05rem; white-space: nowrap;">
+                                091 234 5678
+                            </a>
+                        </div>
+
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+
+    <div class="container main-content">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - Auto Servis - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privatnost</a>
+    <footer class="footer-custom">
+        <div class="container text-center">
+            <span>&copy; 2025 - Auto Servis Lak</span>
+            <span class="mx-2 text-white-50">|</span>
+            <span class="text-white-50">Kontakt: 091 234 5678</span>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
